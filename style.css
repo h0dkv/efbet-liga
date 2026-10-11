@@ -1818,3 +1818,202 @@ nav .lo:hover {
     background-size: 200% 100%;
     animation: shimmer 1.2s linear infinite
 }
+
+.view.same {
+    animation: none
+}
+
+.seg.s3 button {
+    padding: 9px 16px
+}
+
+.cal {
+    padding: 16px
+}
+
+.calh {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px
+}
+
+.calh h3 {
+    margin: 0
+}
+
+.calh .chip {
+    cursor: pointer;
+    font-size: 18px;
+    padding: 8px 14px
+}
+
+.cdg {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    text-align: center
+}
+
+.cdg>span {
+    color: var(--mut);
+    font-size: 12px;
+    padding: 4px 0
+}
+
+.cdg>i {
+    display: block
+}
+
+.cd {
+    position: relative;
+    aspect-ratio: 1;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    background: #ffffff08;
+    color: #8a8576;
+    font: 600 14px inherit;
+    font-family: inherit;
+    cursor: default;
+    transition: .2s
+}
+
+.cd.has {
+    color: #fff;
+    background: #ffffff14;
+    cursor: pointer
+}
+
+.cd.has:hover {
+    border-color: var(--g);
+    transform: translateY(-2px)
+}
+
+.cd.has b {
+    position: absolute;
+    right: 5px;
+    bottom: 3px;
+    font-size: 10px;
+    color: var(--g)
+}
+
+.cd.td {
+    border-color: #fffa
+}
+
+.cd.sel {
+    background: var(--g);
+    color: #111
+}
+
+.cd.sel b {
+    color: #111
+}
+
+.cdg.anim .cd {
+    animation: pop2 .35s cubic-bezier(.3, 1.5, .5, 1) both
+}
+
+@keyframes pop2 {
+    from {
+        opacity: 0;
+        transform: scale(.6)
+    }
+}
+
+.rds {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 4px 0 10px
+}
+
+.rds .chip {
+    cursor: pointer;
+    white-space: nowrap;
+    font-family: inherit
+}
+
+.chip.on {
+    background: var(--g);
+    color: #111;
+    border-color: var(--g)
+}
+
+.dh {
+    margin: 18px 0 8px;
+    color: var(--g)
+}
+
+.mc {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 14px;
+    margin: 8px 0;
+    background: #ffffff0a;
+    border: 1px solid #ffffff14;
+    border-radius: 16px;
+    animation: slide .4s both
+}
+
+.mc .tm {
+    font-size: 14px
+}
+
+.mc small {
+    grid-column: 1/-1;
+    text-align: center;
+    color: var(--mut);
+    font-size: 12px
+}
+
+.mc .sc {
+    background: #ffffff14;
+    border-radius: 99px;
+    padding: 4px 12px;
+    color: var(--g);
+    min-width: 64px;
+    text-align: center
+}
+
+.mc.ft .sc {
+    background: var(--g);
+    color: #111
+}
+
+.mc .tm {
+    display: flex;
+    align-items: center;
+    gap: 7px
+}
+
+.mc .tm.r {
+    justify-content: flex-end;
+    text-align: right
+}
+
+.mc .dot {
+    margin: 0;
+    flex: none
+}
+
+.tbl td,
+.tbl th {
+    padding: 9px 4px
+}
+
+.card.tw .tbl {
+    font-size: 13px
+}
+
+.tbl td:nth-child(2) .dot {
+    margin-right: 6px
+}
+
+@media(max-width:480px) {
+    .card.tw {
+        padding: 16px 10px
+    }
+}

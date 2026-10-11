@@ -16,6 +16,7 @@ const RAW = {
     10: "09-18 20:00 SLA-C48 1-2|09-19 14:00 DUN-BVR 2-2|09-19 16:30 SEP-BPD 0-3|09-19 19:00 ARD-CHM 1-1|09-20 15:15 SPV-LSF 0-1|09-20 17:45 LPD-CSK 1-1|09-20 20:30 LEV-LUD pp",
     11: "10-10 15:00 BVR-SPV 0-1|10-10 17:30 LSF-LPD 1-1|10-10 20:00 BPD-SLA 1-0|10-11 15:00 SEP-DUN|10-11 17:30 CHM-LEV|10-11 20:00 C48-CSK|10-12 20:00 LUD-ARD"
 };
+// Scores can also come from results.js (written by scripts/update-scores.mjs), which overrides the strings above.
 // Rounds 12-26: one date and kick-off time per round (times are the league's placeholders until TV picks are confirmed).
 const R = (d, p) => p.split(" ").map(x => `${d} 18:00 ${x}`).join("|");
 RAW[12] = R("10-24", "DUN-SPV CHM-SEP CSK-LUD LPD-SLA LSF-BVR C48-BPD ARD-LEV");
@@ -34,6 +35,6 @@ RAW[24] = R("04-03", "LEV-CHM DUN-SEP CSK-C48 SLA-BPD LPD-LSF ARD-LUD SPV-BVR");
 RAW[25] = R("04-10", "LUD-CSK BPD-C48 LEV-ARD SLA-LPD SEP-CHM BVR-LSF SPV-DUN");
 RAW[26] = R("04-17", "DUN-BPD CHM-SLA CSK-LEV LPD-BVR LSF-SEP C48-LUD ARD-SPV");
 window.MATCHES = Object.entries(RAW).flatMap(([r, s]) => s.split("|").map(x => {
-    const [d, t, hm, sc] = x.split(" "), [h, a] = hm.split("-"), p = sc && sc != "pp" ? sc.split("-").map(Number) : [null, null];
+    const [d, t, hm, sc0] = x.split(" "), sc = (window.RESULTS || {})[`${r}:${hm}`] || sc0, [h, a] = hm.split("-"), p = sc && sc != "pp" ? sc.split("-").map(Number) : [null, null];
     return { r: +r, d: `${+d.slice(0, 2) < 7 ? 2027 : 2026}-${d}`, t, h, a, hg: p[0], ag: p[1], pp: sc == "pp" };
 }));
