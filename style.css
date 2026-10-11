@@ -2017,3 +2017,56 @@ nav .lo:hover {
         padding: 16px 10px
     }
 }
+
+.adt {
+    font-size: 13px
+}
+
+.adt th,
+.adt td {
+    padding: 5px 3px;
+    text-align: center
+}
+
+.adt th:first-child,
+.adt td:first-child {
+    text-align: left;
+    min-width: 128px;
+    position: sticky;
+    left: 0;
+    background: #121212;
+    z-index: 1
+}
+
+.adt td:first-child small {
+    display: block;
+    color: var(--mut)
+}
+
+.adt input {
+    width: 44px;
+    padding: 8px 2px;
+    margin: 0;
+    text-align: center;
+    border-radius: 8px
+}
+
+.brk {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px
+}
+
+.brk span {
+    background: #ffffff0d;
+    border-radius: 99px;
+    padding: 5px 12px;
+    font-size: 13px
+}
+
+.brk .pt {
+    margin-left: 4px;
+    padding: 1px 8px;
+    min-width: 0;
+    font-size: 12px
+}
