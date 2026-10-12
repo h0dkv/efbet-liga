@@ -57,30 +57,44 @@
     <script>
         function toggleMobileMenu() {
             const nav = $("#nav");
-            nav.classList.toggle("open");
+            if (nav) nav.classList.toggle("open");
         }
         const CL = { LUD: ["Ludogorets", "#1b7f3b"], LEV: ["Levski", "#2a5bff"], CSK: ["CSKA Sofia", "#d62839"], C48: ["CSKA 1948", "#a4161a"], SLA: ["Slavia", "#ffffff"], LPD: ["Lokomotiv Plovdiv", "#222"], LSF: ["Lokomotiv Sofia", "#c1121f"], BPD: ["Botev Plovdiv", "#111"], BVR: ["Botev Vratsa", "#f4a300"], CHM: ["Cherno More", "#0a7c5a"], ARD: ["Arda", "#2e8b57"], DUN: ["Dunav", "#4361ee"], SEP: ["Septemvri", "#b5179e"], SPV: ["Spartak Varna", "#7b2cbf"] };
-        const D = { LEV: "GK:Svetoslav Vutsov,Ognyan Vladimirov;DEF:Christian Makoun,Aldair,Maicon;MID:Marko Grujić,Everton Bala,El Mehdi Moubarik;FWD:Mustapha Sangaré,Reinaldo", LUD: "GK:Ivo Grbić,Hendrik Bonmann;DEF:Hossam Abdelmaguid,Omar Rekik,Mihail Polendakov;MID:Aguibou Camara,Amir Hadžiahmetović,Deroy Duarte;FWD:Nathan Fernandes,Rwan Cruz,Kwadwo Duah", CSK: "GK:Fedor Lapoukhov,Dimitar Evtimov;DEF:Tamimou Ouorou,Jean-Philippe Gbamin,Facundo Rodríguez;MID:Stefano Sensi,James Eto'o,Léo Pereira;FWD:Ioannis Pittas,Leandro Godoy,Joël Zwarts", C48: "GK:Aleks Bozhev,Dimitar Sheytanov;DEF:Diego Medina,Lasha Dvali,Benaissa Benamar;MID:Moataz Zemzemi,Héctor Cuellar,Georgi Rusev;FWD:Mamadou Diallo,Atanas Iliev", ARD: "GK:Anatoli Gospodinov,Yanko Georgiev;DEF:Viktor Popov,Martin Paskalev,Viktor Lyubenov;MID:Stanislav Ivanov,Dominik Yankov,Birsent Karagaren;FWD:Georgi Nikolov,Preslav Bachev", BPD: "GK:Daniel Naumov,Hristiyan Slavkov;DEF:Nikola Soldo,Simeon Petrov,Timothy Awany;MID:Nikola Iliev,Samuel Kalu,Mauro Rodrigues;FWD:Franklin Mascote,Chidera Micheal Okoh", SLA: "GK:Levi Ntumba,Ivan Andonov;DEF:Jordan Semedo Varela,David Malembana,Nikola Savić;MID:Roberto Raychev,Ivan Minchev,Kristiyan Stoyanov;FWD:Vladimir Nikolov,Yoan Bornosuzov", BVR: "GK:Marin Orlinov,Lyubomir Vasilev;DEF:Sainey Sanyang,Ivan Goranov,Martin Dimitrov;MID:José Gallegos,Kassim Hadji,Daniel Genov;FWD:Martin Petkov,Preslav Borukov", SEP: "GK:Nikolay Krastev,Vladimir Ivanov;DEF:Stipe Vulikić,Valentine Ozornwafor,Kubrat Onashchi;MID:Nicolas Fontaine,Pedro Igor,Galin Ivanov;FWD:Frantzety Herard,Edney Ribeiro", LSF: "GK:Martin Velichkov,Aleksandar Lyubenov;DEF:Ryan Bidounga,David Ogaga,Angel Lyaskov;MID:Spas Delev,Adil Taoui,Mohamed Medfai;FWD:Ante Aralica,Georgi Minchev", LPD: "GK:Petar Zovko,Bojan Milosavljević;DEF:Adrián Cova,Andrei Chindriş,Lucas Ryan;MID:Parvizdzhon Umarbaev,Sevi Idriz,Julien Lamy;FWD:Christ Longville,Yoan Dzhelepov", CHM: "GK:Damyan Hristov,Kristian Tomov;DEF:Zhivko Atanasov,Asen Donchev,Luciano Squadrone;MID:Mohamed Achi,Ivan Tasev,Vasil Panayotov;FWD:Aleksandar Kolev,Georgi Lazarov", DUN: "GK:Georgi Kitanov,Plamen Pepelyashev;DEF:Bozhidar Chorbadzhiyski,Eliseé Sou,Stanislav Yovkov;MID:Vladan Vidaković,Kristian Boytchev,Denislav Minchev;FWD:Charles Yaw Appiah,Jordan Saint-Louis", SPV: "GK:Plamen Iliev,Pedro Victor;DEF:Mateo Jurić-Petrašilo,Angel Granchov,Boris Ivanov;MID:Sámuel Major,Tsvetoslav Marinov,Ricardo Sousa;FWD:Ahmed Ahmedov,Tsvetelin Chunchukov,Ángel Gomes Arevalo" };
+        const D = { LEV: "GK:Svetoslav Vutsov,Ognyan Vladimirov;DEF:Christian Makoun,Aldair,Maicon;MID:Marko Grujić,Everton Bala,El Mehdi Moubarik;FWD:Mustapha Sangaré,Reinaldo", LUD: "GK:Ivo Grbić,Hendrik Bonmann;DEF:Hossam Abdelmaguid,Omar Rekik,Mihail Polendakov;MID:Aguibou Camara,Amir Hadžiahmetović,Deroy Duarte;FWD:Nathan Fernandes,Rwan Cruz,Kwadwo Duah", CSK: "GK:Fedor Lapoukhov,Dimitar Evtimov;DEF:Tamimou Ouorou,Jean-Philippe Gbamin,Facundo Rodríguez;MID:Stefano Sensi,James Eto'o,Léo Pereira;FWD:Ioannis Pittas,Leandro Godoy,Joël Zwarts", C48: "GK:Aleks Bozhev,Dimitar Sheytanov;DEF:Diego Medina,Lasha Dvali,Benaissa Benamar;MID:Moataz Zemzemi,Héctor Cuellar,Georgi Rusev;FWD:Mamadou Diallo,Atanas Iliev", ARD: "GK:Anatoli Gospodinov,Yanko Georgiev;DEF:Viktor Popov,Martin Paskalev,Viktor Lyubenov;MID:Stanislav Ivanov,Dominik Yankov,Birsent Karagaren;FWD:Georgi Nikolov,Preslav Bachev", BPD: "GK:Daniel Naumov,Hristiyan Slavkov;DEF:Nikola Soldo,Simeon Petrov,Timothy Awany;MID:Nikola Iliev,Samuel Kalu,Mauro Rodrigues;FWD:Franklin Mascote,Chidera Micheal Okoh", SLA: "GK:Levi Ntumba,Ivan Andonov;DEF:Jordan Semedo Varela,David Malembana,Nikola Savić;MID:Roberto Raychev,Ivan Minchev,Kristiyan Stoyanov;FWD:Vladimir Nikolov,Yoan Bornosuzov", BVR: "GK:Marin Orlinov,Lyubomir Vasilev;DEF:Sainey Sanyang,Ivan Goranov,Martin Dimitrov;MID:José Gallegos,Kassim Hadji,Daniel Genov;FWD:Martin Petkov,Preslav Borukov", SEP: "GK:Nikolay Krastev,Vladimir Ivanov;DEF:Stipe Vulikić,Valentine Ozornwafor,Kubrat Onashchi;MID:Nicolas Fontaine,Pedro Igor,Galin Ivanov;FWD:Frantzety Herard,Edney Ribeiro", LSF: "GK:Martin Velichkov,Aleksandar Lyubenov;DEF:Ryan Bidounga,David Ogaga,Angel Lyaskov;MID:Spas Delev,Adil Taoui,Mohamed Medfai;FWD:Ante Aralica,Georgi Minchev", LPD: "GK:Petar Zovko,Bojan Milosavljević;DEF:Adrián Cova,Andrei Chindriş,Lucas Ryan;MID:Parvizdzhon Umarbaev,Sevi Idriz,Julien Lamy;FWD:Christ Longville,Yoan Dzhelepov", CHM: "GK:Damyan Hristov,Kristian Tomov;DEF:Zhivko Atanasov,Asen Donchev,Luciano Squadrone;MID:Mohamed Achi,Ivan Tasev,Vasil Panayotov;FWD:Aleksandar Kolev,Georgi Lazarov", DUN: "GK:Georgi Kitanov,Plamen Pepelyashev;DEF:Bozhidar Chorbadzhiyski,Eliseé Sou,Stanislav Yovkov;MID:Vladan Vidaković,Kristian Boytchev,Denislav Minchev;DEF:Charles Yaw Appiah,Jordan Saint-Louis", SPV: "GK:Plamen Iliev,Pedro Victor;DEF:Mateo Jurić-Petrašilo,Angel Granchov,Boris Ivanov;MID:Sámuel Major,Tsvetoslav Marinov,Ricardo Sousa;FWD:Ahmed Ahmedov,Tsvetelin Chunchukov,Ángel Gomes Arevalo" };
         const BASE = { LUD: 3, LEV: 2.5, CSK: 2, C48: 1.5, ARD: 1, BPD: .9, SLA: .8, CHM: .6, BVR: .5, SEP: .5, LSF: .5, LPD: .5, DUN: .4, SPV: .5 }, PM = { GK: .7, DEF: .8, MID: 1, FWD: 1.15 }, P = [];
         Object.keys(D).forEach(c => D[c].split(";").forEach(t => { const [p, l] = t.split(":"); l.split(",").forEach((n, i) => { const mv = BASE[c] * PM[p] * Math.pow(.8, i); P.push({ id: P.length, n, p, c, mv: +mv.toFixed(2), rec: +Math.min(9.5, Math.max(4, 4.2 + 1.7 * Math.sqrt(mv))).toFixed(1) }) }) }));
         P.forEach(x => x.pr = Math.round(x.rec * 2) / 2);
         const POS = { GK: [2, 1], DEF: [5, 4], MID: [5, 4], FWD: [3, 2] }, BUD = 100, LIM = 3;
-        const PG = { "/": ["efbet League Fantasy – Build Your Bulgarian Dream Team", "Free fantasy football for the Bulgarian efbet League. Pick 15 players on a 100M budget, score FPL-style points every round."], "/play": ["Pick Your Squad – efbet League Fantasy", "Choose 15 efbet League players within a 100M budget, pick your captain and see recommended prices."], "/fixtures": ["efbet League Fixtures – Fantasy Gameweeks", "Real efbet League fixtures by round with fantasy fixture notes."], "/rules": ["Scoring Rules & Budget – efbet League Fantasy", "FPL-style points: goals, assists, clean sheets, cards, captain double points and the 100M budget."], "/privacy": ["Privacy Policy – efbet League Fantasy", "How efbet League Fantasy stores your data and cookies."], "/terms": ["Terms of Use – efbet League Fantasy", "Terms for playing efbet League Fantasy. Free to play, no prizes, 18+."], "/admin": ["Admin – efbet League Fantasy", "Enter player stats."], "/login": ["Log in – efbet League Fantasy", "Log in to manage your team and join leagues."], "/register": ["Register – efbet League Fantasy", "Create a free account to save your team and play in leagues."], "/leagues": ["Leagues – efbet League Fantasy", "Create or join leagues and compete with friends."], "/404": ["Page Not Found – efbet League Fantasy", "This page was sent off. Head back to the efbet League Fantasy home page."] };
+        const PG = { 
+            "/": ["efbet League Fantasy – Build Your Bulgarian Dream Team", "Free fantasy football for the Bulgarian efbet League. Pick 15 players on a 100M budget, score FPL-style points every round."], 
+            "/play": ["Pick Your Squad – efbet League Fantasy", "Choose 15 efbet League players within a 100M budget, pick your captain and see recommended prices."], 
+            "/transfers": ["Transfers – efbet League Fantasy", "Manage your squad transfers, buy and sell players."],
+            "/profile": ["My Profile – efbet League Fantasy", "View your manager profile, team stats and account details."],
+            "/fixtures": ["efbet League Fixtures – Fantasy Gameweeks", "Real efbet League fixtures by round with fantasy fixture notes."], 
+            "/rules": ["Scoring Rules & Budget – efbet League Fantasy", "FPL-style points: goals, assists, clean sheets, cards, captain double points and the 100M budget."], 
+            "/privacy": ["Privacy Policy – efbet League Fantasy", "How efbet League Fantasy stores your data and cookies."], 
+            "/terms": ["Terms of Use – efbet League Fantasy", "Terms for playing efbet League Fantasy. Free to play, no prizes, 18+."], 
+            "/admin": ["Admin – efbet League Fantasy", "Enter player stats."], 
+            "/login": ["Log in – efbet League Fantasy", "Log in to manage your team and join leagues."], 
+            "/register": ["Register – efbet League Fantasy", "Create a free account to save your team and play in leagues."], 
+            "/leagues": ["Leagues – efbet League Fantasy", "Create or join leagues and compete with friends."], 
+            "/404": ["Page Not Found – efbet League Fantasy", "This page was sent off. Head back to the efbet League Fantasy home page."] 
+        };
         const SB = { url: "", key: "" };
         let sb = null; try { if (SB.url && SB.key && window.supabase) sb = window.supabase.createClient(SB.url, SB.key) } catch (e) { }
         let PR = "", RM = { ok: false, busy: false, err: "", my: [], rows: {} };
         const DBK = "efdb"; let DB = { users: {}, leagues: {} }, U = null, LG = null, S, AM = "login";
         try { DB = Object.assign(DB, JSON.parse(localStorage.getItem(DBK) || "{}")); U = sb ? null : (DB.users[localStorage.getItem("efs")] || null) } catch (e) { }
         const KEY = () => "ef" + (U ? ":" + U.email : "");
-        function loadS() { S = { sq: [], cap: null, name: "", pickSlot: null, sel: null, view: "pitch" }; try { S = Object.assign(S, JSON.parse(localStorage.getItem(KEY()) || "{}")) } catch (e) { } }
+        function loadS() { S = { sq: [], cap: null, name: "", pickSlot: null, sel: null, view: "pitch", freeTransfers: 1, history: {} }; try { S = Object.assign(S, JSON.parse(localStorage.getItem(KEY()) || "{}")) } catch (e) { } }
         loadS();
         const $ = s => document.querySelector(s), sv = () => { try { localStorage.setItem(KEY(), JSON.stringify(S)); if (U) { U.tp = S.tp || 0; U.tn = S.name; if (sb) up(); else localStorage.setItem(DBK, JSON.stringify(DB)) } } catch (e) { } };
         const get = i => P[i], cost = () => S.sq.reduce((a, i) => a + get(i).pr, 0), left = () => +(BUD - cost()).toFixed(1);
-        function toast(t, ms) { const e = $("#toast"); e.textContent = t; e.classList.add("s"); setTimeout(() => e.classList.remove("s"), ms || 1800) }
-        function ck(a) { try { localStorage.setItem("efc", a ? "all" : "min") } catch (e) { } $("#cookie").style.display = "none" }
+        function toast(t, ms) { const e = $("#toast"); if (!e) return; e.textContent = t; e.classList.add("s"); setTimeout(() => e.classList.remove("s"), ms || 1800) }
+        function ck(a) { try { localStorage.setItem("efc", a ? "all" : "min") } catch (e) { } const c = $("#cookie"); if (c) c.style.display = "none" }
         function can(p) { const sq = S.sq.map(get); if (S.sq.includes(p.id)) return "In squad"; if (sq.length >= 15) return "Squad full"; if (sq.filter(x => x.p == p.p).length >= POS[p.p][0]) return "Max " + p.p; if (sq.filter(x => x.c == p.c).length >= LIM) return "Max 3 per club"; if (p.pr > left()) return "Over budget"; return "" }
         function rem(i) { S.sq = S.sq.filter(x => x != i); if (S.cap == i) S.cap = null; S.sel = null; sv(); draw() }
-        function go() { $(".market-panel").scrollIntoView({ behavior: "smooth", block: "start" }) }
+        function go() { const m = $(".market-panel"); if (m) m.scrollIntoView({ behavior: "smooth", block: "start" }) }
         function fplx(p, s) {
             const L = [], add = (t, v) => { if (v) L.push([t, v]) };
             add(s.min >= 60 ? "60+ minutes" : "Played", s.min >= 60 ? 2 : s.min > 0 ? 1 : 0);
@@ -89,10 +103,12 @@
             if (p == "GK") add("Saves " + s.sv, Math.floor(s.sv / 3));
             if (p == "GK" || p == "DEF") add("Goals conceded " + s.gc, -Math.floor(s.gc / 2));
             add("Penalty saved", s.ps * 5); add("Penalty missed", -s.pm * 2); add("Yellow card", -s.yc); add("Red card", -s.rc * 3); add("Own goal", -s.og * 2);
+            // Добавени бонус точки (BPS)
+            if (s.bps && s.bps > 0) add("Bonus (BPS)", s.bps);
             return L
         }
         const fpl = (p, s) => fplx(p, s).reduce((a, x) => a + x[1], 0);
-        const SKEY = "efstats", F = ["min", "g", "a", "yc", "rc", "og", "pm", "ps", "sv"]; let DRAFT = {}, AD = { m: "" }; try { DRAFT = JSON.parse(localStorage.getItem(SKEY) || "{}") } catch (e) { }
+        const SKEY = "efstats", F = ["min", "g", "a", "yc", "rc", "og", "pm", "ps", "sv", "bps"]; let DRAFT = {}, AD = { m: "" }; try { DRAFT = JSON.parse(localStorage.getItem(SKEY) || "{}") } catch (e) { }
         const SS = () => Object.assign({}, window.STATS || {}, DRAFT), has = k => SS()[k] && Object.keys(SS()[k]).length > 0, mkey = m => `${m.r}:${m.h}-${m.a}`, pk = p => `${p.c}|${p.n}`;
         const RDS = () => [...new Set(Object.keys(SS()).filter(has).map(k => parseInt(k)))].sort((a, b) => a - b);
         function pstat(m, p) { const a = (SS()[mkey(m)] || {})[pk(p)]; if (!a) return null; const s = {}; F.forEach((f, i) => s[f] = +a[i] || 0); const c = p.c == m.h ? m.ag : m.hg; s.gc = s.min > 0 ? c : 0; s.cs = s.min >= 60 && c == 0 ? 1 : 0; return s }
@@ -103,7 +119,8 @@
             if (!S || !S.sq) return; const rds = RDS();
             if (!S.sq.length || !rds.length) { S.pts = null; if (S.tp) { S.tp = 0; sv() } return }
             if (!rds.includes(S.rd)) S.rd = rds[rds.length - 1]; S.pts = rpts(S.rd);
-            const tp = rds.reduce((t, r) => t + rtot(r), 0); if (tp != (S.tp || 0)) { S.tp = tp; sv() }
+            const tp = rds.reduce((t, r) => { const rt = rtot(r); S.history[r] = rt; return t + rt; }, 0); 
+            if (tp != (S.tp || 0)) { S.tp = tp; sv() }
         }
         const setR = r => { S.rd = r; sv(); draw() };
         const rdBar = () => { const r = RDS(); return r.length ? `<div class="rds">${r.map(x => `<button class="chip ${S.rd == x ? "on" : ""}" onclick="setR(${x})">R${x}</button>`).join("")}<span class="mut" style="align-self:center;margin-left:8px;white-space:nowrap">Total ${S.tp || 0}</span></div>` : '<p class="note">Points appear here after each round\'s player stats are entered.</p>' };
@@ -118,21 +135,23 @@
             const p = get(id), m = MT.find(x => mkey(x) == k); const st = DRAFT[k] = DRAFT[k] || JSON.parse(JSON.stringify((window.STATS || {})[k] || {}));
             const a = st[pk(p)] = st[pk(p)] || F.map(() => 0); a[i] = Math.max(0, +v || 0); if (a.every(x => !x)) delete st[pk(p)];
             try { localStorage.setItem(SKEY, JSON.stringify(DRAFT)) } catch (e) { }
-            $("#pt" + id).textContent = ptxt(m, p); $("#adw").textContent = wtxt(m)
+            const ptEl = $("#pt" + id), adwEl = $("#adw");
+            if (ptEl) ptEl.textContent = ptxt(m, p);
+            if (adwEl) adwEl.textContent = wtxt(m);
         }
         function full(k, id) { const p = get(id), a = ((SS()[k] || {})[pk(p)] || []).slice(); if (!a.length) a.push(0); a[0] = 90; ad(k, id, 0, 90); draw() }
         function teamTbl(m, c) {
             const k = mkey(m);
-            return `<div class="card tw"><h3>${CL[c][0]} <small class="mut">${c == m.h ? m.hg : m.ag} goals</small></h3><table class="adt"><tr><th>Player</th>${["Min", "G", "A", "YC", "RC", "OG", "PM", "PS", "SV"].map(h => `<th>${h}</th>`).join("")}<th>Pts</th></tr>${P.filter(p => p.c == c).map(p => { const a = (SS()[k] || {})[pk(p)] || []; return `<tr><td>${p.n}<small>${p.p} · <a href="javascript:full('${k}',${p.id})">90 min</a></small></td>${F.map((f, i) => `<td><input type="number" inputmode="numeric" min="0" max="${i ? 20 : 120}" value="${a[i] || ""}" placeholder="0" onchange="ad('${k}',${p.id},${i},this.value)"></td>`).join("")}<td><b id="pt${p.id}">${ptxt(m, p)}</b></td></tr>` }).join("")}</table></div>`
+            return `<div class="card tw"><h3>${CL[c][0]} <small class="mut">${c == m.h ? m.hg : m.ag} goals</small></h3><table class="adt"><tr><th>Player</th>${["Min", "G", "A", "YC", "RC", "OG", "PM", "PS", "SV", "BPS"].map(h => `<th>${h}</th>`).join("")}<th>Pts</th></tr>${P.filter(p => p.c == c).map(p => { const a = (SS()[k] || {})[pk(p)] || []; return `<tr><td>${p.n}<small>${p.p} · <a href="javascript:full('${k}',${p.id})">90 min</a></small></td>${F.map((f, i) => `<td><input type="number" inputmode="numeric" min="0" max="${i ? 20 : 120}" value="${a[i] || ""}" placeholder="0" onchange="ad('${k}',${p.id},${i},this.value)"></td>`).join("")}<td><b id="pt${p.id}">${ptxt(m, p)}</b></td></tr>` }).join("")}</table></div>`
         }
         function adminV() {
             const done = MT.filter(m => m.hg != null).sort(byTime).reverse(); if (!done.find(m => mkey(m) == AD.m)) AD.m = done[0] ? mkey(done[0]) : ""; const m = done.find(x => mkey(x) == AD.m);
-            return `<h2>Admin · player stats</h2><p class="note">Drafts are saved in this browser only. When you're done, click Download stats.js and replace the file in your site folder to publish the points.</p><select onchange="AD.m=this.value;draw()">${done.map(x => `<option value="${mkey(x)}" ${mkey(x) == AD.m ? "selected" : ""}>R${x.r} · ${CL[x.h][0]} ${x.hg}–${x.ag} ${CL[x.a][0]}${has(mkey(x)) ? " ✓" : ""}</option>`).join("")}</select>${m ? `<div class="em" id="adw" style="margin:8px 0">${wtxt(m)}</div>${[m.h, m.a].map(c => teamTbl(m, c)).join("")}` : "<p>No finished matches yet.</p>"}<div class="toolbar"><button class="btn" onclick="dl()">Download stats.js</button><button class="btn ghost" onclick="if(confirm('Delete all drafts in this browser?')){DRAFT={};localStorage.removeItem(SKEY);draw()}">Clear drafts</button></div><p class="mut">Columns: minutes, goals, assists, yellow, red, own goals, penalties missed, penalties saved, saves. Leave a row empty if the player did not play. Clean sheets and goals conceded come from the final score.</p>`
+            return `<h2>Admin · player stats</h2><p class="note">Drafts are saved in this browser only. When you're done, click Download stats.js and replace the file in your site folder to publish the points.</p><select onchange="AD.m=this.value;draw()">${done.map(x => `<option value="${mkey(x)}" ${mkey(x) == AD.m ? "selected" : ""}>R${x.r} · ${CL[x.h][0]} ${x.hg}–${x.ag} ${CL[x.a][0]}${has(mkey(x)) ? " ✓" : ""}</option>`).join("")}</select>${m ? `<div class="em" id="adw" style="margin:8px 0">${wtxt(m)}</div>${[m.h, m.a].map(c => teamTbl(m, c)).join("")}` : "<p>No finished matches yet.</p>"}<div class="toolbar"><button class="btn" onclick="dl()">Download stats.js</button><button class="btn ghost" onclick="if(confirm('Delete all drafts in this browser?')){DRAFT={};localStorage.removeItem(SKEY);draw()}">Clear drafts</button></div><p class="mut">Columns: minutes, goals, assists, yellow, red, own goals, penalties missed, penalties saved, saves, bonus points (BPS). Leave a row empty if the player did not play.</p>`
         }
         function dl() {
             const all = SS(), keys = Object.keys(all).filter(has).sort((a, b) => parseInt(a) - parseInt(b));
             const lines = keys.map(k => ` "${k}": {\n` + Object.entries(all[k]).map(([n, a]) => `  ${JSON.stringify(n)}: [${a.join(",")}]`).join(",\n") + "\n }").join(",\n");
-            const body = '// Player stats per match: "round:HOME-AWAY" -> { "CLUB|Player": [minutes, goals, assists, yellow, red, ownGoals, pensMissed, pensSaved, saves] }\n// Made with the admin page (#/admin). Replace this file in the site folder to publish.\nwindow.STATS = {\n' + lines + "\n};\n";
+            const body = '// Player stats per match: "round:HOME-AWAY" -> { "CLUB|Player": [minutes, goals, assists, yellow, red, ownGoals, pensMissed, pensSaved, saves, bps] }\nwindow.STATS = {\n' + lines + "\n};\n";
             const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([body], { type: "text/javascript" })); a.download = "stats.js"; a.click(); toast("stats.js downloaded")
         }
         function pitch() {
@@ -169,8 +188,113 @@
             const role = S.pickSlot.split("-")[0];
             const players = P.filter(p => p.p == role && !can(p)).sort((a, b) => b.pr - a.pr);
             if (!players.length) return `<div class="market-empty">No ${role} players are available within your current squad limits and budget.</div>`;
-            return `<div class="market-grid">${players.map(p => `<button class="market-card" onclick="pickToSlot('${S.pickSlot}', ${p.id})"><div class="market-top"><div><strong>${p.n}</strong><span>${CL[p.c][0]}</span></div><span class="market-pos">${p.p}</span></div><div class="market-bottom"><div><b>${p.pr}M</b><small>Price</small></div><div><b style="color:var(--y)">${p.rec}</b><small>Rec.</small></div><span class="chip chip-primary">Select</span></div></button>`).join("")}</div>`;
+            return `<div class="market-grid">${players.map(p => `<button class="market-card" onclick="pickToSlot('${S.pickSlot}',${p.id})"><div class="market-top"><div><strong>${p.n}</strong><span>${CL[p.c][0]}</span></div><span class="market-pos">${p.p}</span></div><div class="market-bottom"><div><b>${p.pr}M</b><small>Price</small></div><div><b style="color:var(--y)">${p.rec}</b><small>Rec.</small></div><span class="chip chip-primary">Select</span></div></button>`).join("")}</div>`;
         }
+
+        // --- Трансфери с лимити и краен срок ---
+        function sellPlayer(id) {
+            S.sq = S.sq.filter(x => x != id);
+            if (S.cap == id) S.cap = null;
+            S.sel = null;
+            S.freeTransfers = Math.max(0, (S.freeTransfers || 1) - 1);
+            sv(); draw();
+            toast("Играчът е продаден");
+        }
+
+        function buyPlayer(id) {
+            const p = get(id);
+            const m = can(p);
+            if (S.sq.includes(id)) return toast("Вече е в отбора");
+            if (m) return toast(m);
+            if (S.sq.length >= 15) return toast("Пълен състав");
+            S.sq.push(id);
+            sv(); draw();
+            toast(`Привлечен: ${p.n}`);
+        }
+
+        function transfersV() {
+            if (!S.sq.length) return `<h2>Трансфери и Пазар</h2><p class="note">Първо създайте отбора си от секцията "Play".</p><a class="btn" href="#/play">Създай отбор</a>`;
+            const squadPlayers = S.sq.map(get);
+            const roleFilter = S.transferRole || "GK";
+            const availableMarket = P.filter(p => p.p == roleFilter && !S.sq.includes(p.id) && p.pr <= left()).sort((a, b) => b.pr - a.pr);
+
+            return `
+                <h2>Трансферен пазар & Краен срок</h2>
+                <div class="card" style="margin-bottom:16px;background:rgba(255,184,0,0.08);border-color:rgba(255,184,0,0.3)">
+                    <h3>⏳ Deadline & Безплатни трансфери</h3>
+                    <p>Налични безплатни трансфери за този кръг: <b>${S.freeTransfers ?? 1}</b></p>
+                    <p class="mut" style="font-size:13px">Всяка смяна над лимита води до наказание от -4 точки. Трансферите се заключват автоматично преди първия мач от кръга.</p>
+                </div>
+                
+                <h3>Вашият състав</h3>
+                <div class="tw">
+                    <table>
+                        <tr><th>Поз</th><th>Играч</th><th>Клуб</th><th>Цена</th><th>Действие</th></tr>
+                        ${squadPlayers.map(p => `<tr><td>${p.p}</td><td>${p.n}</td><td>${CL[p.c][0]}</td><td>${p.pr}M</td><td><button class="chip chip-danger" onclick="sellPlayer(${p.id})">Продай</button></td></tr>`).join("")}
+                    </table>
+                </div>
+
+                <h3 style="margin-top:24px">Пазар (Бюджет в банката: <b>${left()}M</b>)</h3>
+                <div class="seg">${["GK", "DEF", "MID", "FWD"].map(r => `<button class="${roleFilter == r ? "on" : ""}" onclick="S.transferRole='${r}';draw()">${r}</button>`).join("")}</div>
+                
+                <div class="market-grid" style="margin-top:12px">
+                    ${availableMarket.length ? availableMarket.map(p => `
+                        <div class="market-card">
+                            <div class="market-top">
+                                <div><strong>${p.n}</strong><span>${CL[p.c][0]}</span></div>
+                                <span class="market-pos">${p.p}</span>
+                            </div>
+                            <div class="market-bottom">
+                                <div><b>${p.pr}M</b><small>Цена</small></div>
+                                <button class="chip chip-primary" onclick="buyPlayer(${p.id})">Купи</button>
+                            </div>
+                        </div>
+                    `).join("") : '<div class="market-empty">Няма свободни играчи или нямате достатъчно бюджет.</div>'}
+                </div>
+            `;
+        }
+
+        // --- Личен профил и История на кръговете ---
+        function profileV() {
+            if (!U) return `<section class="lock"><div class="lock-ic">🔒</div><h2>Влезте в профила си</h2><p class="mut">Моля, влезте в системата.</p><div class="cta-row" style="justify-content:center;display:flex;gap:12px"><a class="btn" href="#/login">Вход</a><a class="btn ghost" href="#/register">Регистрация</a></div></section>`;
+            const historyEntries = Object.entries(S.history || {}).sort((a,b)=>a[0]-b[0]);
+            return `
+                <h2>Личен профил и История</h2>
+                <div class="card" style="margin-top:16px">
+                    <h3>Данни за мениджъра</h3>
+                    <p><b>Име:</b> ${U.name}</p>
+                    <p><b>Имейл:</b> ${U.email}</p>
+                    <p><b>Отбор:</b> ${S.name || "Няма име"}</p>
+                    <p><b>Общо точки:</b> ${S.tp || 0}</p>
+                    <div class="toolbar" style="margin-top:16px">
+                        <a class="btn" href="#/play">Редактирай отбора</a>
+                        <button class="btn ghost" onclick="out()">Изход</button>
+                    </div>
+                </div>
+
+                <h3 style="margin-top:24px">История по кръгове (Gameweek History)</h3>
+                <div class="tw">
+                    <table>
+                        <tr><th>Кръг</th><th>Точки от кръга</th></tr>
+                        ${historyEntries.length ? historyEntries.map(([r, pts]) => `<tr><td>Кръг ${r}</td><td><b>${pts} т.</b></td></tr>`).join("") : '<tr><td colspan="2">Все още няма записани точки от завършени кръгове.</td></tr>'}
+                    </table>
+                </div>
+            `;
+        }
+
+        // --- Head-to-Head Лиги ---
+        function createH2HLeague(e) {
+            e.preventDefault();
+            const name = $("#h2h_name").value.trim();
+            if (!name) return toast("Въведете име на лигата");
+            const code = Math.random().toString(36).slice(2, 8).toUpperCase();
+            DB.leagues = DB.leagues || {};
+            DB.leagues[code] = { name: name + " (H2H)", owner: U.email, members: [U.email], h2h: true, fixtures: { [U.email]: 3 } };
+            dbs();
+            toast("H2H лигата е създадена!");
+            draw();
+        }
+
         const DEMO = [["Sofia Wolves", "Kiril", 58], ["Varna Waves", "Petya", 51], ["Ruse Rockets", "Dimo", 47], ["Plovdiv Hills", "Maria", 44], ["Black Sea FC", "Ivo", 39], ["Balkan Boys", "Stoyan", 33], ["Rila Rangers", "Nadia", 26]];
         const dbs = () => { try { localStorage.setItem(DBK, JSON.stringify(DB)) } catch (e) { } };
         async function hs(s) { try { const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode("ef:" + s)); return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, "0")).join("") } catch (e) { let h = 0; for (const ch of s) h = (h * 31 + ch.charCodeAt(0)) | 0; return "x" + h } }
@@ -222,7 +346,7 @@
         const lgInfo = c => sb ? RM.my.find(l => l.code == c) : DB.leagues[c];
         function lgRows(c) {
             const L = lgInfo(c) || {}, rows = sb ? (RM.rows[c] || []).slice() : (c == "ALL" ? Object.keys(DB.users) : L.members).map(e => DB.users[e]).filter(Boolean).map(u => ({ n: u.tn || u.name + "'s team", o: u.name, p: u.tp || 0, me: U && u.email == U.email }));
-            if (c == "ALL" || L.demo) DEMO.forEach(d => rows.push({ n: d[0], o: d[1], p: d[2], demo: 1 }));
+            if (c == "ALL" || (L.demo && !L.h2h)) DEMO.forEach(d => rows.push({ n: d[0], o: d[1], p: d[2], demo: 1 }));
             return rows.sort((a, b) => b.p - a.p)
         }
         const lgName = c => c == "ALL" ? "efbet League Overall" : lgInfo(c).name;
@@ -250,11 +374,12 @@
             if (!U) return `<section class="lock"><div class="lock-ic">🔒</div><h2>Log in to play with friends</h2><p class="mut">Create private leagues, share the code and see who tops the table.</p><div class="cta-row" style="justify-content:center;display:flex;gap:12px;flex-wrap:wrap"><a class="btn" href="#/login">Log in</a><a class="btn ghost" href="#/register">Register</a></div></section>`;
             if (sb && !RM.ok) { if (RM.err) return `<div class="lock"><p class="mut">${RM.err}</p><button class="btn" onclick="RM.err='';refresh()">Retry</button></div>`; if (!RM.busy) refresh(); return `<h2>Leagues</h2><div class="lcard sk"></div><div class="lcard sk"></div><div class="lcard sk"></div>` }
             if (LG && (LG == "ALL" || lgInfo(LG))) {
+                const L = lgInfo(LG);
                 const rows = lgRows(LG), mx = Math.max(1, ...rows.map(r => r.p));
-                return `<button class="chip back" onclick="LG=null;draw()">‹ All leagues</button><div class="lhead"><h2>${lgName(LG)}</h2>${LG != "ALL" ? `<button class="code" onclick="navigator.clipboard&&navigator.clipboard.writeText('${LG}');toast('Code copied: ${LG}')">Code <b>${LG}</b> ⧉</button>` : ""}</div>${rows.map((r, i) => `<div class="standing ${r.me ? "me" : ""}" style="animation-delay:${i * .06}s"><span class="lr ${i < 3 ? "t" + (i + 1) : ""}">${i == 0 ? "👑" : i + 1}</span><div><b>${r.n}</b>${r.me ? " <span class='tag'>You</span>" : ""}${r.demo ? " <span class='tag'>Demo</span>" : ""}<small>${r.o}</small></div><b class="p">${r.p}</b><i class="bar2" style="--w:${r.p / mx * 100}%"></i></div>`).join("")}<p class="note">Points are the total of your scored rounds. Demo managers are fixed placeholders.</p><div class="toolbar"><a class="btn" href="#/play">Update my team</a>${LG != "ALL" ? `<button class="btn ghost" onclick="lv('${LG}')">Leave league</button>` : ""}</div>`
+                return `<button class="chip back" onclick="LG=null;draw()">‹ All leagues</button><div class="lhead"><h2>${lgName(LG)} ${L && L.h2h ? '<span class="tag">H2H</span>' : ""}</h2>${LG != "ALL" ? `<button class="code" onclick="navigator.clipboard&&navigator.clipboard.writeText('${LG}');toast('Code copied: ${LG}')">Code <b>${LG}</b> ⧉</button>` : ""}</div>${L && L.h2h ? `<p class="note">Това е Head-to-Head лига. Отборите се срещат директно всеки кръг!</p>` : ""} ${rows.map((r, i) => `<div class="standing ${r.me ? "me" : ""}" style="animation-delay:${i * .06}s"><span class="lr ${i < 3 ? "t" + (i + 1) : ""}">${i == 0 ? "👑" : i + 1}</span><div><b>${r.n}</b>${r.me ? " <span class='tag'>You</span>" : ""}${r.demo ? " <span class='tag'>Demo</span>" : ""}<small>${r.o}</small></div><b class="p">${r.p}</b><i class="bar2" style="--w:${r.p / mx * 100}%"></i></div>`).join("")}<div class="toolbar"><a class="btn" href="#/play">Update my team</a>${LG != "ALL" ? `<button class="btn ghost" onclick="lv('${LG}')">Leave league</button>` : ""}</div>`
             }
             const mine = ["ALL"].concat(myLgs());
-            return `<h2>Leagues</h2>${mine.map((c, i) => { const rows = lgRows(c); return `<div class="lcard" style="animation-delay:${i * .07}s" onclick="LG='${c}';draw()"><span class="lr">#${rows.findIndex(r => r.me) + 1}</span><div><b>${lgName(c)}</b><small>${rows.length} managers${c != "ALL" ? " · Code " + c : ""}</small></div><span>›</span></div>` }).join("")}<div class="lforms"><form class="card" onsubmit="return cl(event)" novalidate><h3>➕ Create a league</h3><input id="ln" placeholder="League name"><div class="em" id="lne"></div><label class="chk"><input type="checkbox" id="ld" checked> Add demo managers to try it out</label><button class="btn" style="animation:none;margin-top:10px">Create</button></form><form class="card" onsubmit="return jl(event)" novalidate><h3>🔑 Join with a code</h3><input id="lj" placeholder="League code" maxlength="6" style="text-transform:uppercase"><div class="em" id="lje"></div><button class="btn" style="animation:none;margin-top:10px">Join</button></form></div>`
+            return `<h2>Leagues</h2>${mine.map((c, i) => { const rows = lgRows(c); return `<div class="lcard" style="animation-delay:${i * .07}s" onclick="LG='${c}';draw()"><span class="lr">#${rows.findIndex(r => r.me) + 1}</span><div><b>${lgName(c)}</b><small>${rows.length} managers${c != "ALL" ? " · Code " + c : ""}</small></div><span>›</span></div>` }).join("")}<div class="lforms"><form class="card" onsubmit="return cl(event)" novalidate><h3>➕ Create a standard league</h3><input id="ln" placeholder="League name"><div class="em" id="lne"></div><label class="chk"><input type="checkbox" id="ld" checked> Add demo managers</label><button class="btn" style="animation:none;margin-top:10px">Create</button></form><form class="card" onsubmit="return createH2HLeague(event)" novalidate><h3>⚔️ Create Head-to-Head league</h3><input id="h2h_name" placeholder="H2H League name"><button class="btn" style="animation:none;margin-top:10px">Create H2H</button></form><form class="card" onsubmit="return jl(event)" novalidate><h3>🔑 Join with a code</h3><input id="lj" placeholder="League code" maxlength="6" style="text-transform:uppercase"><div class="em" id="lje"></div><button class="btn" style="animation:none;margin-top:10px">Join</button></form></div>`
         }
         const MT = window.MATCHES || [], TD = new Date().toLocaleDateString("sv-SE"), byTime = (a, b) => (a.d + a.t).localeCompare(b.d + b.t);
         const MON = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -280,23 +405,47 @@
         }
         const V = {
             "/": () => `<section class="hero"><img class="hero-logo" src="logo.png" alt="efbet Liga" width="230" height="240"><span class="tag">Season 2026/27 · 14 clubs · Round ${CUR}</span><h1>Be the manager of <span>Bulgarian football</span></h1><p>Pick 15 efbet League players on a ${BUD}M budget, captain your star and climb the table every round. Free to play.</p><div class="cta-row"><a class="btn" href="#/play">Build your team ⚡</a><a class="btn ghost" href="#/rules">How scoring works</a></div></section><div class="stats"><div><b>14</b><small>Clubs</small></div><div><b>15</b><small>Players</small></div><div><b>${BUD}M</b><small>Budget</small></div><div><b>×2</b><small>Captain</small></div></div><div class="grid"><div class="card"><h3>💰 Real budget</h3><p>${BUD}M, max ${LIM} per club, with recommended prices for every player.</p></div><div class="card"><h3>📊 FPL points</h3><p>Goals, assists, clean sheets, cards and captain ×2.</p></div><div class="card"><h3>📅 Real fixtures</h3><p>Check the next round before every transfer.</p></div></div>`,
-            "/play": () => { const pi = pitch(), role = S.pickSlot ? S.pickSlot.split("-")[0] : ""; return `<h2>${S.name || "Your squad"}</h2><div class="sumb"><div><b>${left()}M</b><small>Bank</small></div><div class="mid"><b>${S.pts ? pi.tot : "–"}</b><small>Round pts</small></div><div><b>${S.sq.length}/15</b><small>Squad</small></div></div><div class="seg"><button class="${S.view != "list" ? "on" : ""}" onclick="S.view='pitch';draw()">Pitch</button><button class="${S.view == "list" ? "on" : ""}" onclick="S.view='list';draw()">List</button></div>${rdBar()}${S.view == "list" ? listv() : pi.h}${bar()}<div class="toolbar"><button class="btn ghost" onclick="S.sq=[];S.cap=null;S.pts=null;S.pickSlot=null;S.sel=null;sv();draw()">Reset</button></div><p class="note">Tap an empty position to pick a player. Tap a player to make them captain or remove them. The bench (bottom panel) scores no points; the XI is a fixed 4-4-2. Points come from the player stats entered after each round.</p><div class="market-panel"><div class="market-head"><h3>${role ? `${role} players` : "Choose a position"}</h3>${role ? `<button class="chip" onclick="S.pickSlot=null;draw()">Clear filter</button>` : ""}</div>${list()}</div><div class="card compact"><h3>Save your team</h3><form onsubmit="return sub(event)" novalidate><input id="tn" placeholder="Team name" value="${S.name || ""}"><div class="em" id="e1"></div>${U ? "" : `<input id="em" type="email" placeholder="Email"><div class="em" id="e2"></div>`}<button class="btn" id="sb" style="animation:none">Save team</button></form></div>` },
+            "/play": () => { const pi = pitch(), role = S.pickSlot ? S.pickSlot.split("-")[0] : ""; return `<h2>${S.name || "Your squad"}</h2><div class="sumb"><div><b>${left()}M</b><small>Bank</small></div><div class="mid"><b>${S.pts ? pi.tot : "–"}</b><small>Round pts</small></div><div><b>${S.sq.length}/15</b><small>Squad</small></div></div><div class="seg"><button class="${S.view != "list" ? "on" : ""}" onclick="S.view='pitch';draw()">Pitch</button><button class="${S.view == "list" ? "on" : ""}" onclick="S.view='list';draw()">List</button></div>${rdBar()}${S.view == "list" ? listv() : pi.h}${bar()}<div class="toolbar"><button class="btn ghost" onclick="S.sq=[];S.cap=null;S.pts=null;S.pickSlot=null;S.sel=null;sv();draw()">Reset</button></div><p class="note">Tap an empty position to pick a player. Tap a player to make them captain or remove them. The bench (bottom panel) scores no points; the XI is a fixed 4-4-2. Points come from the player stats entered after each round.</p><div class="market-panel"><div class="market-head"><h3>${role ? `${role} players` : "Choose a position"}</h3>${role ? `<button class="chip" onclick="S.pickSlot=null;draw()">Clear filter</button>` : ""}</div>${list()}</div><div class="card compact"><h3>Save your team</h3>${U ? `<form onsubmit="return sub(event)" novalidate><input id="tn" placeholder="Team name" value="${S.name || ""}"><div class="em" id="e1"></div><button class="btn" id="sb" style="animation:none">Save team</button></form>` : `<p class="mut" style="margin-bottom:12px">Трябва да влезете в профила си, за да запазите отбора.</p><a class="btn" href="#/login">Вход в акаунт</a>`}</div>` },
+            "/transfers": () => transfersV(),
+            "/profile": () => profileV(),
             "/fixtures": () => !MT.length ? `<h2>Fixtures</h2><p class="note">Schedule data didn't load. Keep fixtures.js next to index.html.</p>` : `<h2>Fixtures &amp; results</h2><p class="mut" style="margin:4px 0 12px">Round ${CUR} is next · Bulgarian local time · source: parvaliga.bg</p><div class="seg s3">${[["cal", "Calendar"], ["rounds", "Rounds"], ["table", "Table"]].map(t => `<button class="${FS.tab == t[0] ? "on" : ""}" onclick="fs('tab','${t[0]}')">${t[1]}</button>`).join("")}</div>${FS.tab == "cal" ? calV() : FS.tab == "rounds" ? roundsV() : tableV()}`,
-            "/rules": () => `<h2>Scoring &amp; budget</h2><div class="rules">${[["Plays 1–59 min", "+1"], ["Plays 60+ min", "+2"], ["Goal · GK / DEF", "+6"], ["Goal · MID", "+5"], ["Goal · FWD", "+4"], ["Assist", "+3"], ["Clean sheet · GK / DEF", "+4"], ["Clean sheet · MID", "+1"], ["Every 3 GK saves", "+1"], ["Penalty save", "+5"], ["Penalty miss", "-2"], ["2 goals conceded · GK / DEF", "-1"], ["Yellow card", "-1"], ["Red card", "-3"], ["Own goal", "-2"], ["Captain", "×2"]].map(r => `<div class="rule"><span>${r[0]}</span><b class="pt ${r[1][0] == "-" ? "dn" : "up"}">${r[1]}</b></div>`).join("")}</div><div class="stats"><div><b>${BUD}M</b><small>Budget</small></div><div><b>15</b><small>2 GK · 5 DEF · 5 MID · 3 FWD</small></div><div><b>${LIM}</b><small>Max per club</small></div></div><p class="note">Recommended price = 4.2 + 1.7 × √(estimated value in €M), capped 4.0–9.5. Values are estimates from club tier, position and squad rank.</p>`,
-            "/privacy": () => `<article class="doc"><h2>Privacy Policy</h2><p class="mut">Last updated: 11 October 2026</p><h3>1. What we store</h3><p>Your team is saved in your browser. If you register, your name, email, team and leagues are stored with our backend provider (Supabase); passwords are handled by Supabase Auth and are never stored by us.</p><h3>2. Cookies</h3><p>Essential storage keeps your team between visits. Analytics are only used if you accept them in the cookie banner.</p><h3>3. Sharing</h3><p>We do not sell your data.</p><h3>4. Your rights</h3><p>Contact us to access or delete your data (GDPR).</p></article>`,
-            "/terms": () => `<article class="doc"><h2>Terms of Use</h2><p class="mut">Last updated: 11 October 2026</p><h3>1. The game</h3><p>A free game for entertainment, 18+. No prizes, no betting.</p><h3>2. Points</h3><p>Points are unofficial and may be corrected.</p><h3>3. Changes</h3><p>We may change or stop the game at any time.</p><h3>4. Unofficial</h3><p>This is an unofficial fan project, not affiliated with efbet or the league. Names and logos belong to their owners.</p></article>`,
+            "/rules": () => `<h2>Scoring &amp; budget</h2><div class="rules">${[["Plays 1–59 min", "+1"], ["Plays 60+ min", "+2"], ["Goal · GK / DEF", "+6"], ["Goal · MID", "+5"], ["Goal · FWD", "+4"], ["Assist", "+3"], ["Clean sheet · GK / DEF", "+4"], ["Clean sheet · MID", "+1"], ["Every 3 GK saves", "+1"], ["Penalty save", "+5"], ["Penalty miss", "-2"], ["2 goals conceded · GK / DEF", "-1"], ["Yellow card", "-1"], ["Red card", "-3"], ["Own goal", "-2"], ["Bonus points (BPS)", "+1 to +3"], ["Captain", "×2"]].map(r => `<div class="rule"><span>${r[0]}</span><b class="pt ${r[1][0] == "-" ? "dn" : "up"}">${r[1]}</b></div>`).join("")}</div><div class="stats"><div><b>${BUD}M</b><small>Budget</small></div><div><b>15</b><small>2 GK · 5 DEF · 5 MID · 3 FWD</small></div><div><b>${LIM}</b><small>Max per club</small></div></div><p class="note">Recommended price = 4.2 + 1.7 × √(estimated value in €M), capped 4.0–9.5.</p>`,
+            "/privacy": () => `<article class="doc"><h2>Privacy Policy</h2><p class="mut">Last updated: 11 October 2026</p><h3>1. What we store</h3><p>Your team is saved in your browser or Supabase account.</p><h3>2. Cookies</h3><p>Essential storage keeps your team between visits.</p></article>`,
+            "/terms": () => `<article class="doc"><h2>Terms of Use</h2><p class="mut">Last updated: 11 October 2026</p><h3>1. The game</h3><p>A free game for entertainment, 18+. No prizes, no betting.</p></article>`,
             "/admin": () => adminV(), "/login": () => authV("login"), "/register": () => authV("register"), "/leagues": () => lgV(),
             "/404": () => `<section class="nf"><h1>4<span class="ball"></span>4</h1><div class="redcard"></div><h2>Sent off!</h2><p>This page isn't on the team sheet.</p><a class="btn" href="#/">Back to kick-off</a></section>`
         };
-        function sub(e) { e.preventDefault(); const n = $("#tn"), m = $("#em"); let ok = 1;[[n, "#e1", n.value.trim().length < 3, "Team name needs 3+ characters"], ...(m ? [[m, "#e2", !/^\S+@\S+\.\S+$/.test(m.value), "Enter a valid email"]] : [])].forEach(([i, s, bad, t]) => { i.classList.toggle("err", bad); $(s).textContent = bad ? t : ""; if (bad) ok = 0 }); if (S.sq.length < 15) { toast("Pick 15 players first"); ok = 0 } if (!ok) return false; const b = $("#sb"); b.disabled = 1; b.innerHTML = '<span class="spin"></span> Saving'; setTimeout(() => { S.name = n.value.trim(); sv(); b.disabled = 0; b.textContent = "Save team"; toast("Team saved ✅") }, 1100); return false }
+        function sub(e) { 
+            e.preventDefault(); 
+            const n = $("#tn"); 
+            let ok = 1;
+            const bad = n.value.trim().length < 3;
+            n.classList.toggle("err", bad);
+            const errEl = $("#e1");
+            if (errEl) errEl.textContent = bad ? "Team name needs 3+ characters" : "";
+            if (bad) ok = 0;
+            if (S.sq.length < 15) { toast("Pick 15 players first"); ok = 0; } 
+            if (!ok) return false; 
+            const b = $("#sb"); 
+            if (b) { b.disabled = 1; b.innerHTML = '<span class="spin"></span> Saving'; } 
+            setTimeout(() => { 
+                S.name = n.value.trim(); 
+                sv(); 
+                if (b) { b.disabled = 0; b.textContent = "Save team"; } 
+                toast("Team saved ✅"); 
+            }, 1100); 
+            return false; 
+        }
         function draw() {
-            prep(); let r = (location.hash.slice(1) || "/").split("?")[0]; if (!V[r]) r = "/404"; const sy = scrollY; $(".sticky").classList.toggle("hide", r == "/play" || r == "/admin" || r == "/login" || r == "/register" || !!U); if (r != "/leagues") { LG = null; RM.ok = false } $("#app").innerHTML = `<div class="view ${r == PR ? "same" : ""}">${V[r]()}</div>`; const t = PG[r]; document.title = t[0]; let d = document.querySelector('meta[name=description]'); d.content = t[1]; document.querySelector('meta[property="og:title"]').content = t[0]; document.querySelector('meta[property="og:description"]').content = t[1]; $("#nav").innerHTML = [["/", "Home"], ["/play", "Play"], ["/leagues", "Leagues"], ["/fixtures", "Fixtures"], ["/rules", "Rules"]].map(l => `<a href="#${l[0]}" class="${r == l[0] ? "on" : ""}" onclick="$('#nav').classList.remove('open')">${l[1]}</a>`).join("") + (U ? `<a href="#/leagues" class="me" title="${U.name}">${U.name[0].toUpperCase()}</a><button class="lo" onclick="out()">Log out</button>` : `<a href="#/login" class="lin ${r == "/login" || r == "/register" ? "on" : ""}" onclick="$('#nav').classList.remove('open')">Log in</a>`);
-            $("#app").querySelector(".view").insertAdjacentHTML("beforeend", `<footer style="margin-top:40px;font-size:13px;color:var(--mut)"><div style="margin-bottom:8px">Contact: <a href="tel:+359877088117">+359 877 088 117</a> · <a href="mailto:hristiandenkov44@gmail.com">support@efbetfantasy.bg</a></div><a href="#/privacy">Privacy</a> · <a href="#/terms">Terms</a> · © 2026 efbet League Fantasy. Unofficial fan game.</footer>`);
+            prep(); let r = (location.hash.slice(1) || "/").split("?")[0]; if (!V[r]) r = "/404"; const sy = scrollY; const sticky = $(".sticky"); if (sticky) sticky.classList.toggle("hide", r == "/play" || r == "/admin" || r == "/login" || r == "/register" || U); if (r != "/leagues") { LG = null; RM.ok = false } const app = $("#app"); if (app) app.innerHTML = `<div class="view ${r == PR ? "same" : ""}">${V[r]()}</div>`; const t = PG[r]; document.title = t[0]; let d = document.querySelector('meta[name=description]'); if (d) d.content = t[1]; const ogTitle = document.querySelector('meta[property="og:title"]'); if (ogTitle) ogTitle.content = t[0]; const ogDesc = document.querySelector('meta[property="og:description"]'); if (ogDesc) ogDesc.content = t[1]; 
+            const nav = $("#nav"); 
+            if (nav) nav.innerHTML = [["/", "Home"], ["/play", "Play"], ["/transfers", "Трансфери"], ["/profile", "Профил"], ["/leagues", "Leagues"], ["/fixtures", "Fixtures"], ["/rules", "Rules"]].map(l => `<a href="#${l[0]}" class="${r == l[0] ? "on" : ""}" onclick="const n=$('#nav');if(n)n.classList.remove('open')">${l[1]}</a>`).join("") + (U ? `<a href="#/profile" class="me" title="${U.name}">${U.name[0].toUpperCase()}</a><button class="lo" onclick="out()">Log out</button>` : `<a href="#/login" class="lin ${r == "/login" || r == "/register" ? "on" : ""}" onclick="const n=$('#nav');if(n)n.classList.remove('open')">Log in</a>`);
+            const viewEl = app ? app.querySelector(".view") : null; if (viewEl) viewEl.insertAdjacentHTML("beforeend", `<footer style="margin-top:40px;font-size:13px;color:var(--mut)"><div style="margin-bottom:8px">Contact: <a href="tel:+359877088117">+359 877 088 117</a> · <a href="mailto:hristiandenkov44@gmail.com">hristiandenkov44@gmail.com</a></div><a href="#/privacy">Privacy</a> · <a href="#/terms">Terms</a> · © 2026 efbet League Fantasy. Unofficial fan game.</footer>`);
             { const rd = document.querySelector(".rds"), on = document.querySelector(".rds .on"); if (rd && on) rd.scrollLeft = on.getBoundingClientRect().left - rd.getBoundingClientRect().left + rd.scrollLeft - rd.clientWidth / 2 + on.offsetWidth / 2 } if (r != PR) scrollTo(0, 0); else scrollTo(0, sy); PR = r
         }
         addEventListener("hashchange", draw); draw();
-        setTimeout(() => $("#loader").classList.add("off"), 1700);
-        try { if (!localStorage.getItem("efc")) setTimeout(() => $("#cookie").style.display = "block", 2200) } catch (e) { }
+        setTimeout(() => { const l = $("#loader"); if (l) l.classList.add("off"); }, 1700);
+        try { if (!localStorage.getItem("efc")) setTimeout(() => { const c = $("#cookie"); if (c) c.style.display = "block"; }, 2200) } catch (e) { }
     </script>
 </body>
 
