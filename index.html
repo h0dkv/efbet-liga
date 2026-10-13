@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bg">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>efbet League Fantasy – Build Your Bulgarian Dream Team</title>
+    <title>Фентъзи efbet Лига – Създай своя отбор</title>
     <meta name="description"
-        content="Free fantasy football for the Bulgarian efbet League. Pick 15 players on a 100M budget, score FPL-style points every round.">
+        content="Създай своя фентъзи отбор за efbet Лига. Избери 15 футболисти с бюджет от 100M и се състезавай с приятели.">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="efbet League Fantasy">
-    <meta property="og:description" content="Build your Bulgarian dream team. 100M budget, FPL-style points.">
+    <meta property="og:title" content="Фентъзи efbet Лига">
+    <meta property="og:description" content="Създай своя отбор. Избери 15 футболисти с бюджет от 100M.">
     <meta property="og:image" content="https://YOUR-DOMAIN/og.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="theme-color" content="#0a0a0a">
@@ -21,12 +21,16 @@
 
 <body>
     <div class="site-shell">
-        <div id="loader">
-            <div>
-                <div class="ld-logo"><img src="logo.png" alt="efbet Liga" width="120" height="126"></div>
-                <h2>FANTASY</h2>
-                <div class="ball"></div>
-                <div class="shadow"></div>
+        <div id="loader" role="status" aria-label="Зареждане на фентъзи efbet Лига">
+            <div class="loader-content">
+                <div class="ld-logo"><img src="logo.png" alt="" width="96" height="101"></div>
+                <p class="loader-brand">efbet <b>FANTASY</b></p>
+                <div class="loader-pitch" aria-hidden="true">
+                    <span class="loader-center"></span>
+                    <span class="ball">⚽</span>
+                    <span class="shadow"></span>
+                </div>
+                <p class="loader-caption">ГОТОВИ ЛИ СТЕ ЗА МАЧА?</p>
                 <div class="bar"><i></i></div>
             </div>
         </div>
@@ -34,14 +38,33 @@
         <header class="topbar">
             <a class="logo" href="#/" aria-label="efbet Liga Fantasy home"><img src="logo.png" alt="" width="34"
                     height="36"><span>FAN<b>TASY</b></span></a>
-            <button id="hamburger" class="hamburger" aria-label="Toggle navigation menu"
+            <button id="hamburger" class="hamburger" aria-label="Отвори навигацията" aria-controls="nav" aria-expanded="false"
                 onclick="toggleMobileMenu()">☰</button>
-            <nav id="nav" aria-label="Main navigation"></nav>
+            <nav id="nav" aria-label="Основна навигация"></nav>
         </header>
 
         <main id="app"></main>
 
-        <div class="sticky"><a class="btn" href="#/play">Build your team – free</a></div>
+        <footer class="site-footer">
+            <div class="footer-main">
+                <a class="logo footer-logo" href="#/" aria-label="Към началото">
+                    <img src="logo.png" alt="" width="38" height="40">
+                    <span>FAN<b>TASY</b></span>
+                </a>
+                <p>Български футбол. Твоята игра.</p>
+                <nav class="footer-links" aria-label="Връзки във футъра">
+                    <a href="#/rules">Правила</a>
+                    <a href="#/privacy">Поверителност</a>
+                    <a href="#/terms">Общи условия</a>
+                </nav>
+            </div>
+            <div class="footer-bottom">
+                <span>Фентъзи efbet Лига · Сезон 2026/27</span>
+                <a href="#/play">Изгради своя отбор <span aria-hidden="true">↗</span></a>
+            </div>
+        </footer>
+
+        <div class="sticky"><a class="btn" href="#/play">Създай своя отбор</a></div>
         <div id="cookie"><b>🍪 Cookies</b>
             <p style="margin:6px 0;font-size:14px;color:var(--mut)">We use local storage to save your team. See our <a
                     href="#/privacy">Privacy Policy</a>.</p><button class="btn" style="animation:none;padding:10px 18px"
@@ -57,7 +80,20 @@
     <script>
         function toggleMobileMenu() {
             const nav = $("#nav");
-            if (nav) nav.classList.toggle("open");
+            if (nav) {
+                const isOpen = nav.classList.toggle("open");
+                $("#hamburger")?.setAttribute("aria-expanded", String(isOpen));
+                $("#hamburger")?.setAttribute("aria-label", isOpen ? "Затвори навигацията" : "Отвори навигацията");
+                $("#hamburger")?.replaceChildren(document.createTextNode(isOpen ? "×" : "☰"));
+                requestAnimationFrame(syncNavIndicator);
+            }
+        }
+        function syncNavIndicator() {
+            const nav = $("#nav"), active = nav?.querySelector("a.on"), indicator = nav?.querySelector(".nav-indicator");
+            if (!nav || !active || !indicator || nav.getClientRects().length === 0) return;
+            indicator.style.width = `${active.offsetWidth}px`;
+            indicator.style.height = `${active.offsetHeight}px`;
+            indicator.style.transform = `translate(${active.offsetLeft}px, ${active.offsetTop}px)`;
         }
         const CL = { LUD: ["Ludogorets", "#1b7f3b"], LEV: ["Levski", "#2a5bff"], CSK: ["CSKA Sofia", "#d62839"], C48: ["CSKA 1948", "#a4161a"], SLA: ["Slavia", "#ffffff"], LPD: ["Lokomotiv Plovdiv", "#222"], LSF: ["Lokomotiv Sofia", "#c1121f"], BPD: ["Botev Plovdiv", "#111"], BVR: ["Botev Vratsa", "#f4a300"], CHM: ["Cherno More", "#0a7c5a"], ARD: ["Arda", "#2e8b57"], DUN: ["Dunav", "#4361ee"], SEP: ["Septemvri", "#b5179e"], SPV: ["Spartak Varna", "#7b2cbf"] };
         const D = { LEV: "GK:Svetoslav Vutsov,Ognyan Vladimirov;DEF:Christian Makoun,Aldair,Maicon;MID:Marko Grujić,Everton Bala,El Mehdi Moubarik;FWD:Mustapha Sangaré,Reinaldo", LUD: "GK:Ivo Grbić,Hendrik Bonmann;DEF:Hossam Abdelmaguid,Omar Rekik,Mihail Polendakov;MID:Aguibou Camara,Amir Hadžiahmetović,Deroy Duarte;FWD:Nathan Fernandes,Rwan Cruz,Kwadwo Duah", CSK: "GK:Fedor Lapoukhov,Dimitar Evtimov;DEF:Tamimou Ouorou,Jean-Philippe Gbamin,Facundo Rodríguez;MID:Stefano Sensi,James Eto'o,Léo Pereira;FWD:Ioannis Pittas,Leandro Godoy,Joël Zwarts", C48: "GK:Aleks Bozhev,Dimitar Sheytanov;DEF:Diego Medina,Lasha Dvali,Benaissa Benamar;MID:Moataz Zemzemi,Héctor Cuellar,Georgi Rusev;FWD:Mamadou Diallo,Atanas Iliev", ARD: "GK:Anatoli Gospodinov,Yanko Georgiev;DEF:Viktor Popov,Martin Paskalev,Viktor Lyubenov;MID:Stanislav Ivanov,Dominik Yankov,Birsent Karagaren;FWD:Georgi Nikolov,Preslav Bachev", BPD: "GK:Daniel Naumov,Hristiyan Slavkov;DEF:Nikola Soldo,Simeon Petrov,Timothy Awany;MID:Nikola Iliev,Samuel Kalu,Mauro Rodrigues;FWD:Franklin Mascote,Chidera Micheal Okoh", SLA: "GK:Levi Ntumba,Ivan Andonov;DEF:Jordan Semedo Varela,David Malembana,Nikola Savić;MID:Roberto Raychev,Ivan Minchev,Kristiyan Stoyanov;FWD:Vladimir Nikolov,Yoan Bornosuzov", BVR: "GK:Marin Orlinov,Lyubomir Vasilev;DEF:Sainey Sanyang,Ivan Goranov,Martin Dimitrov;MID:José Gallegos,Kassim Hadji,Daniel Genov;FWD:Martin Petkov,Preslav Borukov", SEP: "GK:Nikolay Krastev,Vladimir Ivanov;DEF:Stipe Vulikić,Valentine Ozornwafor,Kubrat Onashchi;MID:Nicolas Fontaine,Pedro Igor,Galin Ivanov;FWD:Frantzety Herard,Edney Ribeiro", LSF: "GK:Martin Velichkov,Aleksandar Lyubenov;DEF:Ryan Bidounga,David Ogaga,Angel Lyaskov;MID:Spas Delev,Adil Taoui,Mohamed Medfai;FWD:Ante Aralica,Georgi Minchev", LPD: "GK:Petar Zovko,Bojan Milosavljević;DEF:Adrián Cova,Andrei Chindriş,Lucas Ryan;MID:Parvizdzhon Umarbaev,Sevi Idriz,Julien Lamy;FWD:Christ Longville,Yoan Dzhelepov", CHM: "GK:Damyan Hristov,Kristian Tomov;DEF:Zhivko Atanasov,Asen Donchev,Luciano Squadrone;MID:Mohamed Achi,Ivan Tasev,Vasil Panayotov;FWD:Aleksandar Kolev,Georgi Lazarov", DUN: "GK:Georgi Kitanov,Plamen Pepelyashev;DEF:Bozhidar Chorbadzhiyski,Eliseé Sou,Stanislav Yovkov;MID:Vladan Vidaković,Kristian Boytchev,Denislav Minchev;DEF:Charles Yaw Appiah,Jordan Saint-Louis", SPV: "GK:Plamen Iliev,Pedro Victor;DEF:Mateo Jurić-Petrašilo,Angel Granchov,Boris Ivanov;MID:Sámuel Major,Tsvetoslav Marinov,Ricardo Sousa;FWD:Ahmed Ahmedov,Tsvetelin Chunchukov,Ángel Gomes Arevalo" };
@@ -65,36 +101,80 @@
         Object.keys(D).forEach(c => D[c].split(";").forEach(t => { const [p, l] = t.split(":"); l.split(",").forEach((n, i) => { const mv = BASE[c] * PM[p] * Math.pow(.8, i); P.push({ id: P.length, n, p, c, mv: +mv.toFixed(2), rec: +Math.min(9.5, Math.max(4, 4.2 + 1.7 * Math.sqrt(mv))).toFixed(1) }) }) }));
         P.forEach(x => x.pr = Math.round(x.rec * 2) / 2);
         const POS = { GK: [2, 1], DEF: [5, 4], MID: [5, 4], FWD: [3, 2] }, BUD = 100, LIM = 3;
-        const PG = { 
-            "/": ["efbet League Fantasy – Build Your Bulgarian Dream Team", "Free fantasy football for the Bulgarian efbet League. Pick 15 players on a 100M budget, score FPL-style points every round."], 
-            "/play": ["Pick Your Squad – efbet League Fantasy", "Choose 15 efbet League players within a 100M budget, pick your captain and see recommended prices."], 
-            "/transfers": ["Transfers – efbet League Fantasy", "Manage your squad transfers, buy and sell players."],
-            "/profile": ["My Profile – efbet League Fantasy", "View your manager profile, team stats and account details."],
-            "/fixtures": ["efbet League Fixtures – Fantasy Gameweeks", "Real efbet League fixtures by round with fantasy fixture notes."], 
-            "/rules": ["Scoring Rules & Budget – efbet League Fantasy", "FPL-style points: goals, assists, clean sheets, cards, captain double points and the 100M budget."], 
-            "/privacy": ["Privacy Policy – efbet League Fantasy", "How efbet League Fantasy stores your data and cookies."], 
-            "/terms": ["Terms of Use – efbet League Fantasy", "Terms for playing efbet League Fantasy. Free to play, no prizes, 18+."], 
-            "/admin": ["Admin – efbet League Fantasy", "Enter player stats."], 
-            "/login": ["Log in – efbet League Fantasy", "Log in to manage your team and join leagues."], 
-            "/register": ["Register – efbet League Fantasy", "Create a free account to save your team and play in leagues."], 
-            "/leagues": ["Leagues – efbet League Fantasy", "Create or join leagues and compete with friends."], 
-            "/404": ["Page Not Found – efbet League Fantasy", "This page was sent off. Head back to the efbet League Fantasy home page."] 
+        const MT = window.MATCHES || [];
+        const sofiaDateParts = new Intl.DateTimeFormat("en-GB", {
+            timeZone: "Europe/Sofia",
+            year: "numeric", month: "2-digit", day: "2-digit",
+            hour: "2-digit", minute: "2-digit", hourCycle: "h23"
+        });
+        const matchDateCache = new Map();
+        function matchDate(m) {
+            const key = `${m.d}T${m.t}`;
+            if (matchDateCache.has(key)) return matchDateCache.get(key);
+            const [year, month, day] = m.d.split("-").map(Number);
+            const [hour, minute] = m.t.split(":").map(Number);
+            const wallTimeAsUtc = Date.UTC(year, month - 1, day, hour, minute);
+            const zonedParts = Object.fromEntries(sofiaDateParts.formatToParts(new Date(wallTimeAsUtc)).map(part => [part.type, part.value]));
+            const zonedTimeAsUtc = Date.UTC(+zonedParts.year, +zonedParts.month - 1, +zonedParts.day, +zonedParts.hour, +zonedParts.minute);
+            const match = new Date(wallTimeAsUtc - (zonedTimeAsUtc - wallTimeAsUtc));
+            matchDateCache.set(key, match);
+            return match;
+        }
+        const byTime = (a, b) => matchDate(a) - matchDate(b);
+        const roundNumbers = () => [...new Set(MT.map(m => m.r))].sort((a, b) => a - b);
+        const fmtMatchDate = m => {
+            const [year, month, day] = m.d.split("-");
+            return `${day}.${month}.${year}`;
         };
-        const SB = { url: "https://fcqcwgjnmoakgilsqtvk.supabase.co", key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZjcWN3Z2pubW9ha2dpbHNxdHZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE2ODQ5MTgsImV4cCI6MjEwNzI2MDkxOH0.KkyPUklKanIHadLOEs5clnYi8UhVv2k4n6UyIqKFNtA    " };
+        const getFixtureRound = () => {
+            if (roundNumbers().includes(Number(S.fixtureRound))) return Number(S.fixtureRound);
+            const upcoming = MT.filter(m => !m.pp && m.hg == null && matchDate(m) >= new Date()).sort(byTime)[0];
+            const rounds = roundNumbers();
+            return upcoming ? upcoming.r : (rounds[rounds.length - 1] || 1);
+        };
+        const getNextFixtureRound = () => {
+            const upcoming = MT.filter(m => !m.pp && m.hg == null && matchDate(m) >= new Date()).sort(byTime)[0];
+            const rounds = roundNumbers();
+            return upcoming ? upcoming.r : (rounds[rounds.length - 1] || 1);
+        };
+        const fixtureStatus = m => {
+            if (m.pp) return ["Отложен", "postponed"];
+            if (m.hg != null && m.ag != null) return ["Завършил", "finished"];
+            if (matchDate(m) <= new Date()) return ["Очаква резултат", "pending"];
+            return ["Предстои", "upcoming"];
+        };
+        const ADMIN_EMAIL = "hrisdenkov@gmail.com";
+        const isAdmin = () => U?.email?.trim().toLowerCase() === ADMIN_EMAIL;
+        const PG = {
+            "/": ["Фентъзи efbet Лига – Създай своя отбор", "Създай фентъзи отбор за efbet Лига. Избери 15 футболисти с бюджет от 100M и се състезавай с приятели."],
+            "/play": ["Състав – Фентъзи efbet Лига", "Избери 15 футболисти, подреди титулярите и направи своя фентъзи отбор."],
+            "/transfers": ["Трансфери – Фентъзи efbet Лига", "Управлявай състава си и следи трансферния срок за следващия кръг."],
+            "/profile": ["Профил – Фентъзи efbet Лига", "Виж профила, отбора и точките си по кръгове."],
+            "/fixtures": ["Програма – Фентъзи efbet Лига", "Виж програмата, резултатите и предстоящите мачове в efbet Лига."],
+            "/rules": ["Правила – Фентъзи efbet Лига", "Научи правилата за състава, бюджета и точкуването във фентъзи efbet Лига."],
+            "/privacy": ["Поверителност – Фентъзи efbet Лига", "Научи как фентъзи efbet Лига съхранява данните и настройките ти."],
+            "/terms": ["Общи условия – Фентъзи efbet Лига", "Условия за участие във фентъзи играта efbet Лига."],
+            "/admin": ["Админ – Фентъзи efbet Лига", "Управление на статистиките за футболистите."],
+            "/login": ["Вход – Фентъзи efbet Лига", "Влез в профила си, за да управляваш своя отбор."],
+            "/register": ["Регистрация – Фентъзи efbet Лига", "Създай безплатен профил и започни своята фентъзи игра."],
+            "/leagues": ["Лиги – Фентъзи efbet Лига", "Създай частна лига или се присъедини към приятели с код за покана."],
+            "/404": ["Страницата не е намерена – Фентъзи efbet Лига", "Тази страница не съществува. Върни се към началото на фентъзи efbet Лига."]
+        };
+        const SB = { url: "https://fcqcwgjnmoakgilsqtvk.supabase.co", key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZjcWN3Z2pubW9ha2dpbHNxdHZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3PTI2ODQ5MTgsImV4cCI6MjEwNzI2MDkxOH0.KkyPUklKanIHadLOEs5clnYi8UhVv2k4n6UyIqKFNtA" };
         let sb = null; try { if (SB.url && SB.key && window.supabase) sb = window.supabase.createClient(SB.url, SB.key) } catch (e) { }
-        let PR = "", RM = { ok: false, busy: false, err: "", my: [], rows: {} };
-        const DBK = "efdb"; let DB = { users: {}, leagues: {} }, U = null, LG = null, S, AM = "login";
+        let RM = { ok: false, busy: false, err: "", my: [], rows: {} };
+        const DBK = "efdb"; let DB = { users: {}, leagues: {} }, U = null, S, AM = "login";
         try { DB = Object.assign(DB, JSON.parse(localStorage.getItem(DBK) || "{}")); U = sb ? null : (DB.users[localStorage.getItem("efs")] || null) } catch (e) { }
         const KEY = () => "ef" + (U ? ":" + U.email : "");
         function loadS() { S = { sq: [], cap: null, name: "", pickSlot: null, sel: null, view: "pitch", freeTransfers: 1, history: {} }; try { S = Object.assign(S, JSON.parse(localStorage.getItem(KEY()) || "{}")) } catch (e) { } }
         loadS();
-        const $ = s => document.querySelector(s), sv = () => { try { localStorage.setItem(KEY(), JSON.stringify(S)); if (U) { U.tp = S.tp || 0; U.tn = S.name; if (sb) up(); else localStorage.setItem(DBK, JSON.stringify(DB)) } } catch (e) { } };
+        const $ = s => document.querySelector(s), escapeHTML = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]), sv = () => { try { localStorage.setItem(KEY(), JSON.stringify(S)); if (U) { U.tp = S.tp || 0; U.tn = S.name; if (sb) push(); else localStorage.setItem(DBK, JSON.stringify(DB)) } } catch (e) { } };
         const get = i => P[i], cost = () => S.sq.reduce((a, i) => a + get(i).pr, 0), left = () => +(BUD - cost()).toFixed(1);
         function toast(t, ms) { const e = $("#toast"); if (!e) return; e.textContent = t; e.classList.add("s"); setTimeout(() => e.classList.remove("s"), ms || 1800) }
         function ck(a) { try { localStorage.setItem("efc", a ? "all" : "min") } catch (e) { } const c = $("#cookie"); if (c) c.style.display = "none" }
         function can(p) { const sq = S.sq.map(get); if (S.sq.includes(p.id)) return "In squad"; if (sq.length >= 15) return "Squad full"; if (sq.filter(x => x.p == p.p).length >= POS[p.p][0]) return "Max " + p.p; if (sq.filter(x => x.c == p.c).length >= LIM) return "Max 3 per club"; if (p.pr > left()) return "Over budget"; return "" }
-        function rem(i) { S.sq = S.sq.filter(x => x != i); if (S.cap == i) S.cap = null; S.sel = null; sv(); draw() }
-        function go() { const m = $(".market-panel"); if (m) m.scrollIntoView({ behavior: "smooth", block: "start" }) }
+        function rem(i) { if (isTransferLocked(getNextFixtureRound())) return toast("Трансферите са заключени за този кръг!"); S.sq = S.sq.filter(x => x != i); if (S.cap == i) S.cap = null; S.sel = null; sv(); draw() }
+        function go() { const m = $(".market-section") || $(".market-panel"); if (m) m.scrollIntoView({ behavior: "smooth", block: "start" }) }
         function fplx(p, s) {
             const L = [], add = (t, v) => { if (v) L.push([t, v]) };
             add(s.min >= 60 ? "60+ minutes" : "Played", s.min >= 60 ? 2 : s.min > 0 ? 1 : 0);
@@ -103,9 +183,8 @@
             if (p == "GK") add("Saves " + s.sv, Math.floor(s.sv / 3));
             if (p == "GK" || p == "DEF") add("Goals conceded " + s.gc, -Math.floor(s.gc / 2));
             add("Penalty saved", s.ps * 5); add("Penalty missed", -s.pm * 2); add("Yellow card", -s.yc); add("Red card", -s.rc * 3); add("Own goal", -s.og * 2);
-            // Добавени бонус точки (BPS)
             if (s.bps && s.bps > 0) add("Bonus (BPS)", s.bps);
-            return L
+            return L;
         }
         const fpl = (p, s) => fplx(p, s).reduce((a, x) => a + x[1], 0);
         const SKEY = "efstats", F = ["min", "g", "a", "yc", "rc", "og", "pm", "ps", "sv", "bps"]; let DRAFT = {}, AD = { m: "" }; try { DRAFT = JSON.parse(localStorage.getItem(SKEY) || "{}") } catch (e) { }
@@ -113,21 +192,68 @@
         const RDS = () => [...new Set(Object.keys(SS()).filter(has).map(k => parseInt(k)))].sort((a, b) => a - b);
         function pstat(m, p) { const a = (SS()[mkey(m)] || {})[pk(p)]; if (!a) return null; const s = {}; F.forEach((f, i) => s[f] = +a[i] || 0); const c = p.c == m.h ? m.ag : m.hg; s.gc = s.min > 0 ? c : 0; s.cs = s.min >= 60 && c == 0 ? 1 : 0; return s }
         function rpts(r) { const out = {}; S.sq.map(get).forEach(p => { const m = MT.find(x => x.r == r && (x.h == p.c || x.a == p.c) && x.hg != null); if (!m || !has(mkey(m))) { out[p.id] = null; return } const s = pstat(m, p); out[p.id] = s ? fpl(p.p, s) : 0 }); return out }
-        function xiIds() { const N = { GK: 1, DEF: 4, MID: 4, FWD: 2 }; return ["GK", "DEF", "MID", "FWD"].flatMap(r => S.sq.map(get).filter(p => p.p == r).slice(0, N[r]).map(p => p.id)) }
+
+        // --- Автоматични смени с проследяване ---
+        function getEffectiveLineupAndSubs(r) {
+            const ST = { GK: 1, DEF: 4, MID: 4, FWD: 2 };
+            const R = ["GK", "DEF", "MID", "FWD"];
+            const effective = {};
+            const subbedIn = new Set();
+            const subbedOut = new Set();
+
+            R.forEach(role => {
+                const rolePlayers = S.sq.map(get).filter(p => p.p == role);
+                const starters = rolePlayers.slice(0, ST[role]).map(p => p.id);
+                const bench = rolePlayers.slice(ST[role]).map(p => p.id);
+                const finalStarters = [...starters];
+
+                finalStarters.forEach((id, idx) => {
+                    const p = get(id);
+                    const m = MT.find(x => x.r == r && (x.h == p.c || x.a == p.c) && x.hg != null);
+                    const s = m ? pstat(m, p) : null;
+                    const played = s && s.min > 0;
+
+                    if (!played && bench.length > 0) {
+                        const subIdx = bench.findIndex(bId => {
+                            const bp = get(bId);
+                            const bm = MT.find(x => x.r == r && (x.h == bp.c || x.a == bp.c) && x.hg != null);
+                            const bs = bm ? pstat(bm, bp) : null;
+                            return bs && bs.min > 0;
+                        });
+                        if (subIdx !== -1) {
+                            const subId = bench.splice(subIdx, 1)[0];
+                            subbedOut.add(id);
+                            subbedIn.add(subId);
+                            finalStarters[idx] = subId;
+                        }
+                    }
+                });
+                effective[role] = finalStarters;
+            });
+            return {
+                xi: ["GK", "DEF", "MID", "FWD"].flatMap(r => effective[r]),
+                subbedIn,
+                subbedOut
+            };
+        }
+
+        function xiIds() { return S.rd ? getEffectiveLineupAndSubs(S.rd).xi : ["GK", "DEF", "MID", "FWD"].flatMap(r => S.sq.map(get).filter(p => p.p == r).slice(0, { GK: 1, DEF: 4, MID: 4, FWD: 2 }[r]).map(p => p.id)); }
         function rtot(r) { const pts = rpts(r); return xiIds().reduce((t, id) => t + (pts[id] || 0) * (S.cap == id ? 2 : 1), 0) }
+        
         function prep() {
             if (!S || !S.sq) return; const rds = RDS();
             if (!S.sq.length || !rds.length) { S.pts = null; if (S.tp) { S.tp = 0; sv() } return }
             if (!rds.includes(S.rd)) S.rd = rds[rds.length - 1]; S.pts = rpts(S.rd);
-            const tp = rds.reduce((t, r) => { const rt = rtot(r); S.history[r] = rt; return t + rt; }, 0); 
+            const tp = rds.reduce((t, r) => { const rt = rtot(r); S.history[r] = rt; return t + rt; }, 0);
             if (tp != (S.tp || 0)) { S.tp = tp; sv() }
         }
         const setR = r => { S.rd = r; sv(); draw() };
-        const rdBar = () => { const r = RDS(); return r.length ? `<div class="rds">${r.map(x => `<button class="chip ${S.rd == x ? "on" : ""}" onclick="setR(${x})">R${x}</button>`).join("")}<span class="mut" style="align-self:center;margin-left:8px;white-space:nowrap">Total ${S.tp || 0}</span></div>` : '<p class="note">Points appear here after each round\'s player stats are entered.</p>' };
+        const rdBar = () => { const r = RDS(); return r.length ? `<div class="rds">${r.map(x => `<button class="chip ${S.rd == x ? "on" : ""}" onclick="setR(${x})">К${x}</button>`).join("")}<span class="mut" style="align-self:center;margin-left:8px;white-space:nowrap">Общо ${S.tp || 0} т.</span></div>` : '<p class="note">Точките ще се появят тук след въвеждането на статистиките за изиграните мачове.</p>' };
+        
         function bar() {
             const p = S.sel != null && S.sq.includes(S.sel) && get(S.sel); if (!p) return "";
             const m = S.pts && MT.find(x => x.r == S.rd && (x.h == p.c || x.a == p.c) && x.hg != null), s = m && pstat(m, p), L = s ? fplx(p.p, s) : [];
-            return `<div class="market-panel"><div class="market-head"><b>${p.n} · ${p.pr}M</b><span><button class="btn ghost" onclick="S.cap=${p.id};S.sel=null;sv();draw()">Captain</button> <button class="btn ghost" onclick="rem(${p.id})">Remove</button></span></div>${m ? `<p class="mut" style="margin:10px 0 6px">Round ${S.rd} · ${CL[m.h][0]} ${m.hg}–${m.ag} ${CL[m.a][0]}</p><div class="brk">${L.length ? L.map(x => `<span>${x[0]} <b class="pt ${x[1] < 0 ? "dn" : "up"}">${x[1] > 0 ? "+" : ""}${x[1]}</b></span>`).join("") : "<span>Did not play</span>"}</div>` : ""}</div>`
+            return `<div class="market-panel"><div class="market-head"><b>${p.n} · ${p.pr}M</b><span><button class="btn ghost" onclick="S.cap=${p.id};S.sel=null;sv();draw()">Назначи за капитан</button> <button class="btn ghost" onclick="rem(${p.id})">Премахни</button></span></div>${m ? `<p class="mut" style="margin:10px 0 6px">Кръг ${S.rd} · ${CL[m.h][0]} ${m.hg}–${m.ag} ${CL[m.a][0]}</p><div class="brk">${L.length ? L.map(x => `<span>${x[0]} <b class="pt ${x[1] < 0 ? "dn" : "up"}">${x[1] > 0 ? "+" : ""}${x[1]}</b></span>`).join("") : "<span>Не е играл</span>"}</div>` : ""}</div>`
         }
         const ptxt = (m, p) => { const s = pstat(m, p); return s ? fpl(p.p, s) : "–" };
         function wtxt(m) { const st = SS()[mkey(m)] || {}, g = { [m.h]: 0, [m.a]: 0 }; P.forEach(p => { const a = st[pk(p)]; if (a && (p.c == m.h || p.c == m.a)) { g[p.c] += a[1] || 0; g[p.c == m.h ? m.a : m.h] += a[5] || 0 } }); return [[m.h, m.hg], [m.a, m.ag]].filter(([c, n]) => g[c] > n).map(([c, n]) => `${CL[c][0]}: ${g[c]} goals entered but the score is ${n}`).join(" · ") }
@@ -140,10 +266,39 @@
             if (adwEl) adwEl.textContent = wtxt(m);
         }
         function full(k, id) { const p = get(id), a = ((SS()[k] || {})[pk(p)] || []).slice(); if (!a.length) a.push(0); a[0] = 90; ad(k, id, 0, 90); draw() }
+        
+        async function fetchLineupsForMatch(matchKey, homeClubId, awayClubId) {
+            try {
+                if (!sb) return toast("Supabase не е свързан");
+                const { data, error } = await sb.functions.invoke('fetch-lineups', {
+                    body: { match_id: matchKey, home: homeClubId, away: awayClubId }
+                });
+                if (error) throw error;
+                alert("Съставите бяха изтеглени успешно!");
+                draw();
+            } catch (err) {
+                console.error("Грешка при изтегляне на съставите:", err.message);
+                alert("Неуспешно изтегляне на съставите.");
+            }
+        }
+
         function teamTbl(m, c) {
             const k = mkey(m);
-            return `<div class="card tw"><h3>${CL[c][0]} <small class="mut">${c == m.h ? m.hg : m.ag} goals</small></h3><table class="adt"><tr><th>Player</th>${["Min", "G", "A", "YC", "RC", "OG", "PM", "PS", "SV", "BPS"].map(h => `<th>${h}</th>`).join("")}<th>Pts</th></tr>${P.filter(p => p.c == c).map(p => { const a = (SS()[k] || {})[pk(p)] || []; return `<tr><td>${p.n}<small>${p.p} · <a href="javascript:full('${k}',${p.id})">90 min</a></small></td>${F.map((f, i) => `<td><input type="number" inputmode="numeric" min="0" max="${i ? 20 : 120}" value="${a[i] || ""}" placeholder="0" onchange="ad('${k}',${p.id},${i},this.value)"></td>`).join("")}<td><b id="pt${p.id}">${ptxt(m, p)}</b></td></tr>` }).join("")}</table></div>`
+            return `<div class="card tw">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                    <h3>${CL[c][0]} <small class="mut">${c == m.h ? m.hg : m.ag} goals</small></h3>
+                    <button class="btn-sm btn ghost" onclick="fetchLineupsForMatch('${k}', ${m.h}, ${m.a})">📥 Изтегли състави</button>
+                </div>
+                <table class="adt">
+                    <tr><th>Player</th>${["Min", "G", "A", "YC", "RC", "OG", "PM", "PS", "SV", "BPS"].map(h => `<th>${h}</th>`).join("")}<th>Pts</th></tr>
+                    ${P.filter(p => p.c == c).map(p => { 
+                        const a = (SS()[k] || {})[pk(p)] || []; 
+                        return `<tr><td>${p.n}<small>${p.p} · <a href="javascript:full('${k}',${p.id})">90 min</a></small></td>${F.map((f, i) => `<td><input type="number" inputmode="numeric" min="0" max="${i ? 20 : 120}" value="${a[i] || ""}" placeholder="0" onchange="ad('${k}',${p.id},${i},this.value)"></td>`).join("")}<td><b id="pt${p.id}">${ptxt(m, p)}</b></td></tr>` 
+                    }).join("")}
+                </table>
+            </div>`;
         }
+
         function adminV() {
             const done = MT.filter(m => m.hg != null).sort(byTime).reverse(); if (!done.find(m => mkey(m) == AD.m)) AD.m = done[0] ? mkey(done[0]) : ""; const m = done.find(x => mkey(x) == AD.m);
             return `<h2>Admin · player stats</h2><p class="note">Drafts are saved in this browser only. When you're done, click Download stats.js and replace the file in your site folder to publish the points.</p><select onchange="AD.m=this.value;draw()">${done.map(x => `<option value="${mkey(x)}" ${mkey(x) == AD.m ? "selected" : ""}>R${x.r} · ${CL[x.h][0]} ${x.hg}–${x.ag} ${CL[x.a][0]}${has(mkey(x)) ? " ✓" : ""}</option>`).join("")}</select>${m ? `<div class="em" id="adw" style="margin:8px 0">${wtxt(m)}</div>${[m.h, m.a].map(c => teamTbl(m, c)).join("")}` : "<p>No finished matches yet.</p>"}<div class="toolbar"><button class="btn" onclick="dl()">Download stats.js</button><button class="btn ghost" onclick="if(confirm('Delete all drafts in this browser?')){DRAFT={};localStorage.removeItem(SKEY);draw()}">Clear drafts</button></div><p class="mut">Columns: minutes, goals, assists, yellow, red, own goals, penalties missed, penalties saved, saves, bonus points (BPS). Leave a row empty if the player did not play.</p>`
@@ -154,45 +309,65 @@
             const body = '// Player stats per match: "round:HOME-AWAY" -> { "CLUB|Player": [minutes, goals, assists, yellow, red, ownGoals, pensMissed, pensSaved, saves, bps] }\nwindow.STATS = {\n' + lines + "\n};\n";
             const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([body], { type: "text/javascript" })); a.download = "stats.js"; a.click(); toast("stats.js downloaded")
         }
+
+        // --- Подобрен UI за терена и смените ---
         function pitch() {
             const ST = { GK: 1, DEF: 4, MID: 4, FWD: 2 }, R = ["GK", "DEF", "MID", "FWD"], by = r => S.sq.map(get).filter(p => p.p == r);
             let tot = 0, d = 0;
+            const subsInfo = S.rd ? getEffectiveLineupAndSubs(S.rd) : { subbedIn: new Set(), subbedOut: new Set() };
+
             const card = (role, i) => {
                 const p = by(role)[i], key = `${role}-${i}`, bench = i >= ST[role];
-                if (!p) return `<button class="pc empty ${S.pickSlot == key ? "active" : ""}" onclick="S.pickSlot='${key}';S.sel=null;draw();go();toast('Select a ${role}')"><i class="sh"></i><span class="pn">${role}</span><span class="pp">+ Add</span></button>`;
+                if (!p) return `<button class="pc empty ${S.pickSlot == key ? "active" : ""}" aria-label="Избери футболист за позиция ${role}" onclick="S.pickSlot='${key}';S.sel=null;draw();go();toast('Избери футболист за ${role}')"><i class="sh"></i><span class="pn">${role}</span><span class="pp">+ Добави</span></button>`;
+                
                 const cap = S.cap == p.id, pt = S.pts && S.pts[p.id] != null ? S.pts[p.id] * (cap && !bench ? 2 : 1) : null;
                 if (pt != null && !bench) tot += pt;
                 d += .05;
-                return `<button class="pc ${S.sel == p.id ? "active" : ""}" style="animation-delay:${d}s" onclick="S.sel=${p.id};S.pickSlot=null;sv();draw()">${cap ? '<em class="cb">C</em>' : ""}<i class="sh" style="--c:${CL[p.c][1]}"></i><span class="pn">${p.n.split(" ").pop()}</span><span class="pp">${pt != null ? pt : p.pr}</span></button>`;
+
+                let subBadge = "";
+                if (subsInfo.subbedIn.has(p.id)) subBadge = '<span class="sub-badge sub-in">ВХОД</span>';
+                if (subsInfo.subbedOut.has(p.id)) subBadge = '<span class="sub-badge sub-out">ИЗХОД</span>';
+
+                return `<button class="pc ${S.sel == p.id ? "active" : ""}" aria-label="${p.n}, ${CL[p.c][0]}, ${cap ? "капитан, " : ""}${pt != null ? `${pt} точки` : `${p.pr} милиона`}" style="animation-delay:${d}s;position:relative;" onclick="S.sel=${p.id};S.pickSlot=null;sv();draw()">${subBadge}${cap ? '<em class="cb" aria-label="Капитан">C</em>' : ""}<i class="sh" style="--c:${CL[p.c][1]}"></i><span class="pn">${p.n.split(" ").pop()}</span><span class="pp">${pt != null ? pt : p.pr}</span></button>`;
             };
             const row = r => `<div class="pr">${Array.from({ length: ST[r] }, (_, i) => card(r, i)).join("")}</div>`;
-            const h = `<div class="pitch"><div class="goal"></div>${R.map(row).join("")}</div><div class="bench">${R.map(r => `<div><b>${r == "GK" ? "GKP" : r}</b>${card(r, ST[r])}</div>`).join("")}</div>`;
+            const h = `<div class="pitch"><div class="goal"></div>${R.map(row).join("")}</div><div class="bench">${R.map(r => `<div><b>${r == "GK" ? "ВРАТАР" : ({ DEF: "ЗАЩИТА", MID: "ХАЛФОВЕ", FWD: "НАПАДАТЕЛИ" }[r])}</b>${card(r, ST[r])}</div>`).join("")}</div>`;
             return { h, tot };
         }
+
         function listv() {
             const o = "GK DEF MID FWD";
-            return `<div class="tw"><table><tr><th>Pos</th><th>Player</th><th>Club</th><th>Price</th><th>Pts</th></tr>${S.sq.map(get).sort((a, b) => o.indexOf(a.p) - o.indexOf(b.p)).map(p => `<tr onclick="S.sel=${p.id};sv();draw()" style="cursor:pointer"><td>${p.p}</td><td>${p.n}${S.cap == p.id ? " (C)" : ""}</td><td>${CL[p.c][0]}</td><td>${p.pr}</td><td>${S.pts && S.pts[p.id] != null ? S.pts[p.id] : "–"}</td></tr>`).join("") || '<tr><td colspan="5">No players yet.</td></tr>'}</table></div>`;
+            return `<div class="tw"><table><tr><th>Поз.</th><th>Футболист</th><th>Клуб</th><th>Цена</th><th>Точки</th></tr>${S.sq.map(get).sort((a, b) => o.indexOf(a.p) - o.indexOf(b.p)).map(p => `<tr onclick="S.sel=${p.id};sv();draw()" style="cursor:pointer"><td>${p.p}</td><td>${p.n}${S.cap == p.id ? " (К)" : ""}</td><td>${CL[p.c][0]}</td><td>${p.pr}M</td><td>${S.pts && S.pts[p.id] != null ? S.pts[p.id] : "–"}</td></tr>`).join("") || '<tr><td colspan="5">Все още няма избрани футболисти.</td></tr>'}</table></div>`;
         }
         function pickToSlot(slotKey, playerId) {
+            if (isTransferLocked(getNextFixtureRound())) return toast("Трансферите са заключени за този кръг!");
             const p = get(playerId), m = can(p);
-            if (S.sq.includes(playerId)) return toast("Already in squad");
-            if (m) return toast(m);
-            if (S.sq.length >= 15) return toast("Squad full");
+            if (S.sq.includes(playerId)) return toast("Футболистът вече е в състава");
+            if (m) return toast(m == "Squad full" ? "Съставът е пълен" : m == "Over budget" ? "Надхвърляш бюджета" : m == "Max 3 per club" ? "Максимумът е 3 футболисти от клуб" : "Достигнат е лимитът за тази позиция");
+            if (S.sq.length >= 15) return toast("Съставът е пълен");
             S.sq.push(playerId);
             S.pickSlot = null;
             sv(); draw();
-            toast(`Added ${p.n.split(" ").pop()}`);
+            toast(`Добавен е ${p.n.split(" ").pop()}`);
         }
         function list() {
-            if (!S.pickSlot) return `<div class="market-empty">Tap an empty position on the pitch to see eligible players.</div>`;
+            if (!S.pickSlot) return `<div class="market-empty"><span aria-hidden="true">👆</span><p>Избери свободна позиция на терена, за да видиш подходящите футболисти.</p></div>`;
             const role = S.pickSlot.split("-")[0];
             const players = P.filter(p => p.p == role && !can(p)).sort((a, b) => b.pr - a.pr);
-            if (!players.length) return `<div class="market-empty">No ${role} players are available within your current squad limits and budget.</div>`;
-            return `<div class="market-grid">${players.map(p => `<button class="market-card" onclick="pickToSlot('${S.pickSlot}',${p.id})"><div class="market-top"><div><strong>${p.n}</strong><span>${CL[p.c][0]}</span></div><span class="market-pos">${p.p}</span></div><div class="market-bottom"><div><b>${p.pr}M</b><small>Price</small></div><div><b style="color:var(--y)">${p.rec}</b><small>Rec.</small></div><span class="chip chip-primary">Select</span></div></button>`).join("")}</div>`;
+            if (!players.length) return `<div class="market-empty">Няма достъпни футболисти на тази позиция в рамките на бюджета и ограниченията на състава.</div>`;
+            return `<div class="market-grid">${players.map(p => `<button class="market-card" onclick="pickToSlot('${S.pickSlot}',${p.id})"><div class="market-top"><div><strong>${p.n}</strong><span>${CL[p.c][0]}</span></div><span class="market-pos">${p.p}</span></div><div class="market-bottom"><div><b>${p.pr}M</b><small>Цена</small></div><div><b style="color:var(--y)">${p.rec}</b><small>Оценка</small></div><span class="chip chip-primary">Избери</span></div></button>`).join("")}</div>`;
         }
 
-        // --- Трансфери с лимити и краен срок ---
+        // --- Трансфери и Краен срок (Deadline) ---
+        function isTransferLocked(roundNum) {
+            const roundMatches = MT.filter(m => m.r === roundNum && !m.pp);
+            if (!roundMatches.length) return false;
+            const earliest = roundMatches.reduce((first, m) => matchDate(m) < matchDate(first) ? m : first, roundMatches[0]);
+            return Date.now() >= matchDate(earliest).getTime();
+        }
+
         function sellPlayer(id) {
+            if (isTransferLocked(getNextFixtureRound())) return toast("Трансферите за този кръг са заключени!");
             S.sq = S.sq.filter(x => x != id);
             if (S.cap == id) S.cap = null;
             S.sel = null;
@@ -202,6 +377,7 @@
         }
 
         function buyPlayer(id) {
+            if (isTransferLocked(getNextFixtureRound())) return toast("Трансферите за този кръг са заключени!");
             const p = get(id);
             const m = can(p);
             if (S.sq.includes(id)) return toast("Вече е в отбора");
@@ -213,32 +389,44 @@
         }
 
         function transfersV() {
-            if (!S.sq.length) return `<h2>Трансфери и Пазар</h2><p class="note">Първо създайте отбора си от секцията "Play".</p><a class="btn" href="#/play">Създай отбор</a>`;
+            const transferRound = getNextFixtureRound();
+            const locked = isTransferLocked(transferRound);
+            if (!S.sq.length) return `
+                <section class="page-intro">
+                    <span class="page-kicker">ТРАНСФЕРЕН ПАЗАР</span>
+                    <h1>Изгради своя <span>шампионски състав</span></h1>
+                    <p>Направи първия си избор от пазара и подреди отбор в рамките на бюджета от ${BUD}M.</p>
+                    <a class="btn" href="#/play">Избери футболисти <b aria-hidden="true">→</b></a>
+                </section>
+                <div class="empty-state card"><span class="empty-icon">⚽</span><h2>Първо ти трябва отбор</h2><p class="mut">Създай състав от 15 футболисти, преди да правиш трансфери.</p></div>`;
             const squadPlayers = S.sq.map(get);
             const roleFilter = S.transferRole || "GK";
             const availableMarket = P.filter(p => p.p == roleFilter && !S.sq.includes(p.id) && p.pr <= left()).sort((a, b) => b.pr - a.pr);
+            const byRole = role => squadPlayers.filter(p => p.p === role).length;
 
             return `
-                <h2>Трансферен пазар & Краен срок</h2>
-                <div class="card" style="margin-bottom:16px;background:rgba(255,184,0,0.08);border-color:rgba(255,184,0,0.3)">
-                    <h3>⏳ Deadline & Безплатни трансфери</h3>
-                    <p>Налични безплатни трансфери за този кръг: <b>${S.freeTransfers ?? 1}</b></p>
-                    <p class="mut" style="font-size:13px">Всяка смяна над лимита води до наказание от -4 точки. Трансферите се заключват автоматично преди първия мач от кръга.</p>
+                <section class="page-intro compact-intro">
+                    <span class="page-kicker">ПОДГОТОВКА ЗА КРЪГ ${transferRound}</span>
+                    <h1>Трансферен <span>пазар</span></h1>
+                    <p>Подсили състава си преди първия съдийски сигнал. Изборът и бюджетът ти се обновяват веднага.</p>
+                </section>
+                <div class="transfer-overview">
+                    <article class="overview-card"><span>БЮДЖЕТ В БАНКАТА</span><b>${left()}M</b><small>от ${BUD}M общо</small></article>
+                    <article class="overview-card"><span>ИГРАЧИ В СЪСТАВА</span><b>${squadPlayers.length}<i>/15</i></b><small>GK ${byRole("GK")} · DEF ${byRole("DEF")} · MID ${byRole("MID")} · FWD ${byRole("FWD")}</small></article>
+                    <article class="overview-card deadline-card ${locked ? "is-locked" : "is-open"}"><span>КРЪГ ${transferRound}</span><b>${locked ? "Трансферите са заключени" : "Трансферите са отворени"}</b><small>${locked ? "Изборите са затворени за този кръг." : "Заключват се преди първия мач от кръга."}</small></article>
+                    <article class="overview-card"><span>БЕЗПЛАТНИ ТРАНСФЕРИ</span><b>${S.freeTransfers ?? 1}</b><small>налични за отбора</small></article>
                 </div>
-                
-                <h3>Вашият състав</h3>
+                <div class="section-heading"><div><span class="page-kicker">ТВОЯТ ОТБОР</span><h2>Състав</h2></div><a class="text-link" href="#/play">Редактирай състава →</a></div>
                 <div class="tw">
                     <table>
-                        <tr><th>Поз</th><th>Играч</th><th>Клуб</th><th>Цена</th><th>Действие</th></tr>
-                        ${squadPlayers.map(p => `<tr><td>${p.p}</td><td>${p.n}</td><td>${CL[p.c][0]}</td><td>${p.pr}M</td><td><button class="chip chip-danger" onclick="sellPlayer(${p.id})">Продай</button></td></tr>`).join("")}
+                        <tr><th>Поз.</th><th>Футболист</th><th>Клуб</th><th>Цена</th><th>Действие</th></tr>
+                        ${squadPlayers.map(p => `<tr><td>${p.p}</td><td>${p.n}</td><td>${CL[p.c][0]}</td><td>${p.pr}M</td><td>${locked ? '<span class="mut">Заключено</span>' : `<button class="chip chip-danger" onclick="sellPlayer(${p.id})">Продай</button>`}</td></tr>`).join("")}
                     </table>
                 </div>
-
-                <h3 style="margin-top:24px">Пазар (Бюджет в банката: <b>${left()}M</b>)</h3>
-                <div class="seg">${["GK", "DEF", "MID", "FWD"].map(r => `<button class="${roleFilter == r ? "on" : ""}" onclick="S.transferRole='${r}';draw()">${r}</button>`).join("")}</div>
-                
+                <div class="section-heading market-section-heading"><div><span class="page-kicker">СВОБОДНИ ФУТБОЛИСТИ</span><h2>Избери подсилване</h2></div><span class="market-budget">${left()}M <small>в банката</small></span></div>
+                <div class="seg" role="group" aria-label="Филтър по позиция">${["GK", "DEF", "MID", "FWD"].map(r => `<button class="${roleFilter == r ? "on" : ""}" aria-pressed="${roleFilter == r}" onclick="S.transferRole='${r}';draw()">${r}</button>`).join("")}</div>
                 <div class="market-grid" style="margin-top:12px">
-                    ${availableMarket.length ? availableMarket.map(p => `
+                    ${!locked && availableMarket.length ? availableMarket.map(p => `
                         <div class="market-card">
                             <div class="market-top">
                                 <div><strong>${p.n}</strong><span>${CL[p.c][0]}</span></div>
@@ -246,18 +434,182 @@
                             </div>
                             <div class="market-bottom">
                                 <div><b>${p.pr}M</b><small>Цена</small></div>
-                                <button class="chip chip-primary" onclick="buyPlayer(${p.id})">Купи</button>
+                                <button class="chip chip-primary" onclick="buyPlayer(${p.id})" aria-label="Купи ${p.n} за ${p.pr} милиона">Купи</button>
                             </div>
                         </div>
-                    `).join("") : '<div class="market-empty">Няма свободни играчи или нямате достатъчно бюджет.</div>'}
+                    `).join("") : `<div class="market-empty">${locked ? "Трансферите са заключени за този кръг." : `Няма свободни ${roleFilter} в рамките на оставащия бюджет.`}</div>`}
                 </div>
             `;
         }
 
-        // --- Личен профил и История на кръговете ---
+        // --- Лиги с код за покана (Leagues) ---
+        let LEAGUES_LIST = [];
+        async function loadLeagues() {
+            if (!sb || !U) return;
+            try {
+                const { data } = await sb.from("league_members").select("league_code, leagues(name, code)").eq("user_id", U.id);
+                if (data) LEAGUES_LIST = data.map(x => x.leagues);
+            } catch (e) {}
+        }
+
+        async function createLeague(e) {
+            e.preventDefault();
+            const name = $("#league_name")?.value.trim();
+            if (!name) return toast("Въведете име на лигата");
+            const code = Math.random().toString(36).slice(2, 8).toUpperCase();
+            if (sb) {
+                await sb.from("leagues").insert({ code, name, owner_id: U.id });
+                await sb.from("league_members").insert({ league_code: code, user_id: U.id });
+            }
+            toast(`Лигата бе създадена с код: ${code}`);
+            await loadLeagues();
+            draw();
+        }
+
+        async function joinLeague(e) {
+            e.preventDefault();
+            const code = $("#league_code")?.value.trim().toUpperCase();
+            if (!code) return toast("Въведете код на лигата");
+            if (sb) {
+                const { error } = await sb.from("league_members").insert({ league_code: code, user_id: U.id });
+                if (error) return toast("Грешен код или вече сте в лигата");
+            }
+            toast("Успешно се присъедиnихте към лигата!");
+            await loadLeagues();
+            draw();
+        }
+
+        function leaguesV() {
+            if (!U) return `<section class="lock"><div class="lock-ic">🔒</div><h2>Състезавай се с приятели</h2><p class="mut">Влез в профила си, за да създадеш частна лига или да се присъединиш с покана.</p><div class="cta-row"><a class="btn" href="#/login">Вход</a><a class="btn ghost" href="#/register">Регистрация</a></div></section>`;
+            return `
+                <section class="page-intro compact-intro">
+                    <span class="page-kicker">ИГРАЙ С ПРИЯТЕЛИ</span>
+                    <h1>Твоята лига.<br><span>Вашето дерби.</span></h1>
+                    <p>Създай частно състезание или влез в лига с покана и сравни точките си с приятелите.</p>
+                </section>
+                <div class="league-actions">
+                    <article class="card league-action-card">
+                        <span class="action-icon">＋</span><span class="page-kicker">ТИ СИ ДОМАКИН</span>
+                        <h2>Създай лига</h2><p class="mut">Дай име на лигата. Ще получиш код, който да споделиш с приятелите.</p>
+                        <form class="league-form" onsubmit="createLeague(event)">
+                            <label for="league_name">Име на лигата</label>
+                            <input type="text" id="league_name" placeholder="Например: Офис лигата" maxlength="40" required>
+                            <button type="submit" class="btn">Създай лига <b aria-hidden="true">→</b></button>
+                        </form>
+                    </article>
+                    <article class="card league-action-card">
+                        <span class="action-icon">↗</span><span class="page-kicker">ИМАШ ПОКАНА?</span>
+                        <h2>Присъедини се</h2><p class="mut">Въведи кода за покана, за да се включиш в частното класиране.</p>
+                        <form class="league-form" onsubmit="joinLeague(event)">
+                            <label for="league_code">Код за покана</label>
+                            <input type="text" id="league_code" placeholder="Например: AB12CD" maxlength="12" autocapitalize="characters" required>
+                            <button type="submit" class="btn ghost">Въведи код <b aria-hidden="true">→</b></button>
+                        </form>
+                    </article>
+                </div>
+                <div class="section-heading"><div><span class="page-kicker">ТВОИТЕ СЪСТЕЗАНИЯ</span><h2>Моите лиги</h2></div><span class="league-count">${LEAGUES_LIST.length} ${LEAGUES_LIST.length == 1 ? "лига" : "лиги"}</span></div>
+                ${LEAGUES_LIST.length ? `<div class="league-grid">${LEAGUES_LIST.map(l => `
+                    <article class="league-card card">
+                        <span class="league-card-icon">🏆</span>
+                        <div class="league-card-copy"><span class="page-kicker">ЧАСТНА ЛИГА</span><h3>${l.name || "Лига без име"}</h3></div>
+                        <div class="league-code"><span>КОД ЗА ПОКАНА</span><b>${l.code || "—"}</b></div>
+                    </article>`).join("")}</div>` : `<div class="empty-state card"><span class="empty-icon">🏆</span><h3>Още не участваш в лига</h3><p class="mut">Създай своя лига или използвай код за покана, за да започнете състезанието.</p></div>`}
+            `;
+        }
+
+        function fixturesV() {
+            if (!MT.length) return `<section class="page-intro"><span class="page-kicker">EFBET ЛИГА · 2026/27</span><h1>Програмата на <span>мачовете</span></h1><p>В момента няма заредени срещи.</p></section>`;
+            const round = getFixtureRound();
+            const matches = MT.filter(m => m.r === round).sort(byTime);
+            const played = matches.filter(m => m.hg != null && m.ag != null).length;
+            const roundDates = [...new Set(matches.map(m => fmtMatchDate(m)))];
+            return `
+                <section class="page-intro compact-intro fixtures-intro">
+                    <span class="page-kicker">СЕЗОН 2026/27</span>
+                    <h1>Всеки кръг <span>има значение.</span></h1>
+                    <p>Следи програмата, резултатите и предстоящите мачове от efbet Лига.</p>
+                </section>
+                <div class="fixture-summary">
+                    <div><span>ИЗБРАН КРЪГ</span><b>Кръг ${round}</b></div>
+                    <div><span>МАЧОВЕ</span><b>${matches.length}</b></div>
+                    <div><span>ИЗИГРАНИ</span><b>${played}<i>/${matches.length}</i></b></div>
+                    <div><span>ДАТА</span><b>${roundDates.length > 1 ? `${roundDates[0]} – ${roundDates[roundDates.length - 1]}` : (roundDates[0] || "Очаква се")}</b></div>
+                </div>
+                <div class="round-picker" role="group" aria-label="Избери кръг">
+                    ${roundNumbers().map(n => `<button class="${n === round ? "on" : ""}" aria-pressed="${n === round}" onclick="S.fixtureRound=${n};sv();draw()">Кръг ${n}</button>`).join("")}
+                </div>
+                <section class="fixture-round card">
+                    <div class="fixture-round-heading"><div><span class="page-kicker">EFBET ЛИГА</span><h2>Кръг ${round}</h2></div><span class="fixture-progress">${played} от ${matches.length} завършени</span></div>
+                    <div class="fixture-list">
+                        ${matches.map(m => {
+                            const [status, state] = fixtureStatus(m);
+                            return `<article class="fixture-card ${state}">
+                                <div class="fixture-date"><b>${fmtMatchDate(m)}</b><span>${m.pp ? "Часът ще бъде обявен" : m.t}</span></div>
+                                <div class="fixture-team home-team"><span class="club-mark" style="--club:${CL[m.h][1]}">${m.h}</span><b>${CL[m.h][0]}</b></div>
+                                <div class="fixture-score">${m.hg != null && m.ag != null ? `<b>${m.hg}<i>:</i>${m.ag}</b>` : `<span>${m.pp ? "ОТЛОЖЕН" : "VS"}</span>`}</div>
+                                <div class="fixture-team away-team"><span class="club-mark" style="--club:${CL[m.a][1]}">${m.a}</span><b>${CL[m.a][0]}</b></div>
+                                <span class="fixture-status ${state}"><i></i>${status}</span>
+                            </article>`;
+                        }).join("") || `<div class="market-empty">Няма програмирани мачове за този кръг.</div>`}
+                    </div>
+                    <p class="fixture-footnote">Часовете са по българско време. Програмата може да бъде променяна от организатора.</p>
+                </section>
+            `;
+        }
+
+        function rulesV() {
+            return `
+                <section class="page-intro compact-intro rules-intro">
+                    <span class="page-kicker">ЕДИН ОТБОР. ЦЯЛ СЕЗОН.</span>
+                    <h1>Играта е проста.<br><span>Победата е твоя.</span></h1>
+                    <p>Събери 15 футболисти, избери титуляри и трупай точки от реалните мачове в efbet Лига.</p>
+                    <a class="btn" href="#/play">Създай своя отбор <b aria-hidden="true">→</b></a>
+                </section>
+                <div class="rules-overview">
+                    <article class="overview-card"><span>БЮДЖЕТ</span><b>100M</b><small>за целия състав</small></article>
+                    <article class="overview-card"><span>ФУТБОЛИСТИ</span><b>15</b><small>11 титуляри + 4 резерви</small></article>
+                    <article class="overview-card"><span>ОТ ЕДИН КЛУБ</span><b>до 3</b><small>футболисти максимум</small></article>
+                </div>
+                <section class="rules-section">
+                    <div class="section-heading"><div><span class="page-kicker">СТЪПКА ПО СТЪПКА</span><h2>Как се играе</h2></div></div>
+                    <div class="rules-steps">
+                        <article class="rule-card card"><span>01</span><h3>Избери състава</h3><p>Изгради отбор от 15 футболисти в рамките на бюджет от 100M. Максимум трима могат да бъдат от един клуб.</p></article>
+                        <article class="rule-card card"><span>02</span><h3>Подреди титулярите</h3><p>Започваш с 1 вратар, 4 защитници, 4 халфове и 2 нападатели. Останалите четирима са резерви.</p></article>
+                        <article class="rule-card card"><span>03</span><h3>Избери капитан</h3><p>Капитанът ти носи двойни точки. Ако не играе, няма автоматичен заместник-капитан.</p></article>
+                        <article class="rule-card card"><span>04</span><h3>Следи точките</h3><p>Резултатът ти се обновява по кръгове според статистиките на футболистите от реалните мачове.</p></article>
+                    </div>
+                </section>
+                <section class="rules-section">
+                    <div class="section-heading"><div><span class="page-kicker">ТОЧКИ ОТ РЕАЛНИТЕ МАЧОВЕ</span><h2>Система за оценяване</h2></div></div>
+                    <div class="tw rules-table">
+                        <table>
+                            <tr><th>Събитие</th><th>Вратар</th><th>Защитник</th><th>Халф</th><th>Нападател</th></tr>
+                            <tr><td>Изиграни минути</td><td colspan="4">1 т. при участие; 2 т. при 60 или повече минути</td></tr>
+                            <tr><td>Гол</td><td>6 т.</td><td>6 т.</td><td>5 т.</td><td>4 т.</td></tr>
+                            <tr><td>Асистенция</td><td colspan="4">3 т.</td></tr>
+                            <tr><td>Чиста мрежа (60+ мин.)</td><td>4 т.</td><td>4 т.</td><td>1 т.</td><td>—</td></tr>
+                            <tr><td>На всеки 3 спасявания</td><td>1 т.</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><td>На всеки 2 допуснати гола</td><td>−1 т.</td><td>−1 т.</td><td>—</td><td>—</td></tr>
+                            <tr><td>Спасяване на дузпа</td><td colspan="4">5 т.</td></tr>
+                            <tr><td>Пропусната дузпа</td><td colspan="4">−2 т.</td></tr>
+                            <tr><td>Жълт / червен картон</td><td colspan="4">−1 / −3 т.</td></tr>
+                            <tr><td>Автогол</td><td colspan="4">−2 т.</td></tr>
+                            <tr><td>Бонус (BPS)</td><td colspan="4">Добавят се отчетените бонус точки</td></tr>
+                        </table>
+                    </div>
+                    <p class="rules-disclaimer">Автоматичните смени заменят титуляр, който не е играл, с първия наличен резерва на същата позиция. Точки се начисляват след въвеждане и публикуване на статистиките за мача.</p>
+                </section>
+            `;
+        }
+
+        function adminPageV() {
+            if (!isAdmin()) return `<section class="lock"><div class="lock-ic">🔒</div><h2>Нямаш достъп до тази страница</h2><p class="mut">${U ? "Административният панел е достъпен само за упълномощен профил." : "Влез в упълномощения профил, за да отвориш административния панел."}</p>${U ? "" : `<div class="cta-row"><a class="btn" href="#/login">Вход</a></div>`}</section>`;
+            return adminV();
+        }
+
         function profileV() {
             if (!U) return `<section class="lock"><div class="lock-ic">🔒</div><h2>Влезте в профила си</h2><p class="mut">Моля, влезте в системата.</p><div class="cta-row" style="justify-content:center;display:flex;gap:12px"><a class="btn" href="#/login">Вход</a><a class="btn ghost" href="#/register">Регистрация</a></div></section>`;
-            const historyEntries = Object.entries(S.history || {}).sort((a,b)=>a[0]-b[0]);
+            const historyEntries = Object.entries(S.history || {}).sort((a, b) => a[0] - b[0]);
             return `
                 <h2>Личен профил и История</h2>
                 <div class="card" style="margin-top:16px">
@@ -282,171 +634,259 @@
             `;
         }
 
-        // --- Head-to-Head Лиги ---
-        function createH2HLeague(e) {
-            e.preventDefault();
-            const name = $("#h2h_name").value.trim();
-            if (!name) return toast("Въведете име на лигата");
-            const code = Math.random().toString(36).slice(2, 8).toUpperCase();
-            DB.leagues = DB.leagues || {};
-            DB.leagues[code] = { name: name + " (H2H)", owner: U.email, members: [U.email], h2h: true, fixtures: { [U.email]: 3 } };
-            dbs();
-            toast("H2H лигата е създадена!");
-            draw();
-        }
-
-        const DEMO = [["Sofia Wolves", "Kiril", 58], ["Varna Waves", "Petya", 51], ["Ruse Rockets", "Dimo", 47], ["Plovdiv Hills", "Maria", 44], ["Black Sea FC", "Ivo", 39], ["Balkan Boys", "Stoyan", 33], ["Rila Rangers", "Nadia", 26]];
-        const dbs = () => { try { localStorage.setItem(DBK, JSON.stringify(DB)) } catch (e) { } };
         async function hs(s) { try { const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode("ef:" + s)); return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, "0")).join("") } catch (e) { let h = 0; for (const ch of s) h = (h * 31 + ch.charCodeAt(0)) | 0; return "x" + h } }
-        function fe(id, msg) { const i = $("#" + id), e = $("#" + id + "e"); if (i) i.classList.toggle("err", !!msg); if (e) e.textContent = msg || ""; return !!msg }
         function shake() { const c = $(".auth-card"); if (!c) return; c.classList.remove("shake"); void c.offsetWidth; c.classList.add("shake") }
         function burst() { for (let i = 0; i < 30; i++) { const s = document.createElement("i"); s.className = "cf"; s.style.cssText = `--x:${(Math.random() - .5) * 380}px;--y:${-100 - Math.random() * 240}px;--r:${Math.random() * 720}deg;background:${["#ffd400", "#fff", "#ffb800"][i % 3]}`; document.body.appendChild(s); setTimeout(() => s.remove(), 1500) } }
         let ut; const up = () => { clearTimeout(ut); ut = setTimeout(push, 700) };
         async function push() { clearTimeout(ut); if (!sb || !U) return; try { await sb.from("teams").upsert({ user_id: U.id, data: S }); await sb.from("profiles").update({ team_name: S.name || null, total_pts: S.tp || 0 }).eq("id", U.id) } catch (e) { } }
         const su = (u, nm) => ({ id: u.id, email: u.email, name: (u.user_metadata && u.user_metadata.name) || nm || u.email });
-        async function loadRemote() { try { const { data } = await sb.from("teams").select("data").eq("user_id", U.id).maybeSingle(); if (data && data.data) S = Object.assign(S, data.data) } catch (e) { } }
+        async function loadRemote() { try { const { data } = await sb.from("teams").select("data").eq("user_id", U.id).maybeSingle(); if (data && data.data) S = Object.assign(S, data.data); await loadLeagues(); } catch (e) { } }
         if (sb) sb.auth.getSession().then(async ({ data }) => { if (data.session) { U = su(data.session.user); loadS(); await loadRemote(); draw() } });
-        async function refresh() {
-            RM.busy = true; RM.err = ""; await push();
-            try {
-                const g = async q => { const { data, error } = await q; if (error) throw error; return data || [] }, pr = p => ({ n: p.team_name || p.name + "'s team", o: p.name, p: p.total_pts, me: p.id == U.id });
-                RM.my = (await g(sb.from("league_members").select("league_code, leagues(name, demo)").eq("user_id", U.id))).map(m => ({ code: m.league_code, name: m.leagues.name, demo: m.leagues.demo }));
-                RM.rows = { ALL: (await g(sb.from("profiles").select("id, name, team_name, total_pts").order("total_pts", { ascending: false }).limit(50))).map(pr) };
-                if (RM.my.length) (await g(sb.from("league_members").select("league_code, profiles(id, name, team_name, total_pts)").in("league_code", RM.my.map(l => l.code)))).forEach(m => (RM.rows[m.league_code] = RM.rows[m.league_code] || []).push(pr(m.profiles)));
-                RM.ok = true
-            } catch (e) { RM.err = e.message || "Could not load leagues" }
-            RM.busy = false; draw()
-        }
+
         async function auth(ev) {
-            ev.preventDefault(); const reg = AM == "register", em = $("#ae").value.trim().toLowerCase(), pw = $("#ap").value, nm = reg ? $("#an").value.trim() : "";
-            let bad = 0;
-            if (reg) bad |= fe("an", nm.length < 2 ? "Enter your name" : "");
-            bad |= fe("ae", /^\S+@\S+\.\S+$/.test(em) ? "" : "Enter a valid email");
-            bad |= fe("ap", pw.length < 8 ? "Use at least 8 characters" : "");
-            if (reg) bad |= fe("ac", $("#ac").value != pw ? "Passwords don't match" : "");
-            if (bad) return shake();
-            const b = $("#ab"), t = b.textContent; b.disabled = 1; b.innerHTML = '<span class="spin"></span> Please wait';
-            const fail = (id, m) => { b.disabled = 0; b.textContent = t; fe(id, m); shake() }; let u;
-            if (sb) {
-                const r = reg ? await sb.auth.signUp({ email: em, password: pw, options: { data: { name: nm } } }) : await sb.auth.signInWithPassword({ email: em, password: pw });
-                if (r.error) return /invalid login/i.test(r.error.message) ? fail("ap", "Wrong email or password") : /registered|exists/i.test(r.error.message) ? fail("ae", "This email is already registered") : fail(reg ? "ae" : "ap", r.error.message);
-                if (!r.data.session) { b.disabled = 0; b.textContent = t; return toast("Check your inbox to confirm your email, then log in", 6000) }
-                u = su(r.data.user, nm)
-            } else {
-                const h = await hs(em + ":" + pw); await new Promise(r => setTimeout(r, 900)); u = DB.users[em];
-                if (reg) { if (u) return fail("ae", "This email is already registered"); u = DB.users[em] = { email: em, name: nm, h, tp: 0 } }
-                else if (!u || u.h != h) return fail("ap", "Wrong email or password")
+            ev.preventDefault();
+            const email = $("#auth_email")?.value.trim();
+            const password = $("#auth_pass")?.value.trim();
+            const name = $("#auth_name")?.value.trim();
+            
+            if (!email || !password) {
+                shake();
+                return toast("Моля, попълнете всички полета");
             }
-            U = u; try { localStorage.setItem("efs", em) } catch (e) { }
-            if (reg) sv(); else { loadS(); if (sb) await loadRemote() }
-            b.classList.add("ok"); b.textContent = "✓ Welcome, " + u.name.split(" ")[0]; burst(); setTimeout(() => { location.hash = "#/leagues" }, 1000);
-        }
-        function out() { if (sb) sb.auth.signOut(); U = null; try { localStorage.removeItem("efs") } catch (e) { } loadS(); LG = null; RM.ok = false; location.hash = "#/"; draw(); toast("Logged out") }
-        const myLgs = () => sb ? RM.my.map(l => l.code) : Object.keys(DB.leagues).filter(c => DB.leagues[c].members.includes(U.email));
-        const lgInfo = c => sb ? RM.my.find(l => l.code == c) : DB.leagues[c];
-        function lgRows(c) {
-            const L = lgInfo(c) || {}, rows = sb ? (RM.rows[c] || []).slice() : (c == "ALL" ? Object.keys(DB.users) : L.members).map(e => DB.users[e]).filter(Boolean).map(u => ({ n: u.tn || u.name + "'s team", o: u.name, p: u.tp || 0, me: U && u.email == U.email }));
-            if (c == "ALL" || (L.demo && !L.h2h)) DEMO.forEach(d => rows.push({ n: d[0], o: d[1], p: d[2], demo: 1 }));
-            return rows.sort((a, b) => b.p - a.p)
-        }
-        const lgName = c => c == "ALL" ? "efbet League Overall" : lgInfo(c).name;
-        async function cl(e) {
-            e.preventDefault(); const n = $("#ln").value.trim(); if (fe("ln", n.length < 3 ? "League name needs 3+ characters" : "")) return false;
-            const d = $("#ld").checked; let c;
-            if (sb) { const r = await sb.rpc("create_league", { n, d }); if (r.error) { fe("ln", r.error.message); return false } c = r.data; RM.ok = false }
-            else { do { c = Math.random().toString(36).slice(2, 8).toUpperCase() } while (DB.leagues[c]); DB.leagues[c] = { name: n, owner: U.email, members: [U.email], demo: d }; dbs() }
-            LG = c; draw(); burst(); toast("League created ✅"); return false
-        }
-        async function jl(e) {
-            e.preventDefault(); const c = $("#lj").value.trim().toUpperCase();
-            if (fe("lj", !c ? "Enter a league code" : myLgs().includes(c) ? "You're already in this league" : !sb && !DB.leagues[c] ? "No league with that code" : "")) return false;
-            if (sb) { const r = await sb.rpc("join_league", { c }); if (r.error) { fe("lj", /not_found/.test(r.error.message) ? "No league with that code" : r.error.message); return false } RM.ok = false }
-            else { DB.leagues[c].members.push(U.email); dbs() }
-            LG = c; draw(); toast("Joined 🎉"); return false
-        }
-        async function lv(c) { if (sb) { await sb.from("league_members").delete().eq("league_code", c).eq("user_id", U.id); RM.ok = false } else { const L = DB.leagues[c]; L.members = L.members.filter(x => x != U.email); if (!L.members.length) delete DB.leagues[c]; dbs() } LG = null; draw(); toast("You left the league") }
-        function authV(m) {
-            if (U) { setTimeout(() => location.hash = "#/leagues"); return "" } AM = m; const r = m == "register", f = (id, t, ty, ac) => `<label class="fl"><input id="${id}" type="${ty}" placeholder=" " autocomplete="${ac}"><span>${t}</span></label><div class="em" id="${id}e"></div>`;
-            const pw = (id, t, ac) => `<label class="fl"><input id="${id}" type="password" placeholder=" " autocomplete="${ac}"><span>${t}</span><button type="button" class="eye" aria-label="Show password" onclick="const i=$('#${id}');i.type=i.type=='password'?'text':'password'">👁</button></label><div class="em" id="${id}e"></div>`;
-            return `<section class="auth"><div class="auth-art"><div class="orb o1"></div><div class="orb o2"></div><img class="a-logo" src="logo.png" alt="efbet Liga" width="96" height="100"><h2>${r ? "Start your" : "Welcome"} <span>${r ? "season" : "back"}</span></h2><p>Build your team, create private leagues and climb the table with your friends.</p><div class="ball a-ball"></div></div><form class="auth-card" onsubmit="return auth(event)" novalidate><div class="tabs ${r ? "reg" : ""}"><a href="#/login" class="${r ? "" : "on"}">Log in</a><a href="#/register" class="${r ? "on" : ""}">Register</a><i></i></div><h2>${r ? "Create account" : "Log in"}</h2>${r ? f("an", "Your name", "text", "name") : ""}${f("ae", "Email", "email", "email")}${pw("ap", "Password", r ? "new-password" : "current-password")}${r ? pw("ac", "Confirm password", "new-password") : ""}<button class="btn" id="ab">${r ? "Create account" : "Log in"}</button><p class="sw mut">${r ? 'Have an account? <a href="#/login">Log in</a>' : 'New here? <a href="#/register">Create an account</a>'}</p>${r ? '<p class="note">Your current team is saved to your new account.</p>' : ""}</form></section>`
-        }
-        function lgV() {
-            if (!U) return `<section class="lock"><div class="lock-ic">🔒</div><h2>Log in to play with friends</h2><p class="mut">Create private leagues, share the code and see who tops the table.</p><div class="cta-row" style="justify-content:center;display:flex;gap:12px;flex-wrap:wrap"><a class="btn" href="#/login">Log in</a><a class="btn ghost" href="#/register">Register</a></div></section>`;
-            if (sb && !RM.ok) { if (RM.err) return `<div class="lock"><p class="mut">${RM.err}</p><button class="btn" onclick="RM.err='';refresh()">Retry</button></div>`; if (!RM.busy) refresh(); return `<h2>Leagues</h2><div class="lcard sk"></div><div class="lcard sk"></div><div class="lcard sk"></div>` }
-            if (LG && (LG == "ALL" || lgInfo(LG))) {
-                const L = lgInfo(LG);
-                const rows = lgRows(LG), mx = Math.max(1, ...rows.map(r => r.p));
-                return `<button class="chip back" onclick="LG=null;draw()">‹ All leagues</button><div class="lhead"><h2>${lgName(LG)} ${L && L.h2h ? '<span class="tag">H2H</span>' : ""}</h2>${LG != "ALL" ? `<button class="code" onclick="navigator.clipboard&&navigator.clipboard.writeText('${LG}');toast('Code copied: ${LG}')">Code <b>${LG}</b> ⧉</button>` : ""}</div>${L && L.h2h ? `<p class="note">Това е Head-to-Head лига. Отборите се срещат директно всеки кръг!</p>` : ""} ${rows.map((r, i) => `<div class="standing ${r.me ? "me" : ""}" style="animation-delay:${i * .06}s"><span class="lr ${i < 3 ? "t" + (i + 1) : ""}">${i == 0 ? "👑" : i + 1}</span><div><b>${r.n}</b>${r.me ? " <span class='tag'>You</span>" : ""}${r.demo ? " <span class='tag'>Demo</span>" : ""}<small>${r.o}</small></div><b class="p">${r.p}</b><i class="bar2" style="--w:${r.p / mx * 100}%"></i></div>`).join("")}<div class="toolbar"><a class="btn" href="#/play">Update my team</a>${LG != "ALL" ? `<button class="btn ghost" onclick="lv('${LG}')">Leave league</button>` : ""}</div>`
+
+            try {
+                if (AM === "login") {
+                    if (sb) {
+                        const { data, error } = await sb.auth.signInWithPassword({ email, password });
+                        if (error) throw error;
+                        U = su(data.user);
+                        loadS();
+                        await loadRemote();
+                    }
+                    burst();
+                    toast("Успешен вход!");
+                    location.hash = "#/play";
+                } else {
+                    if (!name) {
+                        shake();
+                        return toast("Моля, въведете име на мениджъра");
+                    }
+                    if (sb) {
+                        const { data, error } = await sb.auth.signUp({ email, password, options: { data: { name } } });
+                        if (error) throw error;
+                        U = su(data.user, name);
+                        loadS();
+                    }
+                    burst();
+                    toast("Регистрацията е успешна!");
+                    location.hash = "#/play";
+                }
+                draw();
+            } catch (err) {
+                shake();
+                toast(err.message || "Възникна грешка");
             }
-            const mine = ["ALL"].concat(myLgs());
-            return `<h2>Leagues</h2>${mine.map((c, i) => { const rows = lgRows(c); return `<div class="lcard" style="animation-delay:${i * .07}s" onclick="LG='${c}';draw()"><span class="lr">#${rows.findIndex(r => r.me) + 1}</span><div><b>${lgName(c)}</b><small>${rows.length} managers${c != "ALL" ? " · Code " + c : ""}</small></div><span>›</span></div>` }).join("")}<div class="lforms"><form class="card" onsubmit="return cl(event)" novalidate><h3>➕ Create a standard league</h3><input id="ln" placeholder="League name"><div class="em" id="lne"></div><label class="chk"><input type="checkbox" id="ld" checked> Add demo managers</label><button class="btn" style="animation:none;margin-top:10px">Create</button></form><form class="card" onsubmit="return createH2HLeague(event)" novalidate><h3>⚔️ Create Head-to-Head league</h3><input id="h2h_name" placeholder="H2H League name"><button class="btn" style="animation:none;margin-top:10px">Create H2H</button></form><form class="card" onsubmit="return jl(event)" novalidate><h3>🔑 Join with a code</h3><input id="lj" placeholder="League code" maxlength="6" style="text-transform:uppercase"><div class="em" id="lje"></div><button class="btn" style="animation:none;margin-top:10px">Join</button></form></div>`
         }
-        const MT = window.MATCHES || [], TD = new Date().toLocaleDateString("sv-SE"), byTime = (a, b) => (a.d + a.t).localeCompare(b.d + b.t);
-        const MON = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        const CUR = (MT.filter(m => m.hg == null && !m.pp).sort(byTime)[0] || { r: 26 }).r;
-        let FS = { tab: "cal", rd: CUR, anim: 1 }; FS.day = MT.some(m => m.d == TD) ? TD : (MT.filter(m => m.d >= TD).sort(byTime)[0] || MT[MT.length - 1] || { d: TD }).d; FS.mo = FS.day.slice(0, 7);
-        const fmt = d => new Date(d + "T00:00:00Z").toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" });
-        function fs(k, v) { FS[k] = v; if (k == "day") FS.mo = v.slice(0, 7); FS.anim = k != "day"; draw() }
-        function mo(n) { const [y, m] = FS.mo.split("-").map(Number), s = new Date(Date.UTC(y, m - 1 + n, 1)).toISOString().slice(0, 7); if (s >= "2026-07" && s <= "2027-04") fs("mo", s) }
-        const mc = (m, i, sd) => { const p = m.hg != null; return `<div class="mc ${p ? "ft" : ""}" style="animation-delay:${i * .05}s"><span class="tm"><i class="dot" style="background:${CL[m.h][1]}"></i>${CL[m.h][0]}</span><b class="sc">${p ? m.hg + " – " + m.ag : m.pp ? "PP" : m.t}</b><span class="tm r">${CL[m.a][0]}<i class="dot" style="background:${CL[m.a][1]}"></i></span><small>${sd ? fmt(m.d) + " · " : ""}Round ${m.r}${p ? " · Full time" : m.pp ? " · Postponed" : m.d < TD ? " · Result pending" : ""}</small></div>` };
-        function calV() {
-            const [y, m] = FS.mo.split("-").map(Number), lead = (new Date(Date.UTC(y, m - 1, 1)).getUTCDay() + 6) % 7, n = new Date(Date.UTC(y, m, 0)).getUTCDate(), cnt = {};
-            MT.forEach(x => cnt[x.d] = (cnt[x.d] || 0) + 1);
-            const cells = Array.from({ length: lead }, () => "<i></i>").concat(Array.from({ length: n }, (_, i) => { const d = `${FS.mo}-${String(i + 1).padStart(2, "0")}`, c = cnt[d]; return `<button class="cd ${c ? "has" : ""} ${d == FS.day ? "sel" : ""} ${d == TD ? "td" : ""}" style="animation-delay:${i * .012}s" ${c ? `onclick="fs('day','${d}')"` : "disabled"} aria-label="${d}">${i + 1}${c ? `<b>${c}</b>` : ""}</button>` })).join("");
-            const L = MT.filter(x => x.d == FS.day).sort(byTime);
-            return `<div class="card cal"><div class="calh"><button class="chip" onclick="mo(-1)" aria-label="Previous month">‹</button><h3>${MON[m - 1]} ${y}</h3><button class="chip" onclick="mo(1)" aria-label="Next month">›</button></div><div class="cdg ${FS.anim ? "anim" : ""}">${["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(d => `<span>${d}</span>`).join("")}${cells}</div></div><h3 class="dh">${FS.day == TD ? "Today · " : ""}${fmt(FS.day)}</h3>${L.length ? L.map((x, i) => mc(x, i)).join("") : '<p class="mut">No matches this day.</p>'}`
+
+        function out() {
+            if (sb) sb.auth.signOut();
+            U = null;
+            loadS();
+            toast("Излязохте от профила си");
+            location.hash = "#/";
+            draw();
         }
-        const roundsV = () => `<div class="rds">${Array.from({ length: 26 }, (_, i) => `<button class="chip ${FS.rd == i + 1 ? "on" : ""}" onclick="fs('rd',${i + 1})">${i + 1 == CUR ? "▶ " : ""}R${i + 1}</button>`).join("")}</div><h3 class="dh">Round ${FS.rd}</h3>${MT.filter(x => x.r == FS.rd).sort(byTime).map((x, i) => mc(x, i, 1)).join("")}`;
-        function tableV() {
-            const t = {}, pl = MT.filter(m => m.hg != null); Object.keys(CL).forEach(c => t[c] = { c, p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0 });
-            pl.forEach(m => { const H = t[m.h], A = t[m.a]; H.p++; A.p++; H.gf += m.hg; H.ga += m.ag; A.gf += m.ag; A.ga += m.hg; if (m.hg > m.ag) { H.w++; A.l++ } else if (m.hg < m.ag) { A.w++; H.l++ } else { H.d++; A.d++ } });
-            const rows = Object.values(t).map(x => ({ ...x, gd: x.gf - x.ga, pts: x.w * 3 + x.d })).sort((a, b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf);
-            return `<div class="card tw"><h3>Table <small class="mut">after ${pl.length} matches</small></h3><table class="tbl"><tr><th>#</th><th>Club</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th></tr>${rows.map((r, i) => `<tr><td><span class="rk ${i < 3 ? "top" : ""}">${i + 1}</span></td><td><i class="dot" style="background:${CL[r.c][1]}"></i>${CL[r.c][0]}</td><td>${r.p}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td><td>${r.gd > 0 ? "+" : ""}${r.gd}</td><td><b>${r.pts}</b></td></tr>`).join("")}</table></div>`
-        }
-        const V = {
-            "/": () => `<section class="hero"><img class="hero-logo" src="logo.png" alt="efbet Liga" width="230" height="240"><span class="tag">Season 2026/27 · 14 clubs · Round ${CUR}</span><h1>Be the manager of <span>Bulgarian football</span></h1><p>Pick 15 efbet League players on a ${BUD}M budget, captain your star and climb the table every round. Free to play.</p><div class="cta-row"><a class="btn" href="#/play">Build your team ⚡</a><a class="btn ghost" href="#/rules">How scoring works</a></div></section><div class="stats"><div><b>14</b><small>Clubs</small></div><div><b>15</b><small>Players</small></div><div><b>${BUD}M</b><small>Budget</small></div><div><b>×2</b><small>Captain</small></div></div><div class="grid"><div class="card"><h3>💰 Real budget</h3><p>${BUD}M, max ${LIM} per club, with recommended prices for every player.</p></div><div class="card"><h3>📊 FPL points</h3><p>Goals, assists, clean sheets, cards and captain ×2.</p></div><div class="card"><h3>📅 Real fixtures</h3><p>Check the next round before every transfer.</p></div></div>`,
-            "/play": () => { const pi = pitch(), role = S.pickSlot ? S.pickSlot.split("-")[0] : ""; return `<h2>${S.name || "Your squad"}</h2><div class="sumb"><div><b>${left()}M</b><small>Bank</small></div><div class="mid"><b>${S.pts ? pi.tot : "–"}</b><small>Round pts</small></div><div><b>${S.sq.length}/15</b><small>Squad</small></div></div><div class="seg"><button class="${S.view != "list" ? "on" : ""}" onclick="S.view='pitch';draw()">Pitch</button><button class="${S.view == "list" ? "on" : ""}" onclick="S.view='list';draw()">List</button></div>${rdBar()}${S.view == "list" ? listv() : pi.h}${bar()}<div class="toolbar"><button class="btn ghost" onclick="S.sq=[];S.cap=null;S.pts=null;S.pickSlot=null;S.sel=null;sv();draw()">Reset</button></div><p class="note">Tap an empty position to pick a player. Tap a player to make them captain or remove them. The bench (bottom panel) scores no points; the XI is a fixed 4-4-2. Points come from the player stats entered after each round.</p><div class="market-panel"><div class="market-head"><h3>${role ? `${role} players` : "Choose a position"}</h3>${role ? `<button class="chip" onclick="S.pickSlot=null;draw()">Clear filter</button>` : ""}</div>${list()}</div><div class="card compact"><h3>Save your team</h3>${U ? `<form onsubmit="return sub(event)" novalidate><input id="tn" placeholder="Team name" value="${S.name || ""}"><div class="em" id="e1"></div><button class="btn" id="sb" style="animation:none">Save team</button></form>` : `<p class="mut" style="margin-bottom:12px">Трябва да влезете в профила си, за да запазите отбора.</p><a class="btn" href="#/login">Вход в акаунт</a>`}</div>` },
-            "/transfers": () => transfersV(),
-            "/profile": () => profileV(),
-            "/fixtures": () => !MT.length ? `<h2>Fixtures</h2><p class="note">Schedule data didn't load. Keep fixtures.js next to index.html.</p>` : `<h2>Fixtures &amp; results</h2><p class="mut" style="margin:4px 0 12px">Round ${CUR} is next · Bulgarian local time · source: parvaliga.bg</p><div class="seg s3">${[["cal", "Calendar"], ["rounds", "Rounds"], ["table", "Table"]].map(t => `<button class="${FS.tab == t[0] ? "on" : ""}" onclick="fs('tab','${t[0]}')">${t[1]}</button>`).join("")}</div>${FS.tab == "cal" ? calV() : FS.tab == "rounds" ? roundsV() : tableV()}`,
-            "/rules": () => `<h2>Scoring &amp; budget</h2><div class="rules">${[["Plays 1–59 min", "+1"], ["Plays 60+ min", "+2"], ["Goal · GK / DEF", "+6"], ["Goal · MID", "+5"], ["Goal · FWD", "+4"], ["Assist", "+3"], ["Clean sheet · GK / DEF", "+4"], ["Clean sheet · MID", "+1"], ["Every 3 GK saves", "+1"], ["Penalty save", "+5"], ["Penalty miss", "-2"], ["2 goals conceded · GK / DEF", "-1"], ["Yellow card", "-1"], ["Red card", "-3"], ["Own goal", "-2"], ["Bonus points (BPS)", "+1 to +3"], ["Captain", "×2"]].map(r => `<div class="rule"><span>${r[0]}</span><b class="pt ${r[1][0] == "-" ? "dn" : "up"}">${r[1]}</b></div>`).join("")}</div><div class="stats"><div><b>${BUD}M</b><small>Budget</small></div><div><b>15</b><small>2 GK · 5 DEF · 5 MID · 3 FWD</small></div><div><b>${LIM}</b><small>Max per club</small></div></div><p class="note">Recommended price = 4.2 + 1.7 × √(estimated value in €M), capped 4.0–9.5.</p>`,
-            "/privacy": () => `<article class="doc"><h2>Privacy Policy</h2><p class="mut">Last updated: 11 October 2026</p><h3>1. What we store</h3><p>Your team is saved in your browser or Supabase account.</p><h3>2. Cookies</h3><p>Essential storage keeps your team between visits.</p></article>`,
-            "/terms": () => `<article class="doc"><h2>Terms of Use</h2><p class="mut">Last updated: 11 October 2026</p><h3>1. The game</h3><p>A free game for entertainment, 18+. No prizes, no betting.</p></article>`,
-            "/admin": () => adminV(), "/login": () => authV("login"), "/register": () => authV("register"), "/leagues": () => lgV(),
-            "/404": () => `<section class="nf"><h1>4<span class="ball"></span>4</h1><div class="redcard"></div><h2>Sent off!</h2><p>This page isn't on the team sheet.</p><a class="btn" href="#/">Back to kick-off</a></section>`
+
+        const routes = {
+            "/": () => `
+                <section class="hero">
+                    <div class="hero-copy">
+                        <span class="hero-kicker"><i></i> ФЕНТЪЗИ ИГРАТА НА efbet ЛИГА</span>
+                        <h1>Твоят отбор.<br><span>Твоята лига.</span></h1>
+                        <p>Избери футболистите. Следи истинските мачове. Събери най-много точки и докажи, че ти си най-добрият мениджър.</p>
+                        <div class="hero-actions">
+                            <a class="btn" href="#/play"><span>Създай своя отбор</span><b aria-hidden="true">→</b></a>
+                            <a class="btn ghost" href="#/rules">Как се играе</a>
+                        </div>
+                        <div class="hero-highlights" aria-label="Основни правила">
+                            <div><b>100M</b><span>бюджет</span></div>
+                            <i></i>
+                            <div><b>15</b><span>футболисти</span></div>
+                            <i></i>
+                            <div><b>1</b><span>голям победител</span></div>
+                        </div>
+                    </div>
+                    <div class="hero-visual" aria-hidden="true">
+                        <div class="hero-stadium"></div>
+                        <div class="hero-orbit"></div>
+                        <div class="hero-ball">⚽</div>
+                        <img class="hero-logo" src="logo.png" alt="" width="160" height="168">
+                        <div class="hero-float"><b>100M</b><span>БЮДЖЕТ ЗА ТВОЯ ОТБОР</span></div>
+                        <div class="hero-score"><span>ТВОЯТ ОТБОР</span><b>11 <i>VS</i> ВСИЧКИ</b></div>
+                    </div>
+                </section>
+            `,
+            "/play": () => {
+                prep();
+                const pInfo = pitch();
+                const filled = S.sq.length;
+                const completion = Math.round(filled / 15 * 100);
+                const roleCount = role => S.sq.map(get).filter(p => p.p == role).length;
+                return `
+                    <div class="squad-page">
+                        <section class="page-intro compact-intro squad-intro">
+                            <span class="page-kicker">МЕНИДЖЪРСКИ ЦЕНТЪР · СЕЗОН 2026/27</span>
+                            <h1>Състави своя <span>шампионски отбор.</span></h1>
+                            <p>Избери футболистите, подреди титулярите и следи бюджета си — всяко решение има значение.</p>
+                        </section>
+                        <section class="squad-overview" aria-label="Обобщение на състава">
+                            <article class="squad-stat squad-progress">
+                                <div class="squad-stat-top"><span>ГОТОВНОСТ НА ОТБОРА</span><b>${filled}<i>/15</i></b></div>
+                                <div class="progress-track" role="progressbar" aria-label="Попълване на състава" aria-valuemin="0" aria-valuemax="15" aria-valuenow="${filled}"><span style="width:${completion}%"></span></div>
+                                <small>${filled === 15 ? "Съставът е готов за игра." : `Още ${15 - filled} футболист${15 - filled === 1 ? "" : "и"} до пълен състав.`}</small>
+                            </article>
+                            <article class="squad-stat">
+                                <span>ИЗПОЛЗВАН БЮДЖЕТ</span>
+                                <b>${cost().toFixed(1)}<i> / ${BUD}M</i></b>
+                                <small>Остават ${left().toFixed(1)}M в банката</small>
+                            </article>
+                            <article class="squad-stat">
+                                <span>ТИТУЛЯРЕН СЪСТАВ</span>
+                                <b>1 · 4 · 4 · 2</b>
+                                <small>${roleCount("GK")} ВР · ${roleCount("DEF")} ЗА · ${roleCount("MID")} ХА · ${roleCount("FWD")} НА</small>
+                            </article>
+                        </section>
+                        <section class="squad-name-panel">
+                            <label for="team-name"><span class="page-kicker">ТВОЯТ ОТБОР</span><strong>Дай му име</strong></label>
+                            <input id="team-name" type="text" maxlength="32" placeholder="Например: Шампионите" value="${escapeHTML(S.name || "")}" oninput="S.name=this.value;sv()">
+                            <button class="btn" onclick="push();toast('Отборът е запазен!')"><span aria-hidden="true">✓</span> Запази отбора</button>
+                        </section>
+                        <section class="squad-section">
+                            <div class="section-heading squad-section-heading">
+                                <div><span class="page-kicker">ТИТУЛЯРИ И РЕЗЕРВИ</span><h2>Тактическа дъска</h2></div>
+                                <span class="squad-hint">Избери футболист за детайли · избери празно място за трансфер</span>
+                            </div>
+                            ${rdBar()}
+                            <div class="pitch-wrap">${pInfo.h}</div>
+                            ${bar()}
+                        </section>
+                        <section class="squad-section roster-section">
+                            <div class="section-heading squad-section-heading">
+                                <div><span class="page-kicker">15 МЕСТА · 4 ПОЗИЦИИ</span><h2>Списък на състава</h2></div>
+                                <span class="roster-count">${filled} / 15 избрани</span>
+                            </div>
+                            ${listv()}
+                        </section>
+                        <section class="squad-section market-section">
+                            <div class="section-heading squad-section-heading">
+                                <div><span class="page-kicker">НАМЕРИ СВОЯ ИЗБОР</span><h2>Пазар на футболисти</h2></div>
+                                ${S.pickSlot ? `<span class="roster-count">Позиция: ${S.pickSlot.split("-")[0]}</span>` : ""}
+                            </div>
+                            ${list()}
+                        </section>
+                    </div>
+                `;
+            },
+            "/transfers": transfersV,
+            "/profile": profileV,
+            "/leagues": leaguesV,
+            "/fixtures": fixturesV,
+            "/rules": rulesV,
+            "/privacy": () => `<h2>Политика за поверителност</h2><p class="note">Вашите данни се съхраняват сигурно в Supabase.</p>`,
+            "/terms": () => `<h2>Общи условия</h2><p class="note">Играта е напълно безплатна (18+).</p>`,
+            "/admin": adminPageV,
+            "/login": () => `
+                <div class="auth-card card" style="max-width:400px;margin:40px auto">
+                    <h2>Вход в системата</h2>
+                    <form onsubmit="auth(event)">
+                        <div style="margin-bottom:12px">
+                            <label style="display:block;font-size:13px;margin-bottom:4px">Имейл</label>
+                            <input type="email" id="auth_email" required style="width:100%;padding:8px;background:#111;border:1px solid #333;color:#fff;border-radius:4px">
+                        </div>
+                        <div style="margin-bottom:16px">
+                            <label style="display:block;font-size:13px;margin-bottom:4px">Парола</label>
+                            <input type="password" id="auth_pass" required style="width:100%;padding:8px;background:#111;border:1px solid #333;color:#fff;border-radius:4px">
+                        </div>
+                        <button type="submit" class="btn" style="width:100%">Вход</button>
+                    </form>
+                    <p style="margin-top:16px;text-align:center;font-size:14px">Нямате профил? <a href="#/register" onclick="AM='register'">Регистрирайте се</a></p>
+                </div>
+            `,
+            "/register": () => `
+                <div class="auth-card card" style="max-width:400px;margin:40px auto">
+                    <h2>Регистрация</h2>
+                    <form onsubmit="auth(event)">
+                        <div style="margin-bottom:12px">
+                            <label style="display:block;font-size:13px;margin-bottom:4px">Име на мениджъра</label>
+                            <input type="text" id="auth_name" required style="width:100%;padding:8px;background:#111;border:1px solid #333;color:#fff;border-radius:4px">
+                        </div>
+                        <div style="margin-bottom:12px">
+                            <label style="display:block;font-size:13px;margin-bottom:4px">Имейл</label>
+                            <input type="email" id="auth_email" required style="width:100%;padding:8px;background:#111;border:1px solid #333;color:#fff;border-radius:4px">
+                        </div>
+                        <div style="margin-bottom:16px">
+                            <label style="display:block;font-size:13px;margin-bottom:4px">Парола</label>
+                            <input type="password" id="auth_pass" required style="width:100%;padding:8px;background:#111;border:1px solid #333;color:#fff;border-radius:4px">
+                        </div>
+                        <button type="submit" class="btn" style="width:100%">Регистрация</button>
+                    </form>
+                    <p style="margin-top:16px;text-align:center;font-size:14px">Вече имате профил? <a href="#/login" onclick="AM='login'">Влезте</a></p>
+                </div>
+            `
         };
-        function sub(e) { 
-            e.preventDefault(); 
-            const n = $("#tn"); 
-            let ok = 1;
-            const bad = n.value.trim().length < 3;
-            n.classList.toggle("err", bad);
-            const errEl = $("#e1");
-            if (errEl) errEl.textContent = bad ? "Team name needs 3+ characters" : "";
-            if (bad) ok = 0;
-            if (S.sq.length < 15) { toast("Pick 15 players first"); ok = 0; } 
-            if (!ok) return false; 
-            const b = $("#sb"); 
-            if (b) { b.disabled = 1; b.innerHTML = '<span class="spin"></span> Saving'; } 
-            setTimeout(() => { 
-                S.name = n.value.trim(); 
-                sv(); 
-                if (b) { b.disabled = 0; b.textContent = "Save team"; } 
-                toast("Team saved ✅"); 
-            }, 1100); 
-            return false; 
-        }
+
+        let loaderDismissed = false;
         function draw() {
-            prep(); let r = (location.hash.slice(1) || "/").split("?")[0]; if (!V[r]) r = "/404"; const sy = scrollY; const sticky = $(".sticky"); if (sticky) sticky.classList.toggle("hide", r == "/play" || r == "/admin" || r == "/login" || r == "/register" || U); if (r != "/leagues") { LG = null; RM.ok = false } const app = $("#app"); if (app) app.innerHTML = `<div class="view ${r == PR ? "same" : ""}">${V[r]()}</div>`; const t = PG[r]; document.title = t[0]; let d = document.querySelector('meta[name=description]'); if (d) d.content = t[1]; const ogTitle = document.querySelector('meta[property="og:title"]'); if (ogTitle) ogTitle.content = t[0]; const ogDesc = document.querySelector('meta[property="og:description"]'); if (ogDesc) ogDesc.content = t[1]; 
-            const nav = $("#nav"); 
-            if (nav) nav.innerHTML = [["/", "Home"], ["/play", "Play"], ["/transfers", "Трансфери"], ["/profile", "Профил"], ["/leagues", "Leagues"], ["/fixtures", "Fixtures"], ["/rules", "Rules"]].map(l => `<a href="#${l[0]}" class="${r == l[0] ? "on" : ""}" onclick="const n=$('#nav');if(n)n.classList.remove('open')">${l[1]}</a>`).join("") + (U ? `<a href="#/profile" class="me" title="${U.name}">${U.name[0].toUpperCase()}</a><button class="lo" onclick="out()">Log out</button>` : `<a href="#/login" class="lin ${r == "/login" || r == "/register" ? "on" : ""}" onclick="const n=$('#nav');if(n)n.classList.remove('open')">Log in</a>`);
-            const viewEl = app ? app.querySelector(".view") : null; if (viewEl) viewEl.insertAdjacentHTML("beforeend", `<footer style="margin-top:40px;font-size:13px;color:var(--mut)"><div style="margin-bottom:8px">Contact: <a href="tel:+359877088117">+359 877 088 117</a> · <a href="mailto:hristiandenkov44@gmail.com">hristiandenkov44@gmail.com</a></div><a href="#/privacy">Privacy</a> · <a href="#/terms">Terms</a> · © 2026 efbet League Fantasy. Unofficial fan game.</footer>`);
-            { const rd = document.querySelector(".rds"), on = document.querySelector(".rds .on"); if (rd && on) rd.scrollLeft = on.getBoundingClientRect().left - rd.getBoundingClientRect().left + rd.scrollLeft - rd.clientWidth / 2 + on.offsetWidth / 2 } if (r != PR) scrollTo(0, 0); else scrollTo(0, sy); PR = r
+            const hash = location.hash || "#/";
+            const path = hash.replace("#", "") || "/";
+            const fn = routes[path] || (() => "<h2>404</h2>");
+            const [pageTitle, pageDescription] = PG[path] || PG["/404"];
+            document.title = pageTitle;
+            const description = $('meta[name="description"]');
+            if (description) description.content = pageDescription;
+            document.body.classList.toggle("squad-route", path === "/play");
+            $(".sticky")?.classList.toggle("is-hidden", path === "/play");
+            
+            const app = $("#app");
+            if (app) app.innerHTML = fn();
+
+            const nav = $("#nav");
+            if (nav) {
+                const links = [
+                    ["#/", "Начало"],
+                    ["#/play", "Състав"],
+                    ["#/transfers", "Трансфери"],
+                    ["#/leagues", "Лиги"],
+                    ["#/fixtures", "Програма"],
+                    ["#/rules", "Правила"],
+                    ...(isAdmin() ? [["#/admin", "Админ"]] : []),
+                    U ? ["#/profile", "Профил"] : ["#/login", "Вход"]
+                ];
+                nav.innerHTML = `<span class="nav-indicator" aria-hidden="true"></span>` + links.map(([h, t]) => `<a href="${h}" class="${hash === h ? "on" : ""}" ${hash === h ? 'aria-current="page"' : ""}>${t}</a>`).join("");
+                requestAnimationFrame(syncNavIndicator);
+            }
+
+            const loader = $("#loader");
+            if (loader && !loaderDismissed) {
+                loaderDismissed = true;
+                const entranceDuration = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 200 : 1650;
+                window.setTimeout(() => loader.classList.add("off"), entranceDuration);
+            }
         }
-        addEventListener("hashchange", draw); draw();
-        setTimeout(() => { const l = $("#loader"); if (l) l.classList.add("off"); }, 1700);
-        try { if (!localStorage.getItem("efc")) setTimeout(() => { const c = $("#cookie"); if (c) c.style.display = "block"; }, 2200) } catch (e) { }
+
+        window.addEventListener("hashchange", draw);
+        $("#nav")?.addEventListener("click", event => {
+            if (!event.target.closest("a")) return;
+            $("#nav").classList.remove("open");
+            $("#hamburger")?.setAttribute("aria-expanded", "false");
+            $("#hamburger")?.setAttribute("aria-label", "Отвори навигацията");
+            $("#hamburger")?.replaceChildren(document.createTextNode("☰"));
+        });
+        window.addEventListener("resize", () => requestAnimationFrame(syncNavIndicator));
+        window.addEventListener("DOMContentLoaded", () => {
+            loadS();
+            draw();
+        });
     </script>
 </body>
-
 </html>
