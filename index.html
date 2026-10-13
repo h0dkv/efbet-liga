@@ -80,7 +80,7 @@
             "/leagues": ["Leagues – efbet League Fantasy", "Create or join leagues and compete with friends."], 
             "/404": ["Page Not Found – efbet League Fantasy", "This page was sent off. Head back to the efbet League Fantasy home page."] 
         };
-        const SB = { url: "", key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZjcWN3Z2pubW9ha2dpbHNxdHZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE2ODQ5MTgsImV4cCI6MjEwNzI2MDkxOH0.KkyPUklKanIHadLOEs5clnYi8UhVv2k4n6UyIqKFNtA    " };
+        const SB = { url: "https://fcqcwgjnmoakgilsqtvk.supabase.co", key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZjcWN3Z2pubW9ha2dpbHNxdHZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE2ODQ5MTgsImV4cCI6MjEwNzI2MDkxOH0.KkyPUklKanIHadLOEs5clnYi8UhVv2k4n6UyIqKFNtA    " };
         let sb = null; try { if (SB.url && SB.key && window.supabase) sb = window.supabase.createClient(SB.url, SB.key) } catch (e) { }
         let PR = "", RM = { ok: false, busy: false, err: "", my: [], rows: {} };
         const DBK = "efdb"; let DB = { users: {}, leagues: {} }, U = null, LG = null, S, AM = "login";
