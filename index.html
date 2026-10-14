@@ -795,44 +795,152 @@
             "/privacy": () => `<h2>Политика за поверителност</h2><p class="note">Вашите данни се съхраняват сигурно в Supabase.</p>`,
             "/terms": () => `<h2>Общи условия</h2><p class="note">Играта е напълно безплатна (18+).</p>`,
             "/admin": adminPageV,
-            "/login": () => `
-                <div class="auth-card card" style="max-width:400px;margin:40px auto">
-                    <h2>Вход в системата</h2>
-                    <form onsubmit="auth(event)">
-                        <div style="margin-bottom:12px">
-                            <label style="display:block;font-size:13px;margin-bottom:4px">Имейл</label>
-                            <input type="email" id="auth_email" required style="width:100%;padding:8px;background:#111;border:1px solid #333;color:#fff;border-radius:4px">
+            "/login": () => {
+                const isRegister = AM === "register";
+                return `
+                    <section class="auth-shell">
+                        <div class="auth-card card">
+                            <div class="auth-switch" role="tablist" aria-label="Избор на вид на вход">
+                                <button type="button" class="auth-tab ${!isRegister ? "on" : ""}" onclick="AM='login'; location.hash='#/login'; draw()" aria-selected="${!isRegister}">Вход</button>
+                                <button type="button" class="auth-tab ${isRegister ? "on" : ""}" onclick="AM='register'; location.hash='#/register'; draw()" aria-selected="${isRegister}">Регистрация</button>
+                            </div>
+                            <div class="auth-stage ${isRegister ? "is-register" : "is-login"}">
+                                <form class="auth-form login-form" onsubmit="auth(event)">
+                                    <div class="auth-form-grid">
+                                        <div class="auth-fields">
+                                            <div class="auth-kicker">Добре дошли обратно</div>
+                                            <h2>Влез в своя профил</h2>
+                                            <div class="field-wrap">
+                                                <label for="auth_email">Имейл</label>
+                                                <input type="email" id="auth_email" required>
+                                            </div>
+                                            <div class="field-wrap">
+                                                <label for="auth_pass">Парола</label>
+                                                <input type="password" id="auth_pass" required>
+                                            </div>
+                                            <button type="submit" class="btn auth-submit">Вход</button>
+                                            <p class="auth-footnote">Нямате профил? <a href="#/register" onclick="AM='register'; draw()">Създайте го</a></p>
+                                        </div>
+                                        <div class="auth-visual" aria-hidden="true">
+                                            <span class="auth-badge">efbet fantasy</span>
+                                            <h3>Създай отбора си</h3>
+                                            <ul>
+                                                <li>15 играчи</li>
+                                                <li>100M бюджет</li>
+                                                <li>Победител в лига</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </form>
+                                <form class="auth-form register-form" onsubmit="auth(event)">
+                                    <div class="auth-form-grid">
+                                        <div class="auth-fields">
+                                            <div class="auth-kicker">Започни играта</div>
+                                            <h2>Създай нов профил</h2>
+                                            <div class="field-wrap">
+                                                <label for="auth_name">Име на мениджъра</label>
+                                                <input type="text" id="auth_name" required>
+                                            </div>
+                                            <div class="field-wrap">
+                                                <label for="auth_email_register">Имейл</label>
+                                                <input type="email" id="auth_email_register" required>
+                                            </div>
+                                            <div class="field-wrap">
+                                                <label for="auth_pass_register">Парола</label>
+                                                <input type="password" id="auth_pass_register" required>
+                                            </div>
+                                            <button type="submit" class="btn auth-submit">Регистрация</button>
+                                            <p class="auth-footnote">Вече имате профил? <a href="#/login" onclick="AM='login'; draw()">Влезте</a></p>
+                                        </div>
+                                        <div class="auth-visual" aria-hidden="true">
+                                            <span class="auth-badge">efbet fantasy</span>
+                                            <h3>Твоята лига започва тук</h3>
+                                            <ul>
+                                                <li>Проектирай отбор</li>
+                                                <li>Следи реалните мачове</li>
+                                                <li>Състезавай се с приятели</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <div style="margin-bottom:16px">
-                            <label style="display:block;font-size:13px;margin-bottom:4px">Парола</label>
-                            <input type="password" id="auth_pass" required style="width:100%;padding:8px;background:#111;border:1px solid #333;color:#fff;border-radius:4px">
+                    </section>
+                `;
+            },
+            "/register": () => {
+                AM = "register";
+                return `
+                    <section class="auth-shell">
+                        <div class="auth-card card">
+                            <div class="auth-switch" role="tablist" aria-label="Избор на вид на вход">
+                                <button type="button" class="auth-tab ${AM === "login" ? "on" : ""}" onclick="AM='login'; location.hash='#/login'; draw()" aria-selected="${AM === "login"}">Вход</button>
+                                <button type="button" class="auth-tab ${AM === "register" ? "on" : ""}" onclick="AM='register'; location.hash='#/register'; draw()" aria-selected="${AM === "register"}">Регистрация</button>
+                            </div>
+                            <div class="auth-stage ${AM === "register" ? "is-register" : "is-login"}">
+                                <form class="auth-form login-form" onsubmit="auth(event)">
+                                    <div class="auth-form-grid">
+                                        <div class="auth-fields">
+                                            <div class="auth-kicker">Добре дошли обратно</div>
+                                            <h2>Влез в своя профил</h2>
+                                            <div class="field-wrap">
+                                                <label for="auth_email">Имейл</label>
+                                                <input type="email" id="auth_email" required>
+                                            </div>
+                                            <div class="field-wrap">
+                                                <label for="auth_pass">Парола</label>
+                                                <input type="password" id="auth_pass" required>
+                                            </div>
+                                            <button type="submit" class="btn auth-submit">Вход</button>
+                                            <p class="auth-footnote">Нямате профил? <a href="#/register" onclick="AM='register'; draw()">Създайте го</a></p>
+                                        </div>
+                                        <div class="auth-visual" aria-hidden="true">
+                                            <span class="auth-badge">efbet fantasy</span>
+                                            <h3>Създай отбора си</h3>
+                                            <ul>
+                                                <li>15 играчи</li>
+                                                <li>100M бюджет</li>
+                                                <li>Победител в лига</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </form>
+                                <form class="auth-form register-form" onsubmit="auth(event)">
+                                    <div class="auth-form-grid">
+                                        <div class="auth-fields">
+                                            <div class="auth-kicker">Започни играта</div>
+                                            <h2>Създай нов профил</h2>
+                                            <div class="field-wrap">
+                                                <label for="auth_name">Име на мениджъра</label>
+                                                <input type="text" id="auth_name" required>
+                                            </div>
+                                            <div class="field-wrap">
+                                                <label for="auth_email_register">Имейл</label>
+                                                <input type="email" id="auth_email_register" required>
+                                            </div>
+                                            <div class="field-wrap">
+                                                <label for="auth_pass_register">Парола</label>
+                                                <input type="password" id="auth_pass_register" required>
+                                            </div>
+                                            <button type="submit" class="btn auth-submit">Регистрация</button>
+                                            <p class="auth-footnote">Вече имате профил? <a href="#/login" onclick="AM='login'; draw()">Влезте</a></p>
+                                        </div>
+                                        <div class="auth-visual" aria-hidden="true">
+                                            <span class="auth-badge">efbet fantasy</span>
+                                            <h3>Твоята лига започва тук</h3>
+                                            <ul>
+                                                <li>Проектирай отбор</li>
+                                                <li>Следи реалните мачове</li>
+                                                <li>Състезавай се с приятели</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <button type="submit" class="btn" style="width:100%">Вход</button>
-                    </form>
-                    <p style="margin-top:16px;text-align:center;font-size:14px">Нямате профил? <a href="#/register" onclick="AM='register'">Регистрирайте се</a></p>
-                </div>
-            `,
-            "/register": () => `
-                <div class="auth-card card" style="max-width:400px;margin:40px auto">
-                    <h2>Регистрация</h2>
-                    <form onsubmit="auth(event)">
-                        <div style="margin-bottom:12px">
-                            <label style="display:block;font-size:13px;margin-bottom:4px">Име на мениджъра</label>
-                            <input type="text" id="auth_name" required style="width:100%;padding:8px;background:#111;border:1px solid #333;color:#fff;border-radius:4px">
-                        </div>
-                        <div style="margin-bottom:12px">
-                            <label style="display:block;font-size:13px;margin-bottom:4px">Имейл</label>
-                            <input type="email" id="auth_email" required style="width:100%;padding:8px;background:#111;border:1px solid #333;color:#fff;border-radius:4px">
-                        </div>
-                        <div style="margin-bottom:16px">
-                            <label style="display:block;font-size:13px;margin-bottom:4px">Парола</label>
-                            <input type="password" id="auth_pass" required style="width:100%;padding:8px;background:#111;border:1px solid #333;color:#fff;border-radius:4px">
-                        </div>
-                        <button type="submit" class="btn" style="width:100%">Регистрация</button>
-                    </form>
-                    <p style="margin-top:16px;text-align:center;font-size:14px">Вече имате профил? <a href="#/login" onclick="AM='login'">Влезте</a></p>
-                </div>
-            `
+                    </section>
+                `;
+            }
         };
 
         let loaderDismissed = false;
