@@ -22,16 +22,37 @@
 <body>
     <div class="site-shell">
         <div id="loader" role="status" aria-label="Зареждане на фентъзи efbet Лига">
+            <div class="loader-scene" aria-hidden="true">
+                <div class="loader-broadcast"><i></i> НА ЖИВО <span>СЕЗОН 2026/27</span></div>
+                <div class="loader-scoreboard">
+                    <span class="score-team">efbet</span>
+                    <strong><span>00</span> <i>:</i> <span class="score-goal">00</span></strong>
+                    <span class="score-team">FANTASY</span>
+                    <small>ТВОЯТА ЛИГА ЗАПОЧВА СЕГА</small>
+                </div>
+                <div class="loader-lights"><i></i><i></i><i></i><i></i></div>
+                <div class="loader-crowd"></div>
+                <div class="loader-main-pitch">
+                    <span class="pitch-markings"></span>
+                    <span class="loader-goal"><i></i></span>
+                    <span class="stadium-player player-one"></span>
+                    <span class="stadium-player player-two"></span>
+                    <span class="stadium-player player-three"></span>
+                </div>
+                <span class="loader-ball-flight"><i></i></span>
+                <div class="loader-goal-call"><span>СТАДИОНЪТ Е ТВОЙ</span><strong>GOALLLLL!</strong></div>
+                <div class="loader-confetti">
+                    <i></i><i></i><i></i><i></i><i></i><i></i>
+                    <i></i><i></i><i></i><i></i><i></i><i></i>
+                    <i></i><i></i><i></i><i></i><i></i><i></i>
+                </div>
+            </div>
             <div class="loader-content">
                 <div class="ld-logo"><img src="logo.png" alt="" width="96" height="101"></div>
                 <p class="loader-brand">efbet <b>FANTASY</b></p>
-                <div class="loader-pitch" aria-hidden="true">
-                    <span class="loader-center"></span>
-                    <span class="ball">⚽</span>
-                    <span class="shadow"></span>
-                </div>
                 <p class="loader-caption">ГОТОВИ ЛИ СТЕ ЗА МАЧА?</p>
                 <div class="bar"><i></i></div>
+                <button class="loader-skip" type="button" onclick="dismissLoader()">Пропусни интрото <span aria-hidden="true">↗</span></button>
             </div>
         </div>
 
@@ -87,6 +108,15 @@
                 $("#hamburger")?.replaceChildren(document.createTextNode(isOpen ? "×" : "☰"));
                 requestAnimationFrame(syncNavIndicator);
             }
+        }
+        function closeMobileMenu(restoreFocus = false) {
+            const nav = $("#nav"), button = $("#hamburger");
+            if (!nav?.classList.contains("open")) return;
+            nav.classList.remove("open");
+            button?.setAttribute("aria-expanded", "false");
+            button?.setAttribute("aria-label", "Отвори навигацията");
+            button?.replaceChildren(document.createTextNode("☰"));
+            if (restoreFocus) button?.focus();
         }
         function syncNavIndicator() {
             const nav = $("#nav"), active = nav?.querySelector("a.on"), indicator = nav?.querySelector(".nav-indicator");
@@ -157,6 +187,8 @@
             "/admin": ["Админ – Фентъзи efbet Лига", "Управление на статистиките за футболистите."],
             "/login": ["Вход – Фентъзи efbet Лига", "Влез в профила си, за да управляваш своя отбор."],
             "/register": ["Регистрация – Фентъзи efbet Лига", "Създай безплатен профил и започни своята фентъзи игра."],
+            "/forgot-password": ["Забравена парола – Фентъзи efbet Лига", "Заяви имейл с линк за възстановяване на паролата си."],
+            "/reset-password": ["Нова парола – Фентъзи efbet Лига", "Задай нова парола за своя профил във фентъзи efbet Лига."],
             "/leagues": ["Лиги – Фентъзи efbet Лига", "Създай частна лига или се присъедини към приятели с код за покана."],
             "/404": ["Страницата не е намерена – Фентъзи efbet Лига", "Тази страница не съществува. Върни се към началото на фентъзи efbet Лига."]
         };
@@ -688,6 +720,88 @@
             }
         }
 
+        function setAuthMessage(id, message, isError = false) {
+            const element = document.getElementById(id);
+            if (!element) return;
+            element.textContent = message;
+            element.classList.toggle("is-error", isError);
+            element.hidden = !message;
+        }
+
+        function resetCallbackUrl() {
+            const url = new URL(window.location.href);
+            url.searchParams.set("auth", "reset");
+            url.hash = "";
+            return url.toString();
+        }
+
+        function hasPasswordRecoveryError() {
+            const params = new URLSearchParams(location.hash.slice(1));
+            return params.has("error") || params.has("error_code") || params.has("error_description");
+        }
+
+        async function requestPasswordReset(ev) {
+            ev.preventDefault();
+            const form = ev.currentTarget;
+            const email = form.querySelector("#reset_email").value.trim();
+            const button = form.querySelector('button[type="submit"]');
+            setAuthMessage("forgot-password-message", "");
+
+            if (!sb) {
+                setAuthMessage("forgot-password-message", "Възстановяването на парола временно не е достъпно.", true);
+                return;
+            }
+
+            button.disabled = true;
+            try {
+                const { error } = await sb.auth.resetPasswordForEmail(email, {
+                    redirectTo: resetCallbackUrl()
+                });
+                if (error) throw error;
+                form.hidden = true;
+                document.getElementById("forgot-password-sent").hidden = false;
+            } catch (error) {
+                setAuthMessage("forgot-password-message", error.message || "Неуспешно изпращане на имейла. Опитай отново.", true);
+            } finally {
+                button.disabled = false;
+            }
+        }
+
+        async function updatePassword(ev) {
+            ev.preventDefault();
+            const form = ev.currentTarget;
+            const password = form.querySelector("#new_password").value;
+            const confirmation = form.querySelector("#confirm_password").value;
+            const button = form.querySelector('button[type="submit"]');
+            setAuthMessage("reset-password-message", "");
+
+            if (password !== confirmation) {
+                setAuthMessage("reset-password-message", "Паролите не съвпадат.", true);
+                form.querySelector("#confirm_password").focus();
+                return;
+            }
+            if (!sb) {
+                setAuthMessage("reset-password-message", "Възстановяването на парола временно не е достъпно.", true);
+                return;
+            }
+
+            button.disabled = true;
+            try {
+                const { error } = await sb.auth.updateUser({ password });
+                if (error) throw error;
+                const url = new URL(window.location.href);
+                url.searchParams.delete("auth");
+                url.hash = "/login";
+                history.replaceState(null, "", url);
+                draw();
+                toast("Паролата е променена. Влез с новата си парола.");
+            } catch (error) {
+                setAuthMessage("reset-password-message", error.message || "Неуспешна смяна на паролата. Провери линка и опитай отново.", true);
+            } finally {
+                button.disabled = false;
+            }
+        }
+
         function out() {
             if (sb) sb.auth.signOut();
             U = null;
@@ -699,7 +813,7 @@
 
         const routes = {
             "/": () => `
-                <section class="hero">
+                <section class="hero home-hero">
                     <div class="hero-copy">
                         <span class="hero-kicker"><i></i> ФЕНТЪЗИ ИГРАТА НА efbet ЛИГА</span>
                         <h1>Твоят отбор.<br><span>Твоята лига.</span></h1>
@@ -717,12 +831,41 @@
                         </div>
                     </div>
                     <div class="hero-visual" aria-hidden="true">
+                        <div class="hero-visual-tag"><i></i> EFBET ЛИГА <span>·</span> 2026/27</div>
                         <div class="hero-stadium"></div>
                         <div class="hero-orbit"></div>
                         <div class="hero-ball">⚽</div>
                         <img class="hero-logo" src="logo.png" alt="" width="160" height="168">
-                        <div class="hero-float"><b>100M</b><span>БЮДЖЕТ ЗА ТВОЯ ОТБОР</span></div>
-                        <div class="hero-score"><span>ТВОЯТ ОТБОР</span><b>11 <i>VS</i> ВСИЧКИ</b></div>
+                        <div class="hero-visual-foot"><span>01 — 27</span><b>ТВОЯТ ХОД Е СЕГА</b></div>
+                    </div>
+                </section>
+                <section class="home-steps" aria-labelledby="home-steps-title">
+                    <div class="home-steps-heading">
+                        <div>
+                            <span class="home-section-kicker"><i></i> ТВОЯТА ИГРА, ТВОИТЕ РЕШЕНИЯ</span>
+                            <h2 id="home-steps-title">Три хода до <span>върха.</span></h2>
+                        </div>
+                        <p>Влез в играта, избери стратегията си и превърни всеки футболен кръг в шанс за победа.</p>
+                    </div>
+                    <div class="home-step-grid">
+                        <article class="home-step-card step-build">
+                            <div class="home-step-top"><span>01</span><i aria-hidden="true">⚽</i></div>
+                            <h3>Събери своя отбор</h3>
+                            <p>Избери 15 футболисти в рамките на бюджета и подреди своята стартова единайсеторка.</p>
+                            <a href="#/play">Изгради състав <b aria-hidden="true">↗</b></a>
+                        </article>
+                        <article class="home-step-card step-follow">
+                            <div class="home-step-top"><span>02</span><i aria-hidden="true">✦</i></div>
+                            <h3>Следи всеки кръг</h3>
+                            <p>Точките се печелят на терена. Следи резултатите и виж как се представя твоят избор.</p>
+                            <a href="#/fixtures">Виж програмата <b aria-hidden="true">↗</b></a>
+                        </article>
+                        <article class="home-step-card step-win">
+                            <div class="home-step-top"><span>03</span><i aria-hidden="true">♛</i></div>
+                            <h3>Играй за върха</h3>
+                            <p>Сравни резултата си с останалите мениджъри и се бори за първото място.</p>
+                            <a href="#/leagues">Открий лигите <b aria-hidden="true">↗</b></a>
+                        </article>
                     </div>
                 </section>
             `,
@@ -795,16 +938,83 @@
             "/privacy": () => `<h2>Политика за поверителност</h2><p class="note">Вашите данни се съхраняват сигурно в Supabase.</p>`,
             "/terms": () => `<h2>Общи условия</h2><p class="note">Играта е напълно безплатна (18+).</p>`,
             "/admin": adminPageV,
+            "/forgot-password": () => `
+                <section class="auth-shell">
+                    <div class="auth-card auth-recovery-card card">
+                        <div class="auth-stage is-login">
+                            <div class="auth-form-grid auth-recovery-grid">
+                                <div class="auth-fields">
+                                    <div class="auth-kicker">ВЪЗСТАНОВЯВАНЕ НА ПРОФИЛ</div>
+                                    <h2>Забравена парола?</h2>
+                                    <p class="auth-recovery-copy">Въведи имейла, с който си регистриран. Ще ти изпратим линк за създаване на нова парола.</p>
+                                    <form id="forgot-password-form" onsubmit="requestPasswordReset(event)">
+                                        <div class="field-wrap">
+                                            <label for="reset_email">Имейл</label>
+                                            <input type="email" id="reset_email" autocomplete="email" required>
+                                        </div>
+                                        <p id="forgot-password-message" class="auth-message" role="alert" hidden></p>
+                                        <button type="submit" class="btn auth-submit">Изпрати линк</button>
+                                    </form>
+                                    <div id="forgot-password-sent" class="auth-recovery-sent" role="status" hidden>
+                                        <strong>Провери пощата си</strong>
+                                        <p>Ако има профил с този имейл, ще получиш съобщение с линк за смяна на паролата.</p>
+                                    </div>
+                                    <p class="auth-footnote"><a href="#/login">Обратно към вход</a></p>
+                                </div>
+                                <div class="auth-visual" aria-hidden="true">
+                                    <span class="auth-badge">efbet fantasy</span>
+                                    <h3>Връщай се в играта.</h3>
+                                    <ul><li>Отборът ти те чака</li><li>Задай нова парола сигурно</li><li>Продължи сезона</li></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `,
+            "/reset-password": () => `
+                <section class="auth-shell">
+                    <div class="auth-card auth-recovery-card card">
+                        <div class="auth-stage is-login">
+                            <div class="auth-form-grid auth-recovery-grid">
+                                <div class="auth-fields">
+                                    <div class="auth-kicker">ПОСЛЕДНА СТЪПКА</div>
+                                    <h2>Създай нова парола</h2>
+                                    <p class="auth-recovery-copy">Избери нова парола за профила си и я потвърди.</p>
+                                    <form id="reset-password-form" onsubmit="updatePassword(event)" ${hasPasswordRecoveryError() ? "hidden" : ""}>
+                                        <div class="field-wrap">
+                                            <label for="new_password">Нова парола</label>
+                                            <input type="password" id="new_password" autocomplete="new-password" minlength="6" required>
+                                        </div>
+                                        <div class="field-wrap">
+                                            <label for="confirm_password">Потвърди паролата</label>
+                                            <input type="password" id="confirm_password" autocomplete="new-password" minlength="6" required>
+                                        </div>
+                                        <p id="reset-password-message" class="auth-message" role="alert" hidden></p>
+                                        <button type="submit" class="btn auth-submit">Запази новата парола</button>
+                                    </form>
+                                    ${hasPasswordRecoveryError() ? `<p class="auth-message is-error" role="alert">Линкът за възстановяване е невалиден или е изтекъл. <a href="#/forgot-password">Заяви нов линк</a>.</p>` : ""}
+                                    <p class="auth-footnote"><a href="#/login">Обратно към вход</a></p>
+                                </div>
+                                <div class="auth-visual" aria-hidden="true">
+                                    <span class="auth-badge">efbet fantasy</span>
+                                    <h3>Отново на терена.</h3>
+                                    <ul><li>Използвай уникална парола</li><li>Потвърди я внимателно</li><li>Продължи играта си</li></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `,
             "/login": () => {
-                const isRegister = AM === "register";
+                AM = "login";
                 return `
                     <section class="auth-shell">
                         <div class="auth-card card">
                             <div class="auth-switch" role="tablist" aria-label="Избор на вид на вход">
-                                <button type="button" class="auth-tab ${!isRegister ? "on" : ""}" onclick="AM='login'; location.hash='#/login'; draw()" aria-selected="${!isRegister}">Вход</button>
-                                <button type="button" class="auth-tab ${isRegister ? "on" : ""}" onclick="AM='register'; location.hash='#/register'; draw()" aria-selected="${isRegister}">Регистрация</button>
+                                <button type="button" class="auth-tab on" onclick="AM='login'; location.hash='#/login'; draw()" aria-selected="true">Вход</button>
+                                <button type="button" class="auth-tab" onclick="AM='register'; location.hash='#/register'; draw()" aria-selected="false">Регистрация</button>
                             </div>
-                            <div class="auth-stage ${isRegister ? "is-register" : "is-login"}">
+                            <div class="auth-stage is-login">
                                 <form class="auth-form login-form" onsubmit="auth(event)">
                                     <div class="auth-form-grid">
                                         <div class="auth-fields">
@@ -819,6 +1029,7 @@
                                                 <input type="password" id="auth_pass" required>
                                             </div>
                                             <button type="submit" class="btn auth-submit">Вход</button>
+                                            <p class="auth-footnote"><a href="#/forgot-password">Забравена парола?</a></p>
                                             <p class="auth-footnote">Нямате профил? <a href="#/register" onclick="AM='register'; draw()">Създайте го</a></p>
                                         </div>
                                         <div class="auth-visual" aria-hidden="true">
@@ -944,15 +1155,31 @@
         };
 
         let loaderDismissed = false;
+        let loaderTimer, scoreRevealTimer;
+        function dismissLoader() {
+            const loader = $("#loader");
+            if (!loader || loader.classList.contains("off")) return;
+            window.clearTimeout(loaderTimer);
+            window.clearTimeout(scoreRevealTimer);
+            loader.classList.add("off");
+            if (loader.contains(document.activeElement)) {
+                $(".topbar .logo")?.focus({ preventScroll: true });
+            }
+            loader.setAttribute("aria-hidden", "true");
+        }
+
         function draw() {
             const hash = location.hash || "#/";
-            const path = hash.replace("#", "") || "/";
+            const path = new URLSearchParams(location.search).get("auth") === "reset"
+                ? "/reset-password"
+                : (hash.replace("#", "") || "/");
             const fn = routes[path] || (() => "<h2>404</h2>");
             const [pageTitle, pageDescription] = PG[path] || PG["/404"];
             document.title = pageTitle;
             const description = $('meta[name="description"]');
             if (description) description.content = pageDescription;
             document.body.classList.toggle("squad-route", path === "/play");
+            document.body.classList.toggle("auth-route", ["/login", "/register", "/forgot-password", "/reset-password"].includes(path));
             $(".sticky")?.classList.toggle("is-hidden", path === "/play");
             
             const app = $("#app");
@@ -977,20 +1204,37 @@
             const loader = $("#loader");
             if (loader && !loaderDismissed) {
                 loaderDismissed = true;
-                const entranceDuration = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 200 : 1650;
-                window.setTimeout(() => loader.classList.add("off"), entranceDuration);
+                const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                const entranceDuration = reducedMotion ? 200 : 7000;
+                loader.classList.add("is-ready");
+                if (!reducedMotion) {
+                    scoreRevealTimer = window.setTimeout(() => {
+                        const score = $("#loader .score-goal");
+                        if (score) score.textContent = "01";
+                    }, 3650);
+                }
+                loaderTimer = window.setTimeout(dismissLoader, entranceDuration);
             }
         }
 
         window.addEventListener("hashchange", draw);
         $("#nav")?.addEventListener("click", event => {
             if (!event.target.closest("a")) return;
-            $("#nav").classList.remove("open");
-            $("#hamburger")?.setAttribute("aria-expanded", "false");
-            $("#hamburger")?.setAttribute("aria-label", "Отвори навигацията");
-            $("#hamburger")?.replaceChildren(document.createTextNode("☰"));
+            closeMobileMenu();
         });
-        window.addEventListener("resize", () => requestAnimationFrame(syncNavIndicator));
+        document.addEventListener("pointerdown", event => {
+            const nav = $("#nav"), button = $("#hamburger");
+            if (nav?.classList.contains("open") && !nav.contains(event.target) && !button?.contains(event.target)) {
+                closeMobileMenu();
+            }
+        });
+        document.addEventListener("keydown", event => {
+            if (event.key === "Escape") closeMobileMenu(true);
+        });
+        window.addEventListener("resize", () => {
+            if (window.matchMedia("(min-width: 901px)").matches) closeMobileMenu();
+            requestAnimationFrame(syncNavIndicator);
+        });
         window.addEventListener("DOMContentLoaded", () => {
             loadS();
             draw();
