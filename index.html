@@ -10,8 +10,17 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="Фентъзи efbet Лига">
     <meta property="og:description" content="Създай своя отбор. Избери 15 футболисти с бюджет от 100M.">
-    <meta property="og:image" content="https://YOUR-DOMAIN/og.png">
+    <meta property="og:image" content="https://h0dkv.github.io/efbet-liga/og.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="https://h0dkv.github.io/efbet-liga/">
+    <meta property="og:site_name" content="Фентъзи efbet Лига">
+    <meta property="og:locale" content="bg_BG">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Фентъзи efbet Лига">
+    <meta name="twitter:description" content="Създай своя отбор. Избери 15 футболисти с бюджет от 100M.">
+    <meta name="twitter:image" content="https://h0dkv.github.io/efbet-liga/og.png">
+    <link rel="canonical" href="https://h0dkv.github.io/efbet-liga/">
     <meta name="theme-color" content="#0a0a0a">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
@@ -52,15 +61,16 @@
                 <p class="loader-brand">efbet <b>FANTASY</b></p>
                 <p class="loader-caption">ГОТОВИ ЛИ СТЕ ЗА МАЧА?</p>
                 <div class="bar"><i></i></div>
-                <button class="loader-skip" type="button" onclick="dismissLoader()">Пропусни интрото <span aria-hidden="true">↗</span></button>
+                <button class="loader-skip" type="button" onclick="dismissLoader()">Пропусни интрото <span
+                        aria-hidden="true">↗</span></button>
             </div>
         </div>
 
         <header class="topbar">
             <a class="logo" href="#/" aria-label="efbet Liga Fantasy home"><img src="logo.png" alt="" width="34"
                     height="36"><span>FAN<b>TASY</b></span></a>
-            <button id="hamburger" class="hamburger" aria-label="Отвори навигацията" aria-controls="nav" aria-expanded="false"
-                onclick="toggleMobileMenu()">☰</button>
+            <button id="hamburger" class="hamburger" aria-label="Отвори навигацията" aria-controls="nav"
+                aria-expanded="false" onclick="toggleMobileMenu()">☰</button>
             <nav id="nav" aria-label="Основна навигация"></nav>
         </header>
 
@@ -86,14 +96,17 @@
         </footer>
 
         <div class="sticky"><a class="btn" href="#/play">Създай своя отбор</a></div>
-        <div id="cookie"><b>🍪 Cookies</b>
-            <p style="margin:6px 0;font-size:14px;color:var(--mut)">We use local storage to save your team. See our <a
-                    href="#/privacy">Privacy Policy</a>.</p><button class="btn" style="animation:none;padding:10px 18px"
-                onclick="ck(1)">Accept</button> <button class="btn ghost" style="padding:10px 18px"
-                onclick="ck(0)">Essential only</button>
+        <div id="cookie" role="dialog" aria-live="polite" aria-label="Бисквитки">
+            <b>🍪 Бисквитки и локално хранилище</b>
+            <p>Използваме локално хранилище, за да запазим отбора ти и избора ти за бисквитки. Виж <a
+                    href="#/privacy">Политиката за поверителност</a>.</p>
+            <div class="ck-actions"><button class="btn" type="button" onclick="ck(1)">Приемам</button> <button
+                    class="btn ghost" type="button" onclick="ck(0)">Само необходимите</button></div>
         </div>
+        <script>try { if (localStorage.getItem("efc")) document.getElementById("cookie").style.display = "none" } catch (e) { }</script>
         <div id="toast"></div>
     </div>
+    <script src="players.js"></script>
     <script src="stats.js"></script>
     <script src="results.js"></script>
     <script src="fixtures.js"></script>
@@ -126,9 +139,9 @@
             indicator.style.transform = `translate(${active.offsetLeft}px, ${active.offsetTop}px)`;
         }
         const CL = { LUD: ["Ludogorets", "#1b7f3b"], LEV: ["Levski", "#2a5bff"], CSK: ["CSKA Sofia", "#d62839"], C48: ["CSKA 1948", "#a4161a"], SLA: ["Slavia", "#ffffff"], LPD: ["Lokomotiv Plovdiv", "#222"], LSF: ["Lokomotiv Sofia", "#c1121f"], BPD: ["Botev Plovdiv", "#111"], BVR: ["Botev Vratsa", "#f4a300"], CHM: ["Cherno More", "#0a7c5a"], ARD: ["Arda", "#2e8b57"], DUN: ["Dunav", "#4361ee"], SEP: ["Septemvri", "#b5179e"], SPV: ["Spartak Varna", "#7b2cbf"] };
-        const D = { LEV: "GK:Svetoslav Vutsov,Ognyan Vladimirov;DEF:Christian Makoun,Aldair,Maicon;MID:Marko Grujić,Everton Bala,El Mehdi Moubarik;FWD:Mustapha Sangaré,Reinaldo", LUD: "GK:Ivo Grbić,Hendrik Bonmann;DEF:Hossam Abdelmaguid,Omar Rekik,Mihail Polendakov;MID:Aguibou Camara,Amir Hadžiahmetović,Deroy Duarte;FWD:Nathan Fernandes,Rwan Cruz,Kwadwo Duah", CSK: "GK:Fedor Lapoukhov,Dimitar Evtimov;DEF:Tamimou Ouorou,Jean-Philippe Gbamin,Facundo Rodríguez;MID:Stefano Sensi,James Eto'o,Léo Pereira;FWD:Ioannis Pittas,Leandro Godoy,Joël Zwarts", C48: "GK:Aleks Bozhev,Dimitar Sheytanov;DEF:Diego Medina,Lasha Dvali,Benaissa Benamar;MID:Moataz Zemzemi,Héctor Cuellar,Georgi Rusev;FWD:Mamadou Diallo,Atanas Iliev", ARD: "GK:Anatoli Gospodinov,Yanko Georgiev;DEF:Viktor Popov,Martin Paskalev,Viktor Lyubenov;MID:Stanislav Ivanov,Dominik Yankov,Birsent Karagaren;FWD:Georgi Nikolov,Preslav Bachev", BPD: "GK:Daniel Naumov,Hristiyan Slavkov;DEF:Nikola Soldo,Simeon Petrov,Timothy Awany;MID:Nikola Iliev,Samuel Kalu,Mauro Rodrigues;FWD:Franklin Mascote,Chidera Micheal Okoh", SLA: "GK:Levi Ntumba,Ivan Andonov;DEF:Jordan Semedo Varela,David Malembana,Nikola Savić;MID:Roberto Raychev,Ivan Minchev,Kristiyan Stoyanov;FWD:Vladimir Nikolov,Yoan Bornosuzov", BVR: "GK:Marin Orlinov,Lyubomir Vasilev;DEF:Sainey Sanyang,Ivan Goranov,Martin Dimitrov;MID:José Gallegos,Kassim Hadji,Daniel Genov;FWD:Martin Petkov,Preslav Borukov", SEP: "GK:Nikolay Krastev,Vladimir Ivanov;DEF:Stipe Vulikić,Valentine Ozornwafor,Kubrat Onashchi;MID:Nicolas Fontaine,Pedro Igor,Galin Ivanov;FWD:Frantzety Herard,Edney Ribeiro", LSF: "GK:Martin Velichkov,Aleksandar Lyubenov;DEF:Ryan Bidounga,David Ogaga,Angel Lyaskov;MID:Spas Delev,Adil Taoui,Mohamed Medfai;FWD:Ante Aralica,Georgi Minchev", LPD: "GK:Petar Zovko,Bojan Milosavljević;DEF:Adrián Cova,Andrei Chindriş,Lucas Ryan;MID:Parvizdzhon Umarbaev,Sevi Idriz,Julien Lamy;FWD:Christ Longville,Yoan Dzhelepov", CHM: "GK:Damyan Hristov,Kristian Tomov;DEF:Zhivko Atanasov,Asen Donchev,Luciano Squadrone;MID:Mohamed Achi,Ivan Tasev,Vasil Panayotov;FWD:Aleksandar Kolev,Georgi Lazarov", DUN: "GK:Georgi Kitanov,Plamen Pepelyashev;DEF:Bozhidar Chorbadzhiyski,Eliseé Sou,Stanislav Yovkov;MID:Vladan Vidaković,Kristian Boytchev,Denislav Minchev;DEF:Charles Yaw Appiah,Jordan Saint-Louis", SPV: "GK:Plamen Iliev,Pedro Victor;DEF:Mateo Jurić-Petrašilo,Angel Granchov,Boris Ivanov;MID:Sámuel Major,Tsvetoslav Marinov,Ricardo Sousa;FWD:Ahmed Ahmedov,Tsvetelin Chunchukov,Ángel Gomes Arevalo" };
+        // Отборите и футболистите са в players.js (window.SQUAD_TEXT)
         const BASE = { LUD: 3, LEV: 2.5, CSK: 2, C48: 1.5, ARD: 1, BPD: .9, SLA: .8, CHM: .6, BVR: .5, SEP: .5, LSF: .5, LPD: .5, DUN: .4, SPV: .5 }, PM = { GK: .7, DEF: .8, MID: 1, FWD: 1.15 }, P = [];
-        Object.keys(D).forEach(c => D[c].split(";").forEach(t => { const [p, l] = t.split(":"); l.split(",").forEach((n, i) => { const mv = BASE[c] * PM[p] * Math.pow(.8, i); P.push({ id: P.length, n, p, c, mv: +mv.toFixed(2), rec: +Math.min(9.5, Math.max(4, 4.2 + 1.7 * Math.sqrt(mv))).toFixed(1) }) }) }));
+        Object.entries(window.SQUAD_TEXT || {}).forEach(([c, s]) => s.split("|").forEach(t => { const [n, p, v] = t.split(":"), mv = +v; P.push({ id: P.length, n, p, c, mv, rec: +Math.min(9.5, Math.max(4, 4.2 + 1.7 * Math.sqrt(mv))).toFixed(1) }) }));
         P.forEach(x => x.pr = Math.round(x.rec * 2) / 2);
         const POS = { GK: [2, 1], DEF: [5, 4], MID: [5, 4], FWD: [3, 2] }, BUD = 100, LIM = 3;
         const MT = window.MATCHES || [];
@@ -192,7 +205,7 @@
             "/leagues": ["Лиги – Фентъзи efbet Лига", "Създай частна лига или се присъедини към приятели с код за покана."],
             "/404": ["Страницата не е намерена – Фентъзи efbet Лига", "Тази страница не съществува. Върни се към началото на фентъзи efbet Лига."]
         };
-        const SB = { url: "https://fcqcwgjnmoakgilsqtvk.supabase.co", key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZjcWN3Z2pubW9ha2dpbHNxdHZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3PTI2ODQ5MTgsImV4cCI6MjEwNzI2MDkxOH0.KkyPUklKanIHadLOEs5clnYi8UhVv2k4n6UyIqKFNtA" };
+        const SB = { url: "https://fcqcwgjnmoakgilsqtvk.supabase.co", key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZjcWN3Z2pubW9ha2dpbHNxdHZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE2ODQ5MTgsImV4cCI6MjEwNzI2MDkxOH0.KkyPUklKanIHadLOEs5clnYi8UhVv2k4n6UyIqKFNtA" };
         let sb = null; try { if (SB.url && SB.key && window.supabase) sb = window.supabase.createClient(SB.url, SB.key) } catch (e) { }
         let RM = { ok: false, busy: false, err: "", my: [], rows: {} };
         const DBK = "efdb"; let DB = { users: {}, leagues: {} }, U = null, S, AM = "login";
@@ -271,7 +284,7 @@
 
         function xiIds() { return S.rd ? getEffectiveLineupAndSubs(S.rd).xi : ["GK", "DEF", "MID", "FWD"].flatMap(r => S.sq.map(get).filter(p => p.p == r).slice(0, { GK: 1, DEF: 4, MID: 4, FWD: 2 }[r]).map(p => p.id)); }
         function rtot(r) { const pts = rpts(r); return xiIds().reduce((t, id) => t + (pts[id] || 0) * (S.cap == id ? 2 : 1), 0) }
-        
+
         function prep() {
             if (!S || !S.sq) return; const rds = RDS();
             if (!S.sq.length || !rds.length) { S.pts = null; if (S.tp) { S.tp = 0; sv() } return }
@@ -281,7 +294,7 @@
         }
         const setR = r => { S.rd = r; sv(); draw() };
         const rdBar = () => { const r = RDS(); return r.length ? `<div class="rds">${r.map(x => `<button class="chip ${S.rd == x ? "on" : ""}" onclick="setR(${x})">К${x}</button>`).join("")}<span class="mut" style="align-self:center;margin-left:8px;white-space:nowrap">Общо ${S.tp || 0} т.</span></div>` : '<p class="note">Точките ще се появят тук след въвеждането на статистиките за изиграните мачове.</p>' };
-        
+
         function bar() {
             const p = S.sel != null && S.sq.includes(S.sel) && get(S.sel); if (!p) return "";
             const m = S.pts && MT.find(x => x.r == S.rd && (x.h == p.c || x.a == p.c) && x.hg != null), s = m && pstat(m, p), L = s ? fplx(p.p, s) : [];
@@ -298,7 +311,7 @@
             if (adwEl) adwEl.textContent = wtxt(m);
         }
         function full(k, id) { const p = get(id), a = ((SS()[k] || {})[pk(p)] || []).slice(); if (!a.length) a.push(0); a[0] = 90; ad(k, id, 0, 90); draw() }
-        
+
         async function fetchLineupsForMatch(matchKey, homeClubId, awayClubId) {
             try {
                 if (!sb) return toast("Supabase не е свързан");
@@ -323,10 +336,10 @@
                 </div>
                 <table class="adt">
                     <tr><th>Player</th>${["Min", "G", "A", "YC", "RC", "OG", "PM", "PS", "SV", "BPS"].map(h => `<th>${h}</th>`).join("")}<th>Pts</th></tr>
-                    ${P.filter(p => p.c == c).map(p => { 
-                        const a = (SS()[k] || {})[pk(p)] || []; 
-                        return `<tr><td>${p.n}<small>${p.p} · <a href="javascript:full('${k}',${p.id})">90 min</a></small></td>${F.map((f, i) => `<td><input type="number" inputmode="numeric" min="0" max="${i ? 20 : 120}" value="${a[i] || ""}" placeholder="0" onchange="ad('${k}',${p.id},${i},this.value)"></td>`).join("")}<td><b id="pt${p.id}">${ptxt(m, p)}</b></td></tr>` 
-                    }).join("")}
+                    ${P.filter(p => p.c == c).map(p => {
+                const a = (SS()[k] || {})[pk(p)] || [];
+                return `<tr><td>${p.n}<small>${p.p} · <a href="javascript:full('${k}',${p.id})">90 min</a></small></td>${F.map((f, i) => `<td><input type="number" inputmode="numeric" min="0" max="${i ? 20 : 120}" value="${a[i] || ""}" placeholder="0" onchange="ad('${k}',${p.id},${i},this.value)"></td>`).join("")}<td><b id="pt${p.id}">${ptxt(m, p)}</b></td></tr>`
+            }).join("")}
                 </table>
             </div>`;
         }
@@ -351,7 +364,7 @@
             const card = (role, i) => {
                 const p = by(role)[i], key = `${role}-${i}`, bench = i >= ST[role];
                 if (!p) return `<button class="pc empty ${S.pickSlot == key ? "active" : ""}" aria-label="Избери футболист за позиция ${role}" onclick="S.pickSlot='${key}';S.sel=null;draw();go();toast('Избери футболист за ${role}')"><i class="sh"></i><span class="pn">${role}</span><span class="pp">+ Добави</span></button>`;
-                
+
                 const cap = S.cap == p.id, pt = S.pts && S.pts[p.id] != null ? S.pts[p.id] * (cap && !bench ? 2 : 1) : null;
                 if (pt != null && !bench) tot += pt;
                 d += .05;
@@ -388,6 +401,84 @@
             const players = P.filter(p => p.p == role && !can(p)).sort((a, b) => b.pr - a.pr);
             if (!players.length) return `<div class="market-empty">Няма достъпни футболисти на тази позиция в рамките на бюджета и ограниченията на състава.</div>`;
             return `<div class="market-grid">${players.map(p => `<button class="market-card" onclick="pickToSlot('${S.pickSlot}',${p.id})"><div class="market-top"><div><strong>${p.n}</strong><span>${CL[p.c][0]}</span></div><span class="market-pos">${p.p}</span></div><div class="market-bottom"><div><b>${p.pr}M</b><small>Цена</small></div><div><b style="color:var(--y)">${p.rec}</b><small>Оценка</small></div><span class="chip chip-primary">Избери</span></div></button>`).join("")}</div>`;
+        }
+
+        // --- Всички футболисти: търсене и филтри ---
+        const normTxt = s => String(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        const DIR = { q: "", pos: "ALL", club: "ALL", sort: "rec" };
+        function dirList() {
+            const q = normTxt(DIR.q.trim());
+            const sorts = {
+                rec: (a, b) => b.rec - a.rec,
+                price: (a, b) => b.pr - a.pr,
+                cheap: (a, b) => a.pr - b.pr,
+                name: (a, b) => a.n.localeCompare(b.n, "bg")
+            };
+            return P
+                .filter(p => (DIR.pos === "ALL" || p.p === DIR.pos) && (DIR.club === "ALL" || p.c === DIR.club))
+                .filter(p => !q || normTxt(p.n).includes(q) || normTxt(CL[p.c][0]).includes(q))
+                .sort(sorts[DIR.sort] || sorts.rec);
+        }
+        function dirReason(p) {
+            if (S.sq.includes(p.id)) return "В състава";
+            const r = can(p);
+            if (!r) return "";
+            if (r === "Over budget") return "Над бюджета";
+            if (r === "Squad full") return "Съставът е пълен";
+            if (String(r).includes("club")) return "Лимит за клуба";
+            return "Лимит за позиция";
+        }
+        function dirCard(p, i) {
+            const reason = dirReason(p), inSquad = S.sq.includes(p.id);
+            return `<article class="pl-card${inSquad ? " is-in" : ""}" style="--club:${CL[p.c][1]};--i:${Math.min(i, 18)}">
+                <div class="pl-top"><span class="pl-pos pos-${p.p}">${p.p}</span><span class="pl-club">${CL[p.c][0]}</span></div>
+                <h3 class="pl-name">${escapeHTML(p.n)}</h3>
+                <div class="pl-meta"><div><b>${p.pr}M</b><small>Цена</small></div><div><b>${p.rec}</b><small>Оценка</small></div></div>
+                <button type="button" class="pl-add" ${reason ? "disabled" : ""} onclick="pickToSlot('',${p.id})">${reason || "+ Добави"}</button>
+            </article>`;
+        }
+        function dirGrid() {
+            const list = dirList();
+            return list.length
+                ? list.map(dirCard).join("")
+                : `<div class="market-empty pl-empty"><span aria-hidden="true">🔍</span><p>Няма футболисти по този критерий. Опитай с друго име или филтър.</p></div>`;
+        }
+        function paintDir() {
+            const g = $("#pl-grid"), c = $("#pl-count");
+            if (g) g.innerHTML = dirGrid();
+            if (c) c.textContent = `${dirList().length} от ${P.length} футболиста`;
+        }
+        function playersDirV() {
+            const chip = (v, t) => `<button type="button" class="pl-chip${DIR.pos === v ? " on" : ""}" onclick="DIR.pos='${v}';draw()">${t}</button>`;
+            const sortOpt = (v, t) => `<option value="${v}"${DIR.sort === v ? " selected" : ""}>${t}</option>`;
+            return `
+                <section class="squad-section pl-dir" aria-labelledby="pl-title">
+                    <div class="section-heading squad-section-heading">
+                        <div><span class="page-kicker">ВСИЧКИ ФУТБОЛИСТИ</span><h2 id="pl-title">Търсене на играчи</h2></div>
+                        <span class="roster-count" id="pl-count">${dirList().length} от ${P.length} футболиста</span>
+                    </div>
+                    <div class="pl-tools">
+                        <div class="pl-row">
+                            <label class="pl-search">
+                                <span aria-hidden="true">⌕</span>
+                                <input id="pl-q" type="search" placeholder="Търси по име или клуб…" autocomplete="off" value="${escapeHTML(DIR.q)}" oninput="DIR.q=this.value;paintDir()">
+                            </label>
+                            <div class="pl-selects">
+                                <select aria-label="Филтър по клуб" onchange="DIR.club=this.value;draw()">
+                                    <option value="ALL">Всички клубове</option>
+                                    ${Object.keys(CL).map(c => `<option value="${c}"${DIR.club === c ? " selected" : ""}>${CL[c][0]}</option>`).join("")}
+                                </select>
+                                <select aria-label="Подреди по" onchange="DIR.sort=this.value;draw()">
+                                    ${sortOpt("rec", "По оценка")}${sortOpt("price", "Цена ↓")}${sortOpt("cheap", "Цена ↑")}${sortOpt("name", "По име")}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="pl-chips" role="group" aria-label="Филтър по позиция">
+                            ${chip("ALL", "Всички")}${chip("GK", "Вратари")}${chip("DEF", "Защитници")}${chip("MID", "Полузащитници")}${chip("FWD", "Нападатели")}
+                        </div>
+                    </div>
+                    <div class="pl-grid" id="pl-grid">${dirGrid()}</div>
+                </section>`;
         }
 
         // --- Трансфери и Краен срок (Deadline) ---
@@ -479,73 +570,166 @@
         async function loadLeagues() {
             if (!sb || !U) return;
             try {
-                const { data } = await sb.from("league_members").select("league_code, leagues(name, code)").eq("user_id", U.id);
-                if (data) LEAGUES_LIST = data.map(x => x.leagues);
-            } catch (e) {}
+                const { data, error } = await sb.from("league_members").select("league_code, leagues(name, code, owner_id)").eq("user_id", U.id);
+                if (!error && data) LEAGUES_LIST = data.map(x => x.leagues).filter(Boolean);
+            } catch (e) { }
         }
-
+        const LG_CHARS = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+        const newLeagueCode = () => Array.from(crypto.getRandomValues(new Uint8Array(6)), b => LG_CHARS[b % LG_CHARS.length]).join("");
         async function createLeague(e) {
             e.preventDefault();
             const name = $("#league_name")?.value.trim();
-            if (!name) return toast("Въведете име на лигата");
-            const code = Math.random().toString(36).slice(2, 8).toUpperCase();
-            if (sb) {
-                await sb.from("leagues").insert({ code, name, owner_id: U.id });
-                await sb.from("league_members").insert({ league_code: code, user_id: U.id });
-            }
-            toast(`Лигата бе създадена с код: ${code}`);
+            if (!name) return toast("Въведи име на лигата");
+            if (!sb || !U) return toast("Влез в профила си, за да създадеш лига");
+            const code = newLeagueCode();
+            const { error } = await sb.from("leagues").insert({ code, name, owner_id: U.id });
+            if (error) return toast("Лигата не можа да се създаде. Опитай отново.");
+            await sb.from("league_members").insert({ league_code: code, user_id: U.id });
             await loadLeagues();
+            toast(`Лигата „${name}“ е готова!`);
+            location.hash = `#/league/${code}`;
             draw();
         }
-
         async function joinLeague(e) {
             e.preventDefault();
-            const code = $("#league_code")?.value.trim().toUpperCase();
-            if (!code) return toast("Въведете код на лигата");
-            if (sb) {
-                const { error } = await sb.from("league_members").insert({ league_code: code, user_id: U.id });
-                if (error) return toast("Грешен код или вече сте в лигата");
-            }
-            toast("Успешно се присъедиnихте към лигата!");
+            const code = $("#league_code")?.value.trim().toUpperCase().replace(/\s+/g, "");
+            if (!code) return toast("Въведи код на лигата");
+            if (!sb || !U) return toast("Влез в профила си, за да се присъединиш");
+            if (LEAGUES_LIST.some(l => l.code === code)) return toast("Вече си в тази лига");
+            const { data: lgRows } = await sb.rpc("league_name_by_code", { lcode: code });
+            const lg = lgRows && lgRows[0];
+            if (!lg) return toast("Няма лига с този код");
+            const { error } = await sb.from("league_members").insert({ league_code: code, user_id: U.id });
+            if (error) return toast("Не успяхме да те добавим. Опитай отново.");
             await loadLeagues();
+            toast(`Включи се в „${lg.name}“!`);
+            location.hash = `#/league/${code}`;
             draw();
         }
-
+        async function leaveLeague(code) {
+            if (!sb || !U) return;
+            if (!confirm("Сигурен ли си, че искаш да напуснеш лигата?")) return;
+            const { error } = await sb.from("league_members").delete().eq("league_code", code).eq("user_id", U.id);
+            if (error) return toast("Не успяхме да те премахнем. Опитай отново.");
+            await loadLeagues();
+            toast("Напусна лигата");
+            location.hash = "#/leagues";
+            draw();
+        }
+        async function deleteLeague(code) {
+            if (!sb || !U) return;
+            if (!confirm("Лигата ще бъде изтрита за всички участници. Продължаваш ли?")) return;
+            const { error: e1 } = await sb.from("league_members").delete().eq("league_code", code);
+            const { error: e2 } = e1 ? { error: e1 } : await sb.from("leagues").delete().eq("code", code).eq("owner_id", U.id);
+            if (e1 || e2) return toast("Не успяхме да изтрием лигата. Опитай отново.");
+            await loadLeagues();
+            toast("Лигата е изтрита");
+            location.hash = "#/leagues";
+            draw();
+        }
+        function copyCode(code) {
+            navigator.clipboard?.writeText(code).then(() => toast("Кодът е копиран")).catch(() => toast(`Код: ${code}`));
+        }
+        async function fetchStandings(code) {
+            if (!sb) throw new Error("no-backend");
+            const { data: mem, error } = await sb.from("league_members").select("user_id").eq("league_code", code);
+            if (error) throw error;
+            const ids = (mem || []).map(m => m.user_id);
+            if (!ids.length) return [];
+            const { data: prof, error: e2 } = await sb.from("profiles").select("id, team_name, total_pts").in("id", ids);
+            if (e2) throw e2;
+            return ids.map(id => {
+                const p = (prof || []).find(x => x.id === id) || {};
+                const mine = id === U.id;
+                return { id, team: (mine ? S.name : p.team_name) || "Отбор без име", pts: mine ? (S.tp || 0) : (p.total_pts || 0) };
+            }).sort((a, b) => b.pts - a.pts);
+        }
+        function standingsHTML(rows) {
+            if (!rows.length) return `<div class="empty-state card"><span class="empty-icon">🏆</span><h3>Още няма участници</h3><p class="mut">Сподели кода, за да се включат приятели.</p></div>`;
+            const max = Math.max(1, ...rows.map(r => r.pts));
+            return `<div class="st-list">${rows.map((r, i) => `
+                <div class="st-row${r.id === U.id ? " me" : ""}" style="--d:${i * 70}ms">
+                    <span class="st-pos">${i < 3 ? ["🥇", "🥈", "🥉"][i] : i + 1}</span>
+                    <div class="st-main"><b>${escapeHTML(r.team)}${r.id === U.id ? " · ти" : ""}</b><div class="st-bar"><i style="width:${Math.round(r.pts / max * 100)}%"></i></div></div>
+                    <span class="st-pts">${r.pts}<small>т.</small></span>
+                </div>`).join("")}</div>`;
+        }
+        async function loadStandings(code) {
+            const box = $("#standings");
+            if (!box) return;
+            try {
+                box.innerHTML = standingsHTML(await fetchStandings(code));
+            } catch (e) {
+                box.innerHTML = `<div class="empty-state card"><p class="mut">Класирането не може да се зареди в момента. Опитай по-късно.</p></div>`;
+            }
+        }
+        const lgCard = (l, i) => `
+            <article class="lg-tile card" style="--i:${i}">
+                <a class="lg-open" href="#/league/${l.code}" aria-label="Класиране на ${escapeHTML(l.name || "лигата")}">
+                    <span class="lg-trophy" aria-hidden="true">🏆</span>
+                    <div><span class="page-kicker">${l.owner_id === U.id ? "ДОМАКИН" : "УЧАСТНИК"}</span><h3>${escapeHTML(l.name || "Лига без име")}</h3></div>
+                    <span class="lg-arrow" aria-hidden="true">→</span>
+                </a>
+                <div class="lg-code"><span>КОД</span><b>${l.code}</b><button type="button" class="lg-copy" onclick="copyCode('${l.code}')">Копирай</button></div>
+            </article>`;
         function leaguesV() {
             if (!U) return `<section class="lock"><div class="lock-ic">🔒</div><h2>Състезавай се с приятели</h2><p class="mut">Влез в профила си, за да създадеш частна лига или да се присъединиш с покана.</p><div class="cta-row"><a class="btn" href="#/login">Вход</a><a class="btn ghost" href="#/register">Регистрация</a></div></section>`;
+            const n = LEAGUES_LIST.length, owned = LEAGUES_LIST.filter(l => l.owner_id === U.id).length;
             return `
-                <section class="page-intro compact-intro">
+                <section class="lg-hero">
                     <span class="page-kicker">ИГРАЙ С ПРИЯТЕЛИ</span>
                     <h1>Твоята лига.<br><span>Вашето дерби.</span></h1>
-                    <p>Създай частно състезание или влез в лига с покана и сравни точките си с приятелите.</p>
+                    <p>Създай частно състезание или влез с покана и следи кой води в класирането всеки кръг.</p>
+                    <div class="lg-stats">
+                        <div><b>${n}</b><small>Лиги</small></div>
+                        <div><b>${owned}</b><small>Ти си домакин</small></div>
+                    </div>
                 </section>
-                <div class="league-actions">
-                    <article class="card league-action-card">
-                        <span class="action-icon">＋</span><span class="page-kicker">ТИ СИ ДОМАКИН</span>
-                        <h2>Създай лига</h2><p class="mut">Дай име на лигата. Ще получиш код, който да споделиш с приятелите.</p>
-                        <form class="league-form" onsubmit="createLeague(event)">
-                            <label for="league_name">Име на лигата</label>
-                            <input type="text" id="league_name" placeholder="Например: Офис лигата" maxlength="40" required>
-                            <button type="submit" class="btn">Създай лига <b aria-hidden="true">→</b></button>
-                        </form>
-                    </article>
-                    <article class="card league-action-card">
-                        <span class="action-icon">↗</span><span class="page-kicker">ИМАШ ПОКАНА?</span>
-                        <h2>Присъедини се</h2><p class="mut">Въведи кода за покана, за да се включиш в частното класиране.</p>
-                        <form class="league-form" onsubmit="joinLeague(event)">
-                            <label for="league_code">Код за покана</label>
-                            <input type="text" id="league_code" placeholder="Например: AB12CD" maxlength="12" autocapitalize="characters" required>
-                            <button type="submit" class="btn ghost">Въведи код <b aria-hidden="true">→</b></button>
-                        </form>
-                    </article>
+                <div class="lg-actions">
+                    <form class="lg-card card" onsubmit="createLeague(event)">
+                        <span class="lg-ic" aria-hidden="true">＋</span>
+                        <span class="page-kicker">ТИ СИ ДОМАКИН</span>
+                        <h2>Създай лига</h2>
+                        <p class="mut">Дай име на лигата и сподели кода с приятелите си.</p>
+                        <label for="league_name" class="sr-only">Име на лигата</label>
+                        <input type="text" id="league_name" placeholder="Например: Офис лигата" maxlength="40" required>
+                        <button type="submit" class="btn">Създай лига →</button>
+                    </form>
+                    <form class="lg-card card" onsubmit="joinLeague(event)">
+                        <span class="lg-ic" aria-hidden="true">↗</span>
+                        <span class="page-kicker">ИМАШ ПОКАНА?</span>
+                        <h2>Присъедини се</h2>
+                        <p class="mut">Въведи кода, който си получил от приятел.</p>
+                        <label for="league_code" class="sr-only">Код за покана</label>
+                        <input type="text" id="league_code" placeholder="Например: AB12CD" maxlength="12" autocapitalize="characters" autocomplete="off" required>
+                        <button type="submit" class="btn ghost">Влез в лигата →</button>
+                    </form>
                 </div>
-                <div class="section-heading"><div><span class="page-kicker">ТВОИТЕ СЪСТЕЗАНИЯ</span><h2>Моите лиги</h2></div><span class="league-count">${LEAGUES_LIST.length} ${LEAGUES_LIST.length == 1 ? "лига" : "лиги"}</span></div>
-                ${LEAGUES_LIST.length ? `<div class="league-grid">${LEAGUES_LIST.map(l => `
-                    <article class="league-card card">
-                        <span class="league-card-icon">🏆</span>
-                        <div class="league-card-copy"><span class="page-kicker">ЧАСТНА ЛИГА</span><h3>${l.name || "Лига без име"}</h3></div>
-                        <div class="league-code"><span>КОД ЗА ПОКАНА</span><b>${l.code || "—"}</b></div>
-                    </article>`).join("")}</div>` : `<div class="empty-state card"><span class="empty-icon">🏆</span><h3>Още не участваш в лига</h3><p class="mut">Създай своя лига или използвай код за покана, за да започнете състезанието.</p></div>`}
+                <div class="section-heading"><div><span class="page-kicker">ТВОИТЕ СЪСТЕЗАНИЯ</span><h2>Моите лиги</h2></div><span class="league-count">${n} ${n === 1 ? "лига" : "лиги"}</span></div>
+                ${n ? `<div class="lg-grid">${LEAGUES_LIST.map(lgCard).join("")}</div>` : `<div class="empty-state card"><span class="empty-icon">🏆</span><h3>Още не участваш в лига</h3><p class="mut">Създай своя лига или използвай код за покана, за да започнете състезанието.</p></div>`}
+            `;
+        }
+        function leagueDetailV(code) {
+            if (!U) return leaguesV();
+            const L = LEAGUES_LIST.find(l => l.code === code);
+            if (!L) return `<section class="lock"><div class="lock-ic">🔎</div><h2>Лигата не е намерена</h2><p class="mut">Нямаш достъп до лига с код ${escapeHTML(code)}.</p><div class="cta-row"><a class="btn" href="#/leagues">Към лигите</a></div></section>`;
+            const isOwner = L.owner_id === U.id;
+            setTimeout(() => loadStandings(code), 0);
+            return `
+                <section class="lg-hero">
+                    <a class="lg-back" href="#/leagues">← Всички лиги</a>
+                    <span class="page-kicker">${isOwner ? "ДОМАКИН" : "УЧАСТНИК"} · ЧАСТНА ЛИГА</span>
+                    <h1>${escapeHTML(L.name || "Лига без име")}</h1>
+                    <div class="lg-code lg-code-big"><span>КОД ЗА ПОКАНА</span><b>${L.code}</b><button type="button" class="lg-copy" onclick="copyCode('${L.code}')">Копирай</button></div>
+                </section>
+                <section class="card lg-board">
+                    <div class="section-heading"><div><span class="page-kicker">КЛАСИРАНЕ</span><h2>Класиране</h2></div></div>
+                    <div id="standings"><div class="st-skel" aria-hidden="true"></div></div>
+                </section>
+                <div class="pf-actions">
+                    <a class="btn ghost" href="#/leagues">Назад към лигите</a>
+                    ${isOwner ? `<button class="btn ghost" onclick="deleteLeague('${L.code}')">Изтрий лигата</button>` : `<button class="btn ghost" onclick="leaveLeague('${L.code}')">Напусни лигата</button>`}
+                </div>
             `;
         }
 
@@ -574,15 +758,15 @@
                     <div class="fixture-round-heading"><div><span class="page-kicker">EFBET ЛИГА</span><h2>Кръг ${round}</h2></div><span class="fixture-progress">${played} от ${matches.length} завършени</span></div>
                     <div class="fixture-list">
                         ${matches.map(m => {
-                            const [status, state] = fixtureStatus(m);
-                            return `<article class="fixture-card ${state}">
+                const [status, state] = fixtureStatus(m);
+                return `<article class="fixture-card ${state}">
                                 <div class="fixture-date"><b>${fmtMatchDate(m)}</b><span>${m.pp ? "Часът ще бъде обявен" : m.t}</span></div>
                                 <div class="fixture-team home-team"><span class="club-mark" style="--club:${CL[m.h][1]}">${m.h}</span><b>${CL[m.h][0]}</b></div>
                                 <div class="fixture-score">${m.hg != null && m.ag != null ? `<b>${m.hg}<i>:</i>${m.ag}</b>` : `<span>${m.pp ? "ОТЛОЖЕН" : "VS"}</span>`}</div>
                                 <div class="fixture-team away-team"><span class="club-mark" style="--club:${CL[m.a][1]}">${m.a}</span><b>${CL[m.a][0]}</b></div>
                                 <span class="fixture-status ${state}"><i></i>${status}</span>
                             </article>`;
-                        }).join("") || `<div class="market-empty">Няма програмирани мачове за този кръг.</div>`}
+            }).join("") || `<div class="market-empty">Няма програмирани мачове за този кръг.</div>`}
                     </div>
                     <p class="fixture-footnote">Часовете са по българско време. Програмата може да бъде променяна от организатора.</p>
                 </section>
@@ -640,28 +824,64 @@
         }
 
         function profileV() {
-            if (!U) return `<section class="lock"><div class="lock-ic">🔒</div><h2>Влезте в профила си</h2><p class="mut">Моля, влезте в системата.</p><div class="cta-row" style="justify-content:center;display:flex;gap:12px"><a class="btn" href="#/login">Вход</a><a class="btn ghost" href="#/register">Регистрация</a></div></section>`;
-            const historyEntries = Object.entries(S.history || {}).sort((a, b) => a[0] - b[0]);
+            if (!U) return `<section class="lock"><div class="lock-ic">🔒</div><h2>Влез в профила си</h2><p class="mut">Моля, влез в системата.</p><div class="cta-row"><a class="btn" href="#/login">Вход</a><a class="btn ghost" href="#/register">Регистрация</a></div></section>`;
+            prep();
+            const hist = Object.entries(S.history || {}).map(([r, p]) => [+r, +p]).sort((a, b) => a[0] - b[0]);
+            const pts = hist.map(h => h[1]);
+            const total = S.tp || 0;
+            const best = pts.length ? Math.max(...pts) : 0;
+            const avg = pts.length ? (pts.reduce((x, y) => x + y, 0) / pts.length) : 0;
+            const initials = (U.name || "?").split(/\s+/).filter(Boolean).map(w => w[0]).join("").slice(0, 2).toUpperCase();
+            const squad = S.sq.map(get).filter(Boolean);
+            const bars = hist.length
+                ? `<div class="pf-bars">${hist.map(([r, p], i) => `<div class="pf-bar" title="Кръг ${r}: ${p} т." style="--d:${i * 70}ms"><span class="pf-val">${p}</span><i class="pf-fill" style="--h:${Math.max(6, Math.round(p / Math.max(best, 1) * 100))}%"></i><span class="pf-lbl">К${r}</span></div>`).join("")}</div>`
+                : `<div class="empty-state"><span class="empty-icon">📈</span><p class="mut">Графиката ще се появи, когато започнат да се изиграват кръгове.</p></div>`;
+            const squadChips = squad.length
+                ? `<div class="pf-squad">${squad.map(p => `<span class="pf-pl"><b class="pos-${p.p}">${p.p}</b>${escapeHTML(p.n.split(" ").pop())}${S.cap == p.id ? " <i>К</i>" : ""}</span>`).join("")}</div>`
+                : `<p class="empty-mini">Още нямаш футболисти. <a href="#/play">Изгради отбора си</a>.</p>`;
+            const leagueLinks = LEAGUES_LIST.length
+                ? LEAGUES_LIST.map(l => `<a class="pf-league" href="#/league/${l.code}"><span style="font-family:inherit;opacity:1;font-size:15px;letter-spacing:0">🏆 ${escapeHTML(l.name || "Лига")}</span><span>${l.code}</span></a>`).join("")
+                : `<p class="empty-mini">Още не си в лига. <a href="#/leagues">Създай или се присъедини</a>.</p>`;
             return `
-                <h2>Личен профил и История</h2>
-                <div class="card" style="margin-top:16px">
-                    <h3>Данни за мениджъра</h3>
-                    <p><b>Име:</b> ${U.name}</p>
-                    <p><b>Имейл:</b> ${U.email}</p>
-                    <p><b>Отбор:</b> ${S.name || "Няма име"}</p>
-                    <p><b>Общо точки:</b> ${S.tp || 0}</p>
-                    <div class="toolbar" style="margin-top:16px">
-                        <a class="btn" href="#/play">Редактирай отбора</a>
-                        <button class="btn ghost" onclick="out()">Изход</button>
+                <section class="pf-hero">
+                    <div class="pf-avatar" aria-hidden="true"><span>${escapeHTML(initials || "?")}</span></div>
+                    <div class="pf-info">
+                        <span class="page-kicker">МЕНИДЖЪР · СЕЗОН 2026/27</span>
+                        <h1>${escapeHTML(U.name || "Мениджър")}</h1>
+                        <div class="pf-team">${escapeHTML(S.name || "Отборът още няма име")}</div>
+                        <p>${escapeHTML(U.email || "")}</p>
                     </div>
-                </div>
-
-                <h3 style="margin-top:24px">История по кръгове (Gameweek History)</h3>
-                <div class="tw">
-                    <table>
-                        <tr><th>Кръг</th><th>Точки от кръга</th></tr>
-                        ${historyEntries.length ? historyEntries.map(([r, pts]) => `<tr><td>Кръг ${r}</td><td><b>${pts} т.</b></td></tr>`).join("") : '<tr><td colspan="2">Все още няма записани точки от завършени кръгове.</td></tr>'}
-                    </table>
+                </section>
+                <section class="pf-stats" aria-label="Статистики">
+                    <div class="pf-stat"><b>${total}</b><small>Общо точки</small></div>
+                    <div class="pf-stat"><b>${hist.length}</b><small>Изиграни кръга</small></div>
+                    <div class="pf-stat"><b>${best}</b><small>Най-добър кръг</small></div>
+                    <div class="pf-stat"><b>${avg.toFixed(1)}</b><small>Средно на кръг</small></div>
+                    <div class="pf-stat"><b>${LEAGUES_LIST.length}</b><small>Лиги</small></div>
+                </section>
+                <div class="pf-grid">
+                    <section class="card pf-card">
+                        <span class="page-kicker">ИСТОРИЯ</span>
+                        <h2>Точки по кръгове</h2>
+                        ${bars}
+                    </section>
+                    <section class="card pf-card">
+                        <span class="page-kicker">ОТБОРЪТ</span>
+                        <h2>Състав</h2>
+                        ${squadChips}
+                        <div class="pf-actions"><a class="btn" href="#/play">Редактирай отбора</a></div>
+                    </section>
+                    <section class="card pf-card">
+                        <span class="page-kicker">СЪСТЕЗАНИЯ</span>
+                        <h2>Моите лиги</h2>
+                        ${leagueLinks}
+                    </section>
+                    <section class="card pf-card">
+                        <span class="page-kicker">АКАУНТ</span>
+                        <h2>Настройки</h2>
+                        <p class="mut" style="margin:0 0 16px">Излизането прекратява сесията на това устройство.</p>
+                        <div class="pf-actions"><button class="btn ghost" onclick="out()">Изход</button></div>
+                    </section>
                 </div>
             `;
         }
@@ -675,19 +895,32 @@
         async function loadRemote() { try { const { data } = await sb.from("teams").select("data").eq("user_id", U.id).maybeSingle(); if (data && data.data) S = Object.assign(S, data.data); await loadLeagues(); } catch (e) { } }
         if (sb) sb.auth.getSession().then(async ({ data }) => { if (data.session) { U = su(data.session.user); loadS(); await loadRemote(); draw() } });
 
+        function authErr(m = "") {
+            if (/invalid api key|apikey|jwt/i.test(m)) return "Грешка в настройките на сайта (API ключ). Опитай по-късно.";
+            if (/invalid login/i.test(m)) return "Грешен имейл или парола.";
+            if (/already.*registered|already exists|user already/i.test(m)) return "Вече има профил с този имейл.";
+            if (/at least 6|least 6|password should/i.test(m)) return "Паролата трябва да е поне 6 символа.";
+            if (/email not confirmed/i.test(m)) return "Потвърди имейла си, за да влезеш.";
+            if (/invalid.*email|valid email/i.test(m)) return "Въведи валиден имейл адрес.";
+            if (/rate limit|too many|seconds/i.test(m)) return "Твърде много опити. Опитай след малко.";
+            return m || "Възникна грешка. Опитай отново.";
+        }
         async function auth(ev) {
             ev.preventDefault();
-            const email = $("#auth_email")?.value.trim();
-            const password = $("#auth_pass")?.value.trim();
-            const name = $("#auth_name")?.value.trim();
-            
+            const form = ev.target, isRegister = form.classList.contains("register-form");
+            const email = form.querySelector('input[type="email"]')?.value.trim();
+            const password = form.querySelector('input[type="password"]')?.value || "";
+            const name = form.querySelector('input[type="text"]')?.value.trim() || "";
+
             if (!email || !password) {
                 shake();
                 return toast("Моля, попълнете всички полета");
             }
 
             try {
-                if (AM === "login") {
+                if (!sb) throw new Error("Няма връзка със сървъра. Опитай отново след малко.");
+                if (isRegister && password.length < 6) throw new Error("Паролата трябва да е поне 6 символа.");
+                if (!isRegister) {
                     if (sb) {
                         const { data, error } = await sb.auth.signInWithPassword({ email, password });
                         if (error) throw error;
@@ -716,7 +949,7 @@
                 draw();
             } catch (err) {
                 shake();
-                toast(err.message || "Възникна грешка");
+                toast(authErr(err.message));
             }
         }
 
@@ -920,6 +1153,7 @@
                             </div>
                             ${listv()}
                         </section>
+                        ${playersDirV()}
                         <section class="squad-section market-section">
                             <div class="section-heading squad-section-heading">
                                 <div><span class="page-kicker">НАМЕРИ СВОЯ ИЗБОР</span><h2>Пазар на футболисти</h2></div>
@@ -935,8 +1169,8 @@
             "/leagues": leaguesV,
             "/fixtures": fixturesV,
             "/rules": rulesV,
-            "/privacy": () => `<h2>Политика за поверителност</h2><p class="note">Вашите данни се съхраняват сигурно в Supabase.</p>`,
-            "/terms": () => `<h2>Общи условия</h2><p class="note">Играта е напълно безплатна (18+).</p>`,
+            "/privacy": privacyV,
+            "/terms": termsV,
             "/admin": adminPageV,
             "/forgot-password": () => `
                 <section class="auth-shell">
@@ -1058,7 +1292,7 @@
                                             </div>
                                             <div class="field-wrap">
                                                 <label for="auth_pass_register">Парола</label>
-                                                <input type="password" id="auth_pass_register" required>
+                                                <input type="password" id="auth_pass_register" minlength="6" autocomplete="new-password" required>
                                             </div>
                                             <button type="submit" class="btn auth-submit">Регистрация</button>
                                             <p class="auth-footnote">Вече имате профил? <a href="#/login" onclick="AM='login'; draw()">Влезте</a></p>
@@ -1131,7 +1365,7 @@
                                             </div>
                                             <div class="field-wrap">
                                                 <label for="auth_pass_register">Парола</label>
-                                                <input type="password" id="auth_pass_register" required>
+                                                <input type="password" id="auth_pass_register" minlength="6" autocomplete="new-password" required>
                                             </div>
                                             <button type="submit" class="btn auth-submit">Регистрация</button>
                                             <p class="auth-footnote">Вече имате профил? <a href="#/login" onclick="AM='login'; draw()">Влезте</a></p>
@@ -1168,22 +1402,82 @@
             loader.setAttribute("aria-hidden", "true");
         }
 
+        function notFoundV() {
+            return `<section class="lock nf"><div class="nf-code">404</div><h2>Тази страница не е в програмата</h2><p class="mut">Страницата не съществува или е преместена.</p><div class="cta-row"><a class="btn" href="#/">Начало</a><a class="btn ghost" href="#/play">Към отбора</a></div></section>`;
+        }
+        function privacyV() {
+            return `<article class="legal">
+                <span class="page-kicker">ПРАВНА ИНФОРМАЦИЯ</span>
+                <h1>Политика за поверителност</h1>
+                <p class="mut">Последна актуализация: 16 октомври 2026</p>
+                <h2>Какви данни събираме</h2>
+                <p>При регистрация: имейл, име на мениджър и парола. Паролата се съхранява криптирана от Supabase и никой не я вижда. В играта: име на отбора, избрани футболисти, капитан, точки и членство в лиги.</p>
+                <h2>Къде се съхраняват</h2>
+                <p>Данните за профила се съхраняват в Supabase. Незавършеният отбор и избраният режим на бисквитки се пазят в локалното хранилище на браузъра ти.</p>
+                <h2>Бисквитки</h2>
+                <p>Използваме само необходими технически бисквитки и локално хранилище за работата на играта. Не използваме рекламни или проследяващи бисквитки.</p>
+                <h2>Как използваме данните</h2>
+                <p>Данните се използват само за работата на играта: вход, запазване на отбора, класиране и лиги. Не продаваме данни и не ги предоставяме на трети страни за реклама.</p>
+                <h2>Твоите права</h2>
+                <p>Можеш да поискаш достъп, корекция или изтриване на данните си, както и да изтриеш профила си. Пиши на <b>[имейл за контакт]</b>.</p>
+                <p class="note">Този текст е шаблон и трябва да се прегледа от юрист преди публикуване.</p>
+            </article>`;
+        }
+        function termsV() {
+            return `<article class="legal">
+                <span class="page-kicker">ПРАВНА ИНФОРМАЦИЯ</span>
+                <h1>Общи условия</h1>
+                <p class="mut">Последна актуализация: 16 октомври 2026</p>
+                <h2>Участие</h2>
+                <p>Играта е безплатна и е предназначена за лица на 18 години и повече.</p>
+                <h2>Неофициална игра</h2>
+                <p>Фентъзи efbet Лига е неофициална игра. Не е свързана с efbet, Parva Liga или Българския футболен съюз и не е техен официален продукт.</p>
+                <h2>Без реални пари</h2>
+                <p>Играта не използва реални пари. Няма награди с парична стойност, освен ако не бъдат обявени отделно.</p>
+                <h2>Точкуване</h2>
+                <p>Точките се изчисляват по правилата от страницата "Правила". Резултатите и статистиките могат да се коригират при грешка.</p>
+                <h2>Честна игра</h2>
+                <p>Не е позволено създаване на няколко профила, злоупотреба с играта или манипулиране на класирането. Такива профили могат да бъдат спрени.</p>
+                <h2>Промени</h2>
+                <p>Можем да променяме тези условия и правилата. Промените влизат в сила при публикуването им на сайта.</p>
+                <h2>Контакт</h2>
+                <p><b>[имейл за контакт]</b></p>
+                <p class="note">Този текст е шаблон и трябва да се прегледа от юрист преди публикуване.</p>
+            </article>`;
+        }
+
+        let LAST_PATH = null, ENTER_T = 0;
         function draw() {
             const hash = location.hash || "#/";
             const path = new URLSearchParams(location.search).get("auth") === "reset"
                 ? "/reset-password"
                 : (hash.replace("#", "") || "/");
-            const fn = routes[path] || (() => "<h2>404</h2>");
-            const [pageTitle, pageDescription] = PG[path] || PG["/404"];
+            const leagueCode = path.startsWith("/league/") ? decodeURIComponent(path.slice(8)) : null;
+            const fn = routes[path] || (leagueCode ? () => leagueDetailV(leagueCode) : notFoundV);
+            const [pageTitle, pageDescription] = PG[path] || (path.startsWith("/league/") ? ["Лига – Фентъзи efbet Лига", "Класиране в частната лига."] : PG["/404"]);
             document.title = pageTitle;
+            const setMeta = (sel, v) => { const el = $(sel); if (el) el.setAttribute(el.tagName === "LINK" ? "href" : "content", v) };
+            setMeta('meta[property="og:title"]', pageTitle);
+            setMeta('meta[property="og:description"]', pageDescription);
+            setMeta('meta[property="og:url"]', "https://h0dkv.github.io/efbet-liga/" + (path === "/" ? "" : "#" + path));
+            setMeta('meta[name="twitter:title"]', pageTitle);
+            setMeta('meta[name="twitter:description"]', pageDescription);
             const description = $('meta[name="description"]');
             if (description) description.content = pageDescription;
             document.body.classList.toggle("squad-route", path === "/play");
             document.body.classList.toggle("auth-route", ["/login", "/register", "/forgot-password", "/reset-password"].includes(path));
             $(".sticky")?.classList.toggle("is-hidden", path === "/play");
-            
+
             const app = $("#app");
             if (app) app.innerHTML = fn();
+            if (app && path !== LAST_PATH) {
+                app.classList.remove("page-enter");
+                void app.offsetWidth;
+                app.classList.add("page-enter");
+                clearTimeout(ENTER_T);
+                ENTER_T = setTimeout(() => app.classList.remove("page-enter"), 1400);
+            }
+            LAST_PATH = path;
 
             const nav = $("#nav");
             if (nav) {
@@ -1241,4 +1535,5 @@
         });
     </script>
 </body>
-</html>
+
+</html> 
