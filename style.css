@@ -7827,3 +7827,85 @@ body.auth-route .sticky {
     margin: 0 0 8px;
     opacity: .9
 }
+
+/* ===== v5: сигурност ===== */
+.pw-meter {
+    margin: 8px 2px 0;
+    font-size: 13px
+}
+
+.pw-meter i {
+    display: block;
+    height: 6px;
+    border-radius: 9px;
+    background: rgba(255, 255, 255, .1);
+    width: 0;
+    transition: width .35s var(--pl-ease), background .35s
+}
+
+.pw-meter span {
+    display: block;
+    margin-top: 6px;
+    opacity: .8;
+    min-height: 1.2em
+}
+
+.pw-meter[data-level="0"] i,
+.pw-meter[data-level="1"] i {
+    background: #ff595e
+}
+
+.pw-meter[data-level="2"] i {
+    background: #ffb703
+}
+
+.pw-meter[data-level="3"] i {
+    background: #80ed99
+}
+
+.pw-meter[data-level="4"] i {
+    background: #2ec4b6
+}
+
+.otp-wrap {
+    max-width: 480px
+}
+
+.otp-form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 16px 0
+}
+
+.otp-form input {
+    flex: 1 1 180px;
+    min-width: 0;
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid var(--pl-line);
+    color: inherit;
+    border-radius: 14px;
+    padding: 14px 16px;
+    font: inherit;
+    font-size: 22px;
+    letter-spacing: .4em;
+    text-align: center;
+    outline: 0
+}
+
+.otp-form input:focus {
+    border-color: var(--y, #ffd400);
+    box-shadow: 0 0 0 4px rgba(255, 212, 0, .12)
+}
+
+.mfa-qr {
+    background: #fff;
+    border-radius: 16px;
+    padding: 12px;
+    width: max-content;
+    margin: 12px 0
+}
+
+.mfa-qr img {
+    display: block
+}

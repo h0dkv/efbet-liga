@@ -1,0 +1,30 @@
+{
+  "name": "Фентъзи efbet Лига",
+  "short_name": "efbet Fantasy",
+  "description": "Създай отбор от футболисти на efbet Лига и се състезавай с приятели.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0a0c",
+  "theme_color": "#ffd400",
+  "lang": "bg",
+  "icons": [
+    {
+      "src": "favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

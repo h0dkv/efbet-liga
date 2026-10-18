@@ -26,6 +26,13 @@
     <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="stylesheet" href="style.css">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://*.supabase.co wss://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="efbet Fantasy">
+    <meta name="mobile-web-app-capable" content="yes">
 </head>
 
 <body>
@@ -106,6 +113,7 @@
         <script>try { if (localStorage.getItem("efc")) document.getElementById("cookie").style.display = "none" } catch (e) { }</script>
         <div id="toast"></div>
     </div>
+    <script>if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => { }));</script>
     <script src="players.js"></script>
     <script src="stats.js"></script>
     <script src="results.js"></script>
@@ -186,8 +194,8 @@
             if (matchDate(m) <= new Date()) return ["Очаква резултат", "pending"];
             return ["Предстои", "upcoming"];
         };
-        const ADMIN_EMAIL = "hrisdenkov@gmail.com";
-        const isAdmin = () => U?.email?.trim().toLowerCase() === ADMIN_EMAIL;
+        let ISADMIN = false;
+        const isAdmin = () => ISADMIN;
         const PG = {
             "/": ["Фентъзи efbet Лига – Създай своя отбор", "Създай фентъзи отбор за efbet Лига. Избери 15 футболисти с бюджет от 100M и се състезавай с приятели."],
             "/play": ["Състав – Фентъзи efbet Лига", "Избери 15 футболисти, подреди титулярите и направи своя фентъзи отбор."],
@@ -203,14 +211,16 @@
             "/forgot-password": ["Забравена парола – Фентъзи efbet Лига", "Заяви имейл с линк за възстановяване на паролата си."],
             "/reset-password": ["Нова парола – Фентъзи efbet Лига", "Задай нова парола за своя профил във фентъзи efbet Лига."],
             "/leagues": ["Лиги – Фентъзи efbet Лига", "Създай частна лига или се присъедини към приятели с код за покана."],
+            "/otp": ["Код за потвърждение – Фентъзи efbet Лига", "Въведи кода от приложението за удостоверяване."],
             "/404": ["Страницата не е намерена – Фентъзи efbet Лига", "Тази страница не съществува. Върни се към началото на фентъзи efbet Лига."]
         };
-        const SB = { url: "https://fcqcwgjnmoakgilsqtvk.supabase.co", key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZjcWN3Z2pubW9ha2dpbHNxdHZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE2ODQ5MTgsImV4cCI6MjEwNzI2MDkxOH0.KkyPUklKanIHadLOEs5clnYi8UhVv2k4n6UyIqKFNtA" };
-        let sb = null; try { if (SB.url && SB.key && window.supabase) sb = window.supabase.createClient(SB.url, SB.key) } catch (e) { }
+        const SB = { url: "https://fcqcwgjnmoakgilsqtvk.supabase.co", key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZjcWN3Z2pubW9ha2dpbHNxdHZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3PTI2ODQ5MTgsImV4cCI6MjEwNzI2MDkxOH0.KkyPUklKanIHadLOEs5clnYi8UhVv2k4n6UyIqKFNtA" };
+        let sb = null; try { if (SB.url && SB.key && window.supabase) sb = window.supabase.createClient(SB.url, SB.key, { auth: { storage: window.sessionStorage, persistSession: true, autoRefreshToken: true, storageKey: "efb-auth" } }) } catch (e) { }
         let RM = { ok: false, busy: false, err: "", my: [], rows: {} };
         const DBK = "efdb"; let DB = { users: {}, leagues: {} }, U = null, S, AM = "login";
         try { DB = Object.assign(DB, JSON.parse(localStorage.getItem(DBK) || "{}")); U = sb ? null : (DB.users[localStorage.getItem("efs")] || null) } catch (e) { }
         const KEY = () => "ef" + (U ? ":" + U.email : "");
+        if (sb) { try { Object.keys(localStorage).filter(k => k.startsWith("sb-") || k === "efs").forEach(k => localStorage.removeItem(k)) } catch (e) { } }
         function loadS() { S = { sq: [], cap: null, name: "", pickSlot: null, sel: null, view: "pitch", freeTransfers: 1, history: {} }; try { S = Object.assign(S, JSON.parse(localStorage.getItem(KEY()) || "{}")) } catch (e) { } }
         loadS();
         const $ = s => document.querySelector(s), escapeHTML = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]), sv = () => { try { localStorage.setItem(KEY(), JSON.stringify(S)); if (U) { U.tp = S.tp || 0; U.tn = S.name; if (sb) push(); else localStorage.setItem(DBK, JSON.stringify(DB)) } } catch (e) { } };
@@ -346,7 +356,7 @@
 
         function adminV() {
             const done = MT.filter(m => m.hg != null).sort(byTime).reverse(); if (!done.find(m => mkey(m) == AD.m)) AD.m = done[0] ? mkey(done[0]) : ""; const m = done.find(x => mkey(x) == AD.m);
-            return `<h2>Admin · player stats</h2><p class="note">Drafts are saved in this browser only. When you're done, click Download stats.js and replace the file in your site folder to publish the points.</p><select onchange="AD.m=this.value;draw()">${done.map(x => `<option value="${mkey(x)}" ${mkey(x) == AD.m ? "selected" : ""}>R${x.r} · ${CL[x.h][0]} ${x.hg}–${x.ag} ${CL[x.a][0]}${has(mkey(x)) ? " ✓" : ""}</option>`).join("")}</select>${m ? `<div class="em" id="adw" style="margin:8px 0">${wtxt(m)}</div>${[m.h, m.a].map(c => teamTbl(m, c)).join("")}` : "<p>No finished matches yet.</p>"}<div class="toolbar"><button class="btn" onclick="dl()">Download stats.js</button><button class="btn ghost" onclick="if(confirm('Delete all drafts in this browser?')){DRAFT={};localStorage.removeItem(SKEY);draw()}">Clear drafts</button></div><p class="mut">Columns: minutes, goals, assists, yellow, red, own goals, penalties missed, penalties saved, saves, bonus points (BPS). Leave a row empty if the player did not play.</p>`
+            return `<h2>Admin · player stats</h2><p class="note">Черновите се пазят в този браузър. Натисни „Запази в базата“, за да публикуваш точките за всички.</p><button class="btn" type="button" onclick="publishStats()">Запази в базата</button><select onchange="AD.m=this.value;draw()">${done.map(x => `<option value="${mkey(x)}" ${mkey(x) == AD.m ? "selected" : ""}>R${x.r} · ${CL[x.h][0]} ${x.hg}–${x.ag} ${CL[x.a][0]}${has(mkey(x)) ? " ✓" : ""}</option>`).join("")}</select>${m ? `<div class="em" id="adw" style="margin:8px 0">${wtxt(m)}</div>${[m.h, m.a].map(c => teamTbl(m, c)).join("")}` : "<p>No finished matches yet.</p>"}<div class="toolbar"><button class="btn" onclick="dl()">Download stats.js</button><button class="btn ghost" onclick="if(confirm('Delete all drafts in this browser?')){DRAFT={};localStorage.removeItem(SKEY);draw()}">Clear drafts</button></div><p class="mut">Columns: minutes, goals, assists, yellow, red, own goals, penalties missed, penalties saved, saves, bonus points (BPS). Leave a row empty if the player did not play.</p>`
         }
         function dl() {
             const all = SS(), keys = Object.keys(all).filter(has).sort((a, b) => parseInt(a) - parseInt(b));
@@ -665,12 +675,12 @@
         }
         const lgCard = (l, i) => `
             <article class="lg-tile card" style="--i:${i}">
-                <a class="lg-open" href="#/league/${l.code}" aria-label="Класиране на ${escapeHTML(l.name || "лигата")}">
+                <a class="lg-open" href="#/league/${escapeHTML(l.code)}" aria-label="Класиране на ${escapeHTML(l.name || "лигата")}">
                     <span class="lg-trophy" aria-hidden="true">🏆</span>
                     <div><span class="page-kicker">${l.owner_id === U.id ? "ДОМАКИН" : "УЧАСТНИК"}</span><h3>${escapeHTML(l.name || "Лига без име")}</h3></div>
                     <span class="lg-arrow" aria-hidden="true">→</span>
                 </a>
-                <div class="lg-code"><span>КОД</span><b>${l.code}</b><button type="button" class="lg-copy" onclick="copyCode('${l.code}')">Копирай</button></div>
+                <div class="lg-code"><span>КОД</span><b>${escapeHTML(l.code)}</b><button type="button" class="lg-copy" data-code="${escapeHTML(l.code)}" onclick="copyCode(this.dataset.code)">Копирай</button></div>
             </article>`;
         function leaguesV() {
             if (!U) return `<section class="lock"><div class="lock-ic">🔒</div><h2>Състезавай се с приятели</h2><p class="mut">Влез в профила си, за да създадеш частна лига или да се присъединиш с покана.</p><div class="cta-row"><a class="btn" href="#/login">Вход</a><a class="btn ghost" href="#/register">Регистрация</a></div></section>`;
@@ -720,7 +730,7 @@
                     <a class="lg-back" href="#/leagues">← Всички лиги</a>
                     <span class="page-kicker">${isOwner ? "ДОМАКИН" : "УЧАСТНИК"} · ЧАСТНА ЛИГА</span>
                     <h1>${escapeHTML(L.name || "Лига без име")}</h1>
-                    <div class="lg-code lg-code-big"><span>КОД ЗА ПОКАНА</span><b>${L.code}</b><button type="button" class="lg-copy" onclick="copyCode('${L.code}')">Копирай</button></div>
+                    <div class="lg-code lg-code-big"><span>КОД ЗА ПОКАНА</span><b>${escapeHTML(L.code)}</b><button type="button" class="lg-copy" data-code="${escapeHTML(L.code)}" onclick="copyCode(this.dataset.code)">Копирай</button></div>
                 </section>
                 <section class="card lg-board">
                     <div class="section-heading"><div><span class="page-kicker">КЛАСИРАНЕ</span><h2>Класиране</h2></div></div>
@@ -728,7 +738,7 @@
                 </section>
                 <div class="pf-actions">
                     <a class="btn ghost" href="#/leagues">Назад към лигите</a>
-                    ${isOwner ? `<button class="btn ghost" onclick="deleteLeague('${L.code}')">Изтрий лигата</button>` : `<button class="btn ghost" onclick="leaveLeague('${L.code}')">Напусни лигата</button>`}
+                    ${isOwner ? `<button class="btn ghost" data-code="${escapeHTML(L.code)}" onclick="deleteLeague(this.dataset.code)">Изтрий лигата</button>` : `<button class="btn ghost" data-code="${escapeHTML(L.code)}" onclick="leaveLeague(this.dataset.code)">Напусни лигата</button>`}
                 </div>
             `;
         }
@@ -826,6 +836,7 @@
         function profileV() {
             if (!U) return `<section class="lock"><div class="lock-ic">🔒</div><h2>Влез в профила си</h2><p class="mut">Моля, влез в системата.</p><div class="cta-row"><a class="btn" href="#/login">Вход</a><a class="btn ghost" href="#/register">Регистрация</a></div></section>`;
             prep();
+            if (U && MFA_ON === null && !MFA_LOADING) { MFA_LOADING = true; setTimeout(refreshMfa, 0); }
             const hist = Object.entries(S.history || {}).map(([r, p]) => [+r, +p]).sort((a, b) => a[0] - b[0]);
             const pts = hist.map(h => h[1]);
             const total = S.tp || 0;
@@ -840,7 +851,7 @@
                 ? `<div class="pf-squad">${squad.map(p => `<span class="pf-pl"><b class="pos-${p.p}">${p.p}</b>${escapeHTML(p.n.split(" ").pop())}${S.cap == p.id ? " <i>К</i>" : ""}</span>`).join("")}</div>`
                 : `<p class="empty-mini">Още нямаш футболисти. <a href="#/play">Изгради отбора си</a>.</p>`;
             const leagueLinks = LEAGUES_LIST.length
-                ? LEAGUES_LIST.map(l => `<a class="pf-league" href="#/league/${l.code}"><span style="font-family:inherit;opacity:1;font-size:15px;letter-spacing:0">🏆 ${escapeHTML(l.name || "Лига")}</span><span>${l.code}</span></a>`).join("")
+                ? LEAGUES_LIST.map(l => `<a class="pf-league" href="#/league/${escapeHTML(l.code)}"><span style="font-family:inherit;opacity:1;font-size:15px;letter-spacing:0">🏆 ${escapeHTML(l.name || "Лига")}</span><span>${escapeHTML(l.code)}</span></a>`).join("")
                 : `<p class="empty-mini">Още не си в лига. <a href="#/leagues">Създай или се присъедини</a>.</p>`;
             return `
                 <section class="pf-hero">
@@ -876,6 +887,8 @@
                         <h2>Моите лиги</h2>
                         ${leagueLinks}
                     </section>
+                    ${mfaCardV()}
+                    ${installCardV()}
                     <section class="card pf-card">
                         <span class="page-kicker">АКАУНТ</span>
                         <h2>Настройки</h2>
@@ -892,14 +905,178 @@
         let ut; const up = () => { clearTimeout(ut); ut = setTimeout(push, 700) };
         async function push() { clearTimeout(ut); if (!sb || !U) return; try { await sb.from("teams").upsert({ user_id: U.id, data: S }); await sb.from("profiles").update({ team_name: S.name || null, total_pts: S.tp || 0 }).eq("id", U.id) } catch (e) { } }
         const su = (u, nm) => ({ id: u.id, email: u.email, name: (u.user_metadata && u.user_metadata.name) || nm || u.email });
-        async function loadRemote() { try { const { data } = await sb.from("teams").select("data").eq("user_id", U.id).maybeSingle(); if (data && data.data) S = Object.assign(S, data.data); await loadLeagues(); } catch (e) { } }
-        if (sb) sb.auth.getSession().then(async ({ data }) => { if (data.session) { U = su(data.session.user); loadS(); await loadRemote(); draw() } });
+        async function loadRemote() { try { const { data } = await sb.from("teams").select("data").eq("user_id", U.id).maybeSingle(); if (data && data.data) S = Object.assign(S, data.data); await loadLeagues(); await refreshAdmin(); } catch (e) { } }
+        if (sb) sb.auth.getSession().then(async ({ data }) => {
+            if (!data.session) return;
+            const { data: aal } = await sb.auth.mfa.getAuthenticatorAssuranceLevel();
+            if (aal && aal.nextLevel === "aal2" && aal.nextLevel !== aal.currentLevel) { await askOtp(); return; }
+            U = su(data.session.user); loadS(); await loadRemote(); draw();
+        });
+        if (sb) loadStats().then(() => draw());
+
+        // ===== Security helpers =====
+        let MFA_PENDING = null, MFA_ENROLL = null, MFA_ON = null, MFA_LOADING = false;
+        async function refreshAdmin() {
+            if (!sb || !U) { ISADMIN = false; return; }
+            try { const { data } = await sb.rpc("is_admin"); ISADMIN = data === true; } catch (e) { ISADMIN = false; }
+        }
+        async function loadStats() {
+            if (!sb) return;
+            try {
+                const { data } = await sb.from("match_stats").select("match_key, stats");
+                if (data) window.STATS = Object.assign({}, window.STATS || {}, Object.fromEntries(data.map(r => [r.match_key, r.stats])));
+            } catch (e) { }
+        }
+        async function publishStats() {
+            if (!sb || !isAdmin()) return toast("Нямаш права за това действие");
+            const keys = Object.keys(DRAFT).filter(k => Object.keys(DRAFT[k] || {}).length > 0);
+            if (!keys.length) return toast("Няма промени за запазване");
+            const rows = keys.map(k => ({ match_key: k, stats: DRAFT[k], updated_by: U.id }));
+            const { error } = await sb.from("match_stats").upsert(rows);
+            if (error) return toast("Не успяхме да запазим. Провери дали си влязъл с 2FA.");
+            await loadStats();
+            toast(`Запазени мачове: ${rows.length}`);
+            draw();
+        }
+
+        // Login rate limit (per browser tab): 5 failures, then exponential lockout up to 15 minutes.
+        const LOCK_KEY = "ef_lock";
+        const lockState = () => { try { return JSON.parse(sessionStorage.getItem(LOCK_KEY) || "{}") } catch (e) { return {} } };
+        const lockLeft = () => Math.max(0, Math.ceil(((lockState().until || 0) - Date.now()) / 1000));
+        function recordFail() {
+            const n = (lockState().n || 0) + 1;
+            const wait = n >= 5 ? Math.min(900, 30 * 2 ** (n - 5)) : 0;
+            try { sessionStorage.setItem(LOCK_KEY, JSON.stringify({ n, until: wait ? Date.now() + wait * 1000 : 0 })) } catch (e) { }
+        }
+        function resetFails() { try { sessionStorage.removeItem(LOCK_KEY) } catch (e) { } }
+
+        // Two-factor authentication (TOTP)
+        async function askOtp() {
+            const { data } = await sb.auth.mfa.listFactors();
+            const totp = data && data.totp ? data.totp.find(f => f.status === "verified") : null;
+            if (!totp) { MFA_PENDING = null; return; }
+            MFA_PENDING = { factorId: totp.id };
+            location.hash = "#/otp";
+            draw();
+        }
+        function otpV() {
+            if (!MFA_PENDING) { setTimeout(() => { location.hash = "#/login" }, 0); return `<section class="lock"><h2>Сесията е изтекла</h2></section>`; }
+            return `<article class="legal otp-wrap">
+                <span class="page-kicker">ДВУФАКТОРНА ЗАЩИТА</span>
+                <h1>Въведи кода</h1>
+                <p class="mut">Кодът от приложението за удостоверяване се сменя на всеки 30 секунди.</p>
+                <form class="otp-form" onsubmit="verifyLoginOtp(event)">
+                    <input name="code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" placeholder="000000" required autofocus>
+                    <button class="btn" type="submit">Потвърди</button>
+                </form>
+                <p><button class="btn ghost" type="button" onclick="cancelOtp()">Отказ</button></p>
+            </article>`;
+        }
+        async function verifyLoginOtp(e) {
+            e.preventDefault();
+            const left = lockLeft();
+            if (left) return toast(`Твърде много опити. Опитай след ${left} сек.`);
+            const code = e.target.code.value.trim();
+            const { error } = await sb.auth.mfa.challengeAndVerify({ factorId: MFA_PENDING.factorId, code });
+            if (error) { recordFail(); return toast("Невалиден код"); }
+            resetFails();
+            MFA_PENDING = null;
+            const { data: { user } } = await sb.auth.getUser();
+            U = su(user); loadS(); await loadRemote();
+            burst(); toast("Успешен вход!");
+            location.hash = "#/play"; draw();
+        }
+        async function cancelOtp() {
+            MFA_PENDING = null;
+            if (sb) await sb.auth.signOut();
+            U = null; loadS();
+            location.hash = "#/login"; draw();
+        }
+        function mfaCardV() {
+            if (!U) return "";
+            const wrap = body => `<section class="card pf-card"><span class="page-kicker">БЕЗОПАСНОСТ</span><h2>Двуфакторна защита</h2>${body}</section>`;
+            if (MFA_ON === null) return wrap(`<p class="mut">Зареждане…</p>`);
+            if (MFA_ON) return wrap(`<p class="mut">Активна е. При вход ще се иска код от приложението за удостоверяване.</p><div class="pf-actions"><button class="btn ghost" onclick="disableMfa()">Изключи 2FA</button></div>`);
+            if (MFA_ENROLL) return wrap(`<p class="mut">Сканирай кода с Google Authenticator, Microsoft Authenticator или подобно приложение и въведи 6-цифровия код.</p>
+                <div class="mfa-qr"><img src="${escapeHTML(MFA_ENROLL.qr)}" alt="QR код за двуфакторна защита" width="176" height="176"></div>
+                <p class="mut">Ръчно въвеждане: <code>${escapeHTML(MFA_ENROLL.secret)}</code></p>
+                <form class="otp-form" onsubmit="verifyEnroll(event)"><input name="code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" placeholder="000000" required><button class="btn" type="submit">Потвърди</button></form>`);
+            return wrap(`<p class="mut">Добави втора стъпка при вход с код от телефона си.</p><div class="pf-actions"><button class="btn" onclick="startMfa()">Включи 2FA</button></div>`);
+        }
+        async function refreshMfa() {
+            MFA_LOADING = false;
+            if (!sb || !U) return;
+            try {
+                const { data } = await sb.auth.mfa.listFactors();
+                MFA_ON = !!(data && data.totp && data.totp.some(f => f.status === "verified"));
+            } catch (e) { MFA_ON = false; }
+            draw();
+        }
+        async function startMfa() {
+            try {
+                const { data, error } = await sb.auth.mfa.enroll({ factorType: "totp", friendlyName: "efbet-" + Date.now() });
+                if (error) throw error;
+                MFA_ENROLL = { id: data.id, qr: data.totp.qr_code, secret: data.totp.secret };
+                draw();
+            } catch (e) { toast("Не успяхме да включим 2FA. Опитай отново."); }
+        }
+        async function verifyEnroll(e) {
+            e.preventDefault();
+            if (!MFA_ENROLL) return;
+            const { error } = await sb.auth.mfa.challengeAndVerify({ factorId: MFA_ENROLL.id, code: e.target.code.value.trim() });
+            if (error) return toast("Невалиден код. Опитай отново.");
+            MFA_ENROLL = null; MFA_ON = true;
+            await refreshAdmin();
+            toast("Двуфакторната защита е включена");
+            draw();
+        }
+        async function disableMfa() {
+            if (!confirm("Сигурен ли си, че искаш да изключиш двуфакторната защита?")) return;
+            const { data } = await sb.auth.mfa.listFactors();
+            const totp = data && data.totp ? data.totp.find(f => f.status === "verified") : null;
+            if (!totp) { MFA_ON = false; return draw(); }
+            const { error } = await sb.auth.mfa.unenroll({ factorId: totp.id });
+            if (error) return toast("Не успяхме да изключим 2FA.");
+            MFA_ON = false;
+            await refreshAdmin();
+            toast("2FA е изключена");
+            draw();
+        }
+
+        // Password strength (length, character mix, common passwords, email, repeats)
+        const COMMON_PW = ["12345678", "123456789", "1234567890", "password", "password1", "qwerty123", "qwertyui", "11111111", "00000000", "abc12345", "iloveyou", "welcome1", "fantasy1", "efbet2026", "football1"];
+        function pwStrength(pw = "", email = "") {
+            const p = String(pw), low = p.toLowerCase(), local = String(email).split("@")[0].toLowerCase();
+            const classes = [/\p{Ll}/u, /\p{Lu}/u, /\p{N}/u, /[^\p{L}\p{N}]/u].filter(r => r.test(p)).length;
+            let score = 0;
+            if (p.length >= 8) score++;
+            if (p.length >= 12) score++;
+            if (classes >= 3) score++;
+            if (p.length >= 16 && classes >= 3) score++;
+            let msg = "";
+            if (p.length < 8) msg = "Паролата трябва да е поне 8 символа.";
+            else if (classes < 3) msg = "Използвай поне 3 вида: малки букви, главни букви, цифри, символи.";
+            else if (COMMON_PW.includes(low)) msg = "Тази парола е твърде често срещана.";
+            else if (local.length >= 4 && low.includes(local)) msg = "Паролата не трябва да съдържа името от имейла.";
+            else if (/(.)\1{3,}/u.test(p)) msg = "Избягвай повтарящи се символи, например aaaa.";
+            const labels = ["Слаба", "Слаба", "Средна", "Добра", "Силна"];
+            return { ok: !msg, score, label: labels[score], msg: msg || "Паролата е наред." };
+        }
+        function pwMeter(input) {
+            const box = input.parentElement.querySelector(".pw-meter");
+            if (!box) return;
+            const email = input.form?.querySelector('input[type="email"]')?.value || "";
+            const r = input.value ? pwStrength(input.value, email) : null;
+            box.dataset.level = r ? r.score : 0;
+            box.querySelector("i").style.width = r ? ((r.score + 1) * 20) + "%" : "0%";
+            box.querySelector("span").textContent = r ? (r.ok ? `${r.label} · ${r.msg}` : r.msg) : "";
+        }
 
         function authErr(m = "") {
             if (/invalid api key|apikey|jwt/i.test(m)) return "Грешка в настройките на сайта (API ключ). Опитай по-късно.";
             if (/invalid login/i.test(m)) return "Грешен имейл или парола.";
             if (/already.*registered|already exists|user already/i.test(m)) return "Вече има профил с този имейл.";
-            if (/at least 6|least 6|password should/i.test(m)) return "Паролата трябва да е поне 6 символа.";
+            if (/at least 8|least 8|password should/i.test(m)) return "Паролата трябва да е поне 8 символа.";
             if (/email not confirmed/i.test(m)) return "Потвърди имейла си, за да влезеш.";
             if (/invalid.*email|valid email/i.test(m)) return "Въведи валиден имейл адрес.";
             if (/rate limit|too many|seconds/i.test(m)) return "Твърде много опити. Опитай след малко.";
@@ -919,11 +1096,16 @@
 
             try {
                 if (!sb) throw new Error("Няма връзка със сървъра. Опитай отново след малко.");
-                if (isRegister && password.length < 6) throw new Error("Паролата трябва да е поне 6 символа.");
+                if (isRegister) { const pw = pwStrength(password, email); if (!pw.ok) throw new Error(pw.msg); }
                 if (!isRegister) {
                     if (sb) {
+                        const left = lockLeft();
+                        if (left) throw new Error(`Твърде много опити. Опитай след ${left} сек.`);
                         const { data, error } = await sb.auth.signInWithPassword({ email, password });
-                        if (error) throw error;
+                        if (error) { recordFail(); throw error; }
+                        resetFails();
+                        const { data: aal } = await sb.auth.mfa.getAuthenticatorAssuranceLevel();
+                        if (aal && aal.nextLevel === "aal2" && aal.nextLevel !== aal.currentLevel) { await askOtp(); return; }
                         U = su(data.user);
                         loadS();
                         await loadRemote();
@@ -1018,6 +1200,8 @@
                 return;
             }
 
+            const pwCheck = pwStrength(password, U?.email || "");
+            if (!pwCheck.ok) { setAuthMessage("reset-password-message", pwCheck.msg, true); return; }
             button.disabled = true;
             try {
                 const { error } = await sb.auth.updateUser({ password });
@@ -1037,7 +1221,7 @@
 
         function out() {
             if (sb) sb.auth.signOut();
-            U = null;
+            U = null; ISADMIN = false; MFA_PENDING = null; MFA_ON = null; MFA_ENROLL = null;
             loadS();
             toast("Излязохте от профила си");
             location.hash = "#/";
@@ -1217,11 +1401,11 @@
                                     <form id="reset-password-form" onsubmit="updatePassword(event)" ${hasPasswordRecoveryError() ? "hidden" : ""}>
                                         <div class="field-wrap">
                                             <label for="new_password">Нова парола</label>
-                                            <input type="password" id="new_password" autocomplete="new-password" minlength="6" required>
+                                            <input type="password" id="new_password" autocomplete="new-password" minlength="8" required oninput="pwMeter(this)"><div class="pw-meter" aria-live="polite"><i></i><span></span></div>
                                         </div>
                                         <div class="field-wrap">
                                             <label for="confirm_password">Потвърди паролата</label>
-                                            <input type="password" id="confirm_password" autocomplete="new-password" minlength="6" required>
+                                            <input type="password" id="confirm_password" autocomplete="new-password" minlength="8" required>
                                         </div>
                                         <p id="reset-password-message" class="auth-message" role="alert" hidden></p>
                                         <button type="submit" class="btn auth-submit">Запази новата парола</button>
@@ -1239,6 +1423,7 @@
                     </div>
                 </section>
             `,
+            "/otp": () => otpV(),
             "/login": () => {
                 AM = "login";
                 return `
@@ -1292,7 +1477,7 @@
                                             </div>
                                             <div class="field-wrap">
                                                 <label for="auth_pass_register">Парола</label>
-                                                <input type="password" id="auth_pass_register" minlength="6" autocomplete="new-password" required>
+                                                <input type="password" id="auth_pass_register" minlength="8" autocomplete="new-password" required oninput="pwMeter(this)"><div class="pw-meter" aria-live="polite"><i></i><span></span></div>
                                             </div>
                                             <button type="submit" class="btn auth-submit">Регистрация</button>
                                             <p class="auth-footnote">Вече имате профил? <a href="#/login" onclick="AM='login'; draw()">Влезте</a></p>
@@ -1365,7 +1550,7 @@
                                             </div>
                                             <div class="field-wrap">
                                                 <label for="auth_pass_register">Парола</label>
-                                                <input type="password" id="auth_pass_register" minlength="6" autocomplete="new-password" required>
+                                                <input type="password" id="auth_pass_register" minlength="8" autocomplete="new-password" required oninput="pwMeter(this)"><div class="pw-meter" aria-live="polite"><i></i><span></span></div>
                                             </div>
                                             <button type="submit" class="btn auth-submit">Регистрация</button>
                                             <p class="auth-footnote">Вече имате профил? <a href="#/login" onclick="AM='login'; draw()">Влезте</a></p>
@@ -1444,6 +1629,27 @@
                 <p><b>[имейл за контакт]</b></p>
                 <p class="note">Този текст е шаблон и трябва да се прегледа от юрист преди публикуване.</p>
             </article>`;
+        }
+
+        let DEFERRED_INSTALL = null;
+        window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); DEFERRED_INSTALL = e; if (location.hash === "#/profile") draw() });
+        window.addEventListener("appinstalled", () => { DEFERRED_INSTALL = null; toast("Приложението е инсталирано"); draw() });
+        const isStandalone = () => window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+        const isIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent);
+        async function installApp() {
+            if (!DEFERRED_INSTALL) return;
+            DEFERRED_INSTALL.prompt();
+            const { outcome } = await DEFERRED_INSTALL.userChoice;
+            DEFERRED_INSTALL = null;
+            if (outcome === "accepted") toast("Благодарим! Приложението се инсталира.");
+            draw();
+        }
+        function installCardV() {
+            const wrap = (body) => `<section class="card pf-card"><span class="page-kicker">ПРИЛОЖЕНИЕ</span><h2>Инсталирай играта</h2>${body}</section>`;
+            if (isStandalone()) return wrap(`<p class="mut">Играеш от приложението. Всичко е готово.</p>`);
+            if (DEFERRED_INSTALL) return wrap(`<p class="mut">Бърз достъп от началния екран, без браузъра.</p><div class="pf-actions"><button class="btn" onclick="installApp()">Инсталирай</button></div>`);
+            if (isIOS()) return wrap(`<p class="mut">В Safari натисни <b>Сподели</b>, после <b>Добави към начален екран</b>.</p>`);
+            return wrap(`<p class="mut">В менюто на браузъра избери „Инсталиране“ или „Добави към началния екран“.</p>`);
         }
 
         let LAST_PATH = null, ENTER_T = 0;
@@ -1536,4 +1742,4 @@
     </script>
 </body>
 
-</html> 
+</html>
