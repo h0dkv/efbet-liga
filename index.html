@@ -39,36 +39,192 @@
     <div class="site-shell">
         <div id="loader" role="status" aria-label="Зареждане на фентъзи efbet Лига">
             <div class="loader-scene" aria-hidden="true">
-                <div class="loader-broadcast"><i></i> НА ЖИВО <span>СЕЗОН 2026/27</span></div>
-                <div class="loader-scoreboard">
-                    <span class="score-team">efbet</span>
-                    <strong><span>00</span> <i>:</i> <span class="score-goal">00</span></strong>
-                    <span class="score-team">FANTASY</span>
-                    <small>ТВОЯТА ЛИГА ЗАПОЧВА СЕГА</small>
+                <div class="loader-beams"><i></i><i></i><i></i></div>
+                <svg class="loader-stadium" viewBox="0 0 1200 720">
+                    <defs>
+                        <linearGradient id="stadium-stand" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0" stop-color="#283a27"></stop>
+                            <stop offset=".52" stop-color="#17271b"></stop>
+                            <stop offset="1" stop-color="#0a1510"></stop>
+                        </linearGradient>
+                        <linearGradient id="stadium-pitch" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0" stop-color="#5b9b45"></stop>
+                            <stop offset="1" stop-color="#183c27"></stop>
+                        </linearGradient>
+                        <linearGradient id="stadium-gold" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0" stop-color="#fff1a1"></stop>
+                            <stop offset=".5" stop-color="#ffd400"></stop>
+                            <stop offset="1" stop-color="#d7a900"></stop>
+                        </linearGradient>
+                    </defs>
+                    <g class="stadium-bowl">
+                        <path class="stadium-bowl-shell" d="M 92 356 C 92 190 293 83 600 83 C 907 83 1108 190 1108 356 C 1108 522 907 637 600 637 C 293 637 92 522 92 356 Z"></path>
+                        <path class="stadium-stand stadium-stand-outer" d="M 132 356 C 132 214 320 119 600 119 C 880 119 1068 214 1068 356 C 1068 498 880 601 600 601 C 320 601 132 498 132 356 Z"></path>
+                        <path class="stadium-stand stadium-stand-middle" d="M 195 356 C 195 245 354 166 600 166 C 846 166 1005 245 1005 356 C 1005 467 846 550 600 550 C 354 550 195 467 195 356 Z"></path>
+                        <path class="stadium-stand stadium-stand-inner" d="M 266 356 C 266 277 397 213 600 213 C 803 213 934 277 934 356 C 934 435 803 501 600 501 C 397 501 266 435 266 356 Z"></path>
+                        <path class="stadium-seats" d="M 145 356 C 145 221 326 132 600 132 C 874 132 1055 221 1055 356 M 208 356 C 208 252 361 179 600 179 C 839 179 992 252 992 356 M 278 356 C 278 284 405 226 600 226 C 795 226 922 284 922 356"></path>
+                        <path class="stadium-seats stadium-seats-lower" d="M 145 371 C 145 506 326 587 600 587 C 874 587 1055 506 1055 371 M 208 371 C 208 475 361 540 600 540 C 839 540 992 475 992 371"></path>
+                        <path class="stadium-concourse" d="M 115 357 C 115 183 304 101 600 101 C 896 101 1085 183 1085 357 M 177 357 C 177 230 343 146 600 146 C 857 146 1023 230 1023 357"></path>
+                        <path class="stadium-roof" d="M 88 349 C 93 175 292 70 600 70 C 908 70 1107 175 1112 349"></path>
+                        <g class="stadium-floodlights">
+                            <path d="M 152 211 L 116 133 M 1048 211 L 1084 133 M 296 135 L 273 76 M 904 135 L 927 76"></path>
+                            <path class="stadium-light-glow" d="M 116 133 L 1084 133 M 273 76 L 927 76"></path>
+                            <circle cx="116" cy="133" r="8"></circle><circle cx="1084" cy="133" r="8"></circle>
+                            <circle cx="273" cy="76" r="7"></circle><circle cx="927" cy="76" r="7"></circle>
+                        </g>
+                    </g>
+                    <g class="stadium-field">
+                        <path class="stadium-field-base" d="M 382 258 Q 600 218 818 258 L 906 457 Q 600 510 294 457 Z"></path>
+                        <path class="stadium-field-stripe" d="M 382 258 Q 490 238 600 238 L 600 487 Q 447 478 326 462 Z"></path>
+                        <path class="stadium-field-lines" d="M 382 258 Q 600 218 818 258 L 906 457 Q 600 510 294 457 Z M 382 258 L 294 457 M 818 258 L 906 457 M 600 238 L 600 487 M 470 251 Q 600 229 730 251 L 763 480 Q 600 494 437 480 Z"></path>
+                        <ellipse class="stadium-center-circle" cx="600" cy="366" rx="57" ry="68"></ellipse>
+                        <path class="stadium-center-line" d="M 348 359 Q 600 389 852 359"></path>
+                        <circle class="stadium-center-spot" cx="600" cy="366" r="4"></circle>
+                        <path class="stadium-goals" d="M 514 244 L 686 244 L 693 288 L 507 288 Z M 438 461 L 762 461 L 756 489 L 444 489 Z"></path>
+                        <g class="stadium-players">
+                            <g class="stadium-player stadium-player-gold stadium-player-one" transform="translate(370 342) scale(1.25)">
+                                <ellipse class="player-shadow" cx="0" cy="29" rx="13" ry="4"></ellipse>
+                                <path class="player-legs" d="M -5 5 L -7 18 L -12 28 M 5 5 L 7 18 L 12 28"></path>
+                                <path class="player-arms" d="M -7 -7 L -15 4 L -12 11 M 7 -7 L 14 1 L 12 8"></path>
+                                <path class="player-shirt" d="M -7 -9 Q 0 -12 7 -9 L 10 5 Q 0 10 -10 5 Z"></path>
+                                <circle class="player-head" cx="0" cy="-16" r="5"></circle>
+                            </g>
+                            <g class="stadium-player stadium-player-white stadium-player-two" transform="translate(430 435) scale(1.3)">
+                                <ellipse class="player-shadow" cx="0" cy="29" rx="13" ry="4"></ellipse>
+                                <path class="player-legs" d="M -5 5 L -7 18 L -12 28 M 5 5 L 7 18 L 12 28"></path>
+                                <path class="player-arms" d="M -7 -7 L -15 4 L -12 11 M 7 -7 L 14 1 L 12 8"></path>
+                                <path class="player-shirt" d="M -7 -9 Q 0 -12 7 -9 L 10 5 Q 0 10 -10 5 Z"></path>
+                                <circle class="player-head" cx="0" cy="-16" r="5"></circle>
+                            </g>
+                            <g class="stadium-player stadium-player-green stadium-player-three" transform="translate(830 342) scale(1.3)">
+                                <ellipse class="player-shadow" cx="0" cy="29" rx="13" ry="4"></ellipse>
+                                <path class="player-legs" d="M -5 5 L -7 18 L -12 28 M 5 5 L 7 18 L 12 28"></path>
+                                <path class="player-arms" d="M -7 -7 L -15 4 L -12 11 M 7 -7 L 14 1 L 12 8"></path>
+                                <path class="player-shirt" d="M -7 -9 Q 0 -12 7 -9 L 10 5 Q 0 10 -10 5 Z"></path>
+                                <circle class="player-head" cx="0" cy="-16" r="5"></circle>
+                            </g>
+                            <g class="stadium-player stadium-player-gold stadium-player-four" transform="translate(770 435) scale(1.38)">
+                                <ellipse class="player-shadow" cx="0" cy="29" rx="13" ry="4"></ellipse>
+                                <path class="player-legs" d="M -5 5 L -7 18 L -12 28 M 5 5 L 7 18 L 12 28"></path>
+                                <path class="player-arms" d="M -7 -7 L -15 4 L -12 11 M 7 -7 L 14 1 L 12 8"></path>
+                                <path class="player-shirt" d="M -7 -9 Q 0 -12 7 -9 L 10 5 Q 0 10 -10 5 Z"></path>
+                                <circle class="player-head" cx="0" cy="-16" r="5"></circle>
+                            </g>
+                            <g class="stadium-player stadium-player-white stadium-player-five" transform="translate(600 278) scale(1.18)">
+                                <ellipse class="player-shadow" cx="0" cy="29" rx="13" ry="4"></ellipse>
+                                <path class="player-legs" d="M -5 5 L -7 18 L -12 28 M 5 5 L 7 18 L 12 28"></path>
+                                <path class="player-arms" d="M -7 -7 L -15 4 L -12 11 M 7 -7 L 14 1 L 12 8"></path>
+                                <path class="player-shirt" d="M -7 -9 Q 0 -12 7 -9 L 10 5 Q 0 10 -10 5 Z"></path>
+                                <circle class="player-head" cx="0" cy="-16" r="5"></circle>
+                            </g>
+                        </g>
+                        <g class="stadium-ball">
+                            <circle class="stadium-ball-shadow" cx="586" cy="392" r="10"></circle>
+                            <circle class="stadium-ball-shell" cx="586" cy="383" r="8"></circle>
+                            <path class="stadium-ball-mark" d="M 586 378 L 590 381 L 588 386 L 583 386 L 581 381 Z M 578 380 L 581 381 M 591 380 L 594 379 M 580 388 L 583 386 M 590 386 L 593 388"></path>
+                        </g>
+                    </g>
+                    <path class="stadium-orbit" d="M 142 489 C 292 647 908 647 1058 489"></path>
+                </svg>
+                <div class="loader-dust">
+                    <i></i><i></i><i></i><i></i><i></i><i></i>
+                    <i></i><i></i><i></i><i></i><i></i><i></i>
+                    <i></i><i></i><i></i><i></i><i></i><i></i>
+                    <i></i><i></i><i></i><i></i><i></i><i></i>
                 </div>
-                <div class="loader-lights"><i></i><i></i><i></i><i></i></div>
-                <div class="loader-crowd"></div>
-                <div class="loader-main-pitch">
-                    <span class="pitch-markings"></span>
-                    <span class="loader-goal"><i></i></span>
-                    <span class="stadium-player player-one"></span>
-                    <span class="stadium-player player-two"></span>
-                    <span class="stadium-player player-three"></span>
-                </div>
-                <span class="loader-ball-flight"><i></i></span>
-                <div class="loader-goal-call"><span>СТАДИОНЪТ Е ТВОЙ</span><strong>GOALLLLL!</strong></div>
-                <div class="loader-confetti">
-                    <i></i><i></i><i></i><i></i><i></i><i></i>
-                    <i></i><i></i><i></i><i></i><i></i><i></i>
-                    <i></i><i></i><i></i><i></i><i></i><i></i>
+                <div class="loader-sweep"></div>
+                <svg class="loader-wordmark" viewBox="0 0 900 260">
+                    <defs>
+                        <linearGradient id="loader-gold" x1="0" x2="1">
+                            <stop offset="0" stop-color="#ffe45c"></stop>
+                            <stop offset=".55" stop-color="#ffd400"></stop>
+                            <stop offset="1" stop-color="#fff1a1"></stop>
+                        </linearGradient>
+                        <radialGradient id="loader-flare">
+                            <stop offset="0" stop-color="#fff9d6" stop-opacity=".95"></stop>
+                            <stop offset=".22" stop-color="#ffd400" stop-opacity=".62"></stop>
+                            <stop offset="1" stop-color="#ffd400" stop-opacity="0"></stop>
+                        </radialGradient>
+                    </defs>
+                    <ellipse class="loader-wordmark-halo" cx="450" cy="133" rx="300" ry="104"></ellipse>
+                    <ellipse class="loader-wordmark-ring" cx="450" cy="135" rx="347" ry="114"></ellipse>
+                    <path class="loader-wordmark-orbit" d="M 142 163 C 232 225, 666 225, 758 163"></path>
+                    <path class="loader-wordmark-swish" d="M 150 163 C 265 34, 638 30, 765 110"></path>
+                    <text class="loader-wordmark-main" x="450" y="142" text-anchor="middle"><tspan
+                            class="loader-wordmark-letter">e</tspan><tspan class="loader-wordmark-letter">f</tspan><tspan
+                            class="loader-wordmark-letter loader-wordmark-accent">B</tspan><tspan
+                            class="loader-wordmark-letter loader-wordmark-accent">e</tspan><tspan
+                            class="loader-wordmark-letter loader-wordmark-accent">t</tspan></text>
+                    <text class="loader-wordmark-fantasy" x="450" y="211" text-anchor="middle"><tspan
+                            class="loader-wordmark-letter">F</tspan><tspan class="loader-wordmark-letter">a</tspan><tspan
+                            class="loader-wordmark-letter">n</tspan><tspan class="loader-wordmark-letter">t</tspan><tspan
+                            class="loader-wordmark-letter">a</tspan><tspan class="loader-wordmark-letter">s</tspan><tspan
+                            class="loader-wordmark-letter">y</tspan></text>
+                    <circle class="loader-wordmark-flare" cx="765" cy="110" r="54"></circle>
+                    <path class="loader-wordmark-spark" d="M 768 71 L 779 91 L 800 102 L 779 113 L 768 134 L 757 113 L 736 102 L 757 91 Z"></path>
+                    <circle class="loader-wordmark-spark-dot" cx="140" cy="164" r="5"></circle>
+                </svg>
+                <div class="loader-finale" aria-hidden="true">
+                    <div class="loader-finale-brand">
+                        <span class="loader-finale-ef">ef</span><span class="loader-finale-bet">Bet</span>
+                        <span class="loader-finale-fantasy">Fantasy</span>
+                    </div>
+                    <svg class="loader-finale-tagline" viewBox="0 0 1200 100" aria-label="Тръпката е в играта">
+                        <text x="600" y="68" text-anchor="middle">
+                            <tspan class="loader-tagline-letter" style="--letter-order: 0">Т</tspan><tspan
+                                class="loader-tagline-letter" style="--letter-order: 1">р</tspan><tspan
+                                class="loader-tagline-letter" style="--letter-order: 2">ъ</tspan><tspan
+                                class="loader-tagline-letter" style="--letter-order: 3">п</tspan><tspan
+                                class="loader-tagline-letter" style="--letter-order: 4">к</tspan><tspan
+                                class="loader-tagline-letter" style="--letter-order: 5">а</tspan><tspan
+                                class="loader-tagline-letter" style="--letter-order: 6">т</tspan><tspan
+                                class="loader-tagline-letter" style="--letter-order: 7">а</tspan><tspan
+                                class="loader-tagline-letter" style="--letter-order: 8">&#160;</tspan><tspan
+                                class="loader-tagline-letter" style="--letter-order: 9">е</tspan><tspan
+                                class="loader-tagline-letter" style="--letter-order: 10">&#160;</tspan><tspan
+                                class="loader-tagline-letter" style="--letter-order: 11">в</tspan><tspan
+                                class="loader-tagline-letter" style="--letter-order: 12">&#160;</tspan><tspan
+                                class="loader-tagline-letter" style="--letter-order: 13">и</tspan><tspan
+                                class="loader-tagline-letter" style="--letter-order: 14">г</tspan><tspan
+                                class="loader-tagline-letter" style="--letter-order: 15">р</tspan><tspan
+                                class="loader-tagline-letter" style="--letter-order: 16">а</tspan><tspan
+                                class="loader-tagline-letter" style="--letter-order: 17">т</tspan><tspan
+                                class="loader-tagline-letter" style="--letter-order: 18">а</tspan>
+                        </text>
+                    </svg>
+                    <svg class="loader-finale-cta" viewBox="0 0 1200 100" aria-label="Играй като мениджър">
+                        <text x="600" y="68" text-anchor="middle">
+                            <tspan class="loader-cta-letter" style="--letter-order: 0">И</tspan><tspan
+                                class="loader-cta-letter" style="--letter-order: 1">г</tspan><tspan
+                                class="loader-cta-letter" style="--letter-order: 2">р</tspan><tspan
+                                class="loader-cta-letter" style="--letter-order: 3">а</tspan><tspan
+                                class="loader-cta-letter" style="--letter-order: 4">й</tspan><tspan
+                                class="loader-cta-letter" style="--letter-order: 5">&#160;</tspan><tspan
+                                class="loader-cta-letter" style="--letter-order: 6">к</tspan><tspan
+                                class="loader-cta-letter" style="--letter-order: 7">а</tspan><tspan
+                                class="loader-cta-letter" style="--letter-order: 8">т</tspan><tspan
+                                class="loader-cta-letter" style="--letter-order: 9">о</tspan><tspan
+                                class="loader-cta-letter" style="--letter-order: 10">&#160;</tspan><tspan
+                                class="loader-cta-letter" style="--letter-order: 11">м</tspan><tspan
+                                class="loader-cta-letter" style="--letter-order: 12">е</tspan><tspan
+                                class="loader-cta-letter" style="--letter-order: 13">н</tspan><tspan
+                                class="loader-cta-letter" style="--letter-order: 14">и</tspan><tspan
+                                class="loader-cta-letter" style="--letter-order: 15">д</tspan><tspan
+                                class="loader-cta-letter" style="--letter-order: 16">ж</tspan><tspan
+                                class="loader-cta-letter" style="--letter-order: 17">ъ</tspan><tspan
+                                class="loader-cta-letter" style="--letter-order: 18">р</tspan>
+                        </text>
+                    </svg>
+                    <span class="loader-finale-rule"></span>
                 </div>
             </div>
+            <button id="loader-sound" class="loader-sound" type="button" aria-label="Пусни звука на интрото"
+                aria-controls="loader-audio" aria-pressed="false" onclick="toggleLoaderAudio()">♫ Включи звук</button>
+            <p id="loader-audio-status" class="loader-audio-status" role="status" aria-live="polite"></p>
+            <audio id="loader-audio" src="intro.mp3" preload="metadata"></audio>
             <div class="loader-content">
-                <div class="ld-logo"><img src="logo.png" alt="" width="96" height="101"></div>
-                <p class="loader-brand">efbet <b>FANTASY</b></p>
-                <p class="loader-caption">ГОТОВИ ЛИ СТЕ ЗА МАЧА?</p>
                 <div class="bar"><i></i></div>
-                <button class="loader-skip" type="button" onclick="dismissLoader()">Пропусни интрото <span
+                <button class="loader-skip" type="button" onclick="dismissLoader()">Пропусни <span
                         aria-hidden="true">↗</span></button>
             </div>
         </div>
@@ -1574,18 +1730,97 @@
         };
 
         let loaderDismissed = false;
-        let loaderTimer, scoreRevealTimer;
+        let loaderTimer;
+        let loaderAudioSynced = false;
+        function syncLoaderDurationToAudio() {
+            const loader = $("#loader");
+            const audio = $("#loader-audio");
+            if (!loader || !audio || audio.paused || !Number.isFinite(audio.duration) || audio.duration <= 0) return;
+
+            const remainingAudioMs = Math.max(0, (audio.duration - audio.currentTime) * 1000);
+            const durationMs = remainingAudioMs + 1200;
+            const durationSeconds = durationMs / 1000;
+            if (!loaderAudioSynced) {
+                loaderAudioSynced = true;
+                loader.classList.remove("is-ready");
+                loader.style.setProperty("--loader-duration", `${durationSeconds}s`);
+                void loader.offsetWidth;
+                loader.classList.add("is-ready");
+            }
+            window.clearTimeout(loaderTimer);
+            loaderTimer = window.setTimeout(dismissLoader, durationMs);
+        }
+
         function dismissLoader() {
             const loader = $("#loader");
             if (!loader || loader.classList.contains("off")) return;
             window.clearTimeout(loaderTimer);
-            window.clearTimeout(scoreRevealTimer);
+            $("#loader-audio")?.pause();
+            setLoaderAudioButton(false);
             loader.classList.add("off");
+            document.documentElement.classList.remove("intro-active");
             if (loader.contains(document.activeElement)) {
                 $(".topbar .logo")?.focus({ preventScroll: true });
             }
             loader.setAttribute("aria-hidden", "true");
         }
+
+        function setLoaderAudioButton(playing) {
+            const button = $("#loader-sound");
+            if (!button) return;
+            button.setAttribute("aria-pressed", String(playing));
+            button.setAttribute("aria-label", playing ? "Спри звука на интрото" : "Пусни звука на интрото");
+            button.textContent = playing ? "♫ Спри звука" : "♫ Включи звук";
+        }
+
+        function playLoaderAudio() {
+            const audio = $("#loader-audio");
+            const status = $("#loader-audio-status");
+            if (!audio || !status) return;
+
+            status.textContent = "";
+            audio.play().then(() => {
+                setLoaderAudioButton(true);
+            }).catch(error => {
+                setLoaderAudioButton(false);
+                status.textContent = audio.error
+                    ? "intro.mp3 не може да се възпроизведе. Провери аудиофайла."
+                    : error.name === "NotAllowedError"
+                        ? "Браузърът блокира автоматичния звук. Натисни „Включи звук“."
+                        : `Звукът не може да се стартира (${error.name}).`;
+                const loader = $("#loader");
+                if (loader?.classList.contains("is-audio-paused")) {
+                    loader.classList.remove("is-audio-paused");
+                    loaderTimer = window.setTimeout(dismissLoader, 12000);
+                }
+            });
+        }
+
+        function toggleLoaderAudio() {
+            const audio = $("#loader-audio");
+            if (!audio) return;
+            if (audio.paused) {
+                playLoaderAudio();
+            } else {
+                audio.pause();
+                window.clearTimeout(loaderTimer);
+                $("#loader")?.classList.add("is-audio-paused");
+                setLoaderAudioButton(false);
+            }
+        }
+
+        $("#loader-audio")?.addEventListener("play", () => {
+            $("#loader")?.classList.remove("is-audio-paused");
+            setLoaderAudioButton(true);
+            syncLoaderDurationToAudio();
+        });
+        $("#loader-audio")?.addEventListener("loadedmetadata", syncLoaderDurationToAudio);
+        $("#loader-audio")?.addEventListener("durationchange", syncLoaderDurationToAudio);
+        $("#loader-audio")?.addEventListener("ended", () => setLoaderAudioButton(false));
+        $("#loader-audio")?.addEventListener("error", () => {
+            setLoaderAudioButton(false);
+            $("#loader-audio-status").textContent = "intro.mp3 не може да се възпроизведе. Провери аудиофайла.";
+        });
 
         function notFoundV() {
             return `<section class="lock nf"><div class="nf-code">404</div><h2>Тази страница не е в програмата</h2><p class="mut">Страницата не съществува или е преместена.</p><div class="cta-row"><a class="btn" href="#/">Начало</a><a class="btn ghost" href="#/play">Към отбора</a></div></section>`;
@@ -1670,6 +1905,7 @@
             setMeta('meta[name="twitter:description"]', pageDescription);
             const description = $('meta[name="description"]');
             if (description) description.content = pageDescription;
+            document.body.classList.toggle("home-route", path === "/");
             document.body.classList.toggle("squad-route", path === "/play");
             document.body.classList.toggle("auth-route", ["/login", "/register", "/forgot-password", "/reset-password"].includes(path));
             $(".sticky")?.classList.toggle("is-hidden", path === "/play");
@@ -1704,16 +1940,14 @@
             const loader = $("#loader");
             if (loader && !loaderDismissed) {
                 loaderDismissed = true;
+                document.documentElement.classList.add("intro-active");
                 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-                const entranceDuration = reducedMotion ? 200 : 7000;
+                const entranceDuration = reducedMotion ? 200 : 12000;
+                loaderAudioSynced = false;
+                loader.style.setProperty("--loader-duration", `${entranceDuration / 1000}s`);
                 loader.classList.add("is-ready");
-                if (!reducedMotion) {
-                    scoreRevealTimer = window.setTimeout(() => {
-                        const score = $("#loader .score-goal");
-                        if (score) score.textContent = "01";
-                    }, 3650);
-                }
                 loaderTimer = window.setTimeout(dismissLoader, entranceDuration);
+                if (!reducedMotion) playLoaderAudio();
             }
         }
 
