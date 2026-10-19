@@ -21,7 +21,7 @@
     <meta name="twitter:description" content="Създай своя отбор. Избери 15 футболисти с бюджет от 100M.">
     <meta name="twitter:image" content="https://h0dkv.github.io/efbet-liga/og.png">
     <link rel="canonical" href="https://h0dkv.github.io/efbet-liga/">
-    <meta name="theme-color" content="#0a0a0a">
+    <meta name="theme-color" content="#000000">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -43,18 +43,18 @@
                 <svg class="loader-stadium" viewBox="0 0 1200 720">
                     <defs>
                         <linearGradient id="stadium-stand" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0" stop-color="#283a27"></stop>
-                            <stop offset=".52" stop-color="#17271b"></stop>
-                            <stop offset="1" stop-color="#0a1510"></stop>
+                            <stop offset="0" stop-color="#252018"></stop>
+                            <stop offset=".52" stop-color="#111111"></stop>
+                            <stop offset="1" stop-color="#050505"></stop>
                         </linearGradient>
                         <linearGradient id="stadium-pitch" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0" stop-color="#5b9b45"></stop>
-                            <stop offset="1" stop-color="#183c27"></stop>
+                            <stop offset="0" stop-color="#ffab00"></stop>
+                            <stop offset="1" stop-color="#ff6f00"></stop>
                         </linearGradient>
                         <linearGradient id="stadium-gold" x1="0" y1="0" x2="1" y2="1">
-                            <stop offset="0" stop-color="#fff1a1"></stop>
-                            <stop offset=".5" stop-color="#ffd400"></stop>
-                            <stop offset="1" stop-color="#d7a900"></stop>
+                            <stop offset="0" stop-color="#ffea00"></stop>
+                            <stop offset=".5" stop-color="#ffd600"></stop>
+                            <stop offset="1" stop-color="#ff6f00"></stop>
                         </linearGradient>
                     </defs>
                     <g class="stadium-bowl">
@@ -136,14 +136,14 @@
                 <svg class="loader-wordmark" viewBox="0 0 900 260">
                     <defs>
                         <linearGradient id="loader-gold" x1="0" x2="1">
-                            <stop offset="0" stop-color="#ffe45c"></stop>
-                            <stop offset=".55" stop-color="#ffd400"></stop>
-                            <stop offset="1" stop-color="#fff1a1"></stop>
+                            <stop offset="0" stop-color="#ffea00"></stop>
+                            <stop offset=".55" stop-color="#ffd600"></stop>
+                            <stop offset="1" stop-color="#ff6f00"></stop>
                         </linearGradient>
                         <radialGradient id="loader-flare">
-                            <stop offset="0" stop-color="#fff9d6" stop-opacity=".95"></stop>
-                            <stop offset=".22" stop-color="#ffd400" stop-opacity=".62"></stop>
-                            <stop offset="1" stop-color="#ffd400" stop-opacity="0"></stop>
+                            <stop offset="0" stop-color="#ffea00" stop-opacity=".95"></stop>
+                            <stop offset=".22" stop-color="#ffab00" stop-opacity=".62"></stop>
+                            <stop offset="1" stop-color="#ff6f00" stop-opacity="0"></stop>
                         </radialGradient>
                     </defs>
                     <ellipse class="loader-wordmark-halo" cx="450" cy="133" rx="300" ry="104"></ellipse>
@@ -192,35 +192,12 @@
                                 class="loader-tagline-letter" style="--letter-order: 18">а</tspan>
                         </text>
                     </svg>
-                    <svg class="loader-finale-cta" viewBox="0 0 1200 100" aria-label="Играй като мениджър">
-                        <text x="600" y="68" text-anchor="middle">
-                            <tspan class="loader-cta-letter" style="--letter-order: 0">И</tspan><tspan
-                                class="loader-cta-letter" style="--letter-order: 1">г</tspan><tspan
-                                class="loader-cta-letter" style="--letter-order: 2">р</tspan><tspan
-                                class="loader-cta-letter" style="--letter-order: 3">а</tspan><tspan
-                                class="loader-cta-letter" style="--letter-order: 4">й</tspan><tspan
-                                class="loader-cta-letter" style="--letter-order: 5">&#160;</tspan><tspan
-                                class="loader-cta-letter" style="--letter-order: 6">к</tspan><tspan
-                                class="loader-cta-letter" style="--letter-order: 7">а</tspan><tspan
-                                class="loader-cta-letter" style="--letter-order: 8">т</tspan><tspan
-                                class="loader-cta-letter" style="--letter-order: 9">о</tspan><tspan
-                                class="loader-cta-letter" style="--letter-order: 10">&#160;</tspan><tspan
-                                class="loader-cta-letter" style="--letter-order: 11">м</tspan><tspan
-                                class="loader-cta-letter" style="--letter-order: 12">е</tspan><tspan
-                                class="loader-cta-letter" style="--letter-order: 13">н</tspan><tspan
-                                class="loader-cta-letter" style="--letter-order: 14">и</tspan><tspan
-                                class="loader-cta-letter" style="--letter-order: 15">д</tspan><tspan
-                                class="loader-cta-letter" style="--letter-order: 16">ж</tspan><tspan
-                                class="loader-cta-letter" style="--letter-order: 17">ъ</tspan><tspan
-                                class="loader-cta-letter" style="--letter-order: 18">р</tspan>
-                        </text>
-                    </svg>
+                    <p class="loader-finale-cta">Играй като за последно</p>
                     <span class="loader-finale-rule"></span>
                 </div>
             </div>
             <button id="loader-sound" class="loader-sound" type="button" aria-label="Пусни звука на интрото"
                 aria-controls="loader-audio" aria-pressed="false" onclick="toggleLoaderAudio()">♫ Включи звук</button>
-            <p id="loader-audio-status" class="loader-audio-status" role="status" aria-live="polite"></p>
             <audio id="loader-audio" src="intro.mp3" preload="metadata"></audio>
             <div class="loader-content">
                 <div class="bar"><i></i></div>
@@ -567,84 +544,6 @@
             const players = P.filter(p => p.p == role && !can(p)).sort((a, b) => b.pr - a.pr);
             if (!players.length) return `<div class="market-empty">Няма достъпни футболисти на тази позиция в рамките на бюджета и ограниченията на състава.</div>`;
             return `<div class="market-grid">${players.map(p => `<button class="market-card" onclick="pickToSlot('${S.pickSlot}',${p.id})"><div class="market-top"><div><strong>${p.n}</strong><span>${CL[p.c][0]}</span></div><span class="market-pos">${p.p}</span></div><div class="market-bottom"><div><b>${p.pr}M</b><small>Цена</small></div><div><b style="color:var(--y)">${p.rec}</b><small>Оценка</small></div><span class="chip chip-primary">Избери</span></div></button>`).join("")}</div>`;
-        }
-
-        // --- Всички футболисти: търсене и филтри ---
-        const normTxt = s => String(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-        const DIR = { q: "", pos: "ALL", club: "ALL", sort: "rec" };
-        function dirList() {
-            const q = normTxt(DIR.q.trim());
-            const sorts = {
-                rec: (a, b) => b.rec - a.rec,
-                price: (a, b) => b.pr - a.pr,
-                cheap: (a, b) => a.pr - b.pr,
-                name: (a, b) => a.n.localeCompare(b.n, "bg")
-            };
-            return P
-                .filter(p => (DIR.pos === "ALL" || p.p === DIR.pos) && (DIR.club === "ALL" || p.c === DIR.club))
-                .filter(p => !q || normTxt(p.n).includes(q) || normTxt(CL[p.c][0]).includes(q))
-                .sort(sorts[DIR.sort] || sorts.rec);
-        }
-        function dirReason(p) {
-            if (S.sq.includes(p.id)) return "В състава";
-            const r = can(p);
-            if (!r) return "";
-            if (r === "Over budget") return "Над бюджета";
-            if (r === "Squad full") return "Съставът е пълен";
-            if (String(r).includes("club")) return "Лимит за клуба";
-            return "Лимит за позиция";
-        }
-        function dirCard(p, i) {
-            const reason = dirReason(p), inSquad = S.sq.includes(p.id);
-            return `<article class="pl-card${inSquad ? " is-in" : ""}" style="--club:${CL[p.c][1]};--i:${Math.min(i, 18)}">
-                <div class="pl-top"><span class="pl-pos pos-${p.p}">${p.p}</span><span class="pl-club">${CL[p.c][0]}</span></div>
-                <h3 class="pl-name">${escapeHTML(p.n)}</h3>
-                <div class="pl-meta"><div><b>${p.pr}M</b><small>Цена</small></div><div><b>${p.rec}</b><small>Оценка</small></div></div>
-                <button type="button" class="pl-add" ${reason ? "disabled" : ""} onclick="pickToSlot('',${p.id})">${reason || "+ Добави"}</button>
-            </article>`;
-        }
-        function dirGrid() {
-            const list = dirList();
-            return list.length
-                ? list.map(dirCard).join("")
-                : `<div class="market-empty pl-empty"><span aria-hidden="true">🔍</span><p>Няма футболисти по този критерий. Опитай с друго име или филтър.</p></div>`;
-        }
-        function paintDir() {
-            const g = $("#pl-grid"), c = $("#pl-count");
-            if (g) g.innerHTML = dirGrid();
-            if (c) c.textContent = `${dirList().length} от ${P.length} футболиста`;
-        }
-        function playersDirV() {
-            const chip = (v, t) => `<button type="button" class="pl-chip${DIR.pos === v ? " on" : ""}" onclick="DIR.pos='${v}';draw()">${t}</button>`;
-            const sortOpt = (v, t) => `<option value="${v}"${DIR.sort === v ? " selected" : ""}>${t}</option>`;
-            return `
-                <section class="squad-section pl-dir" aria-labelledby="pl-title">
-                    <div class="section-heading squad-section-heading">
-                        <div><span class="page-kicker">ВСИЧКИ ФУТБОЛИСТИ</span><h2 id="pl-title">Търсене на играчи</h2></div>
-                        <span class="roster-count" id="pl-count">${dirList().length} от ${P.length} футболиста</span>
-                    </div>
-                    <div class="pl-tools">
-                        <div class="pl-row">
-                            <label class="pl-search">
-                                <span aria-hidden="true">⌕</span>
-                                <input id="pl-q" type="search" placeholder="Търси по име или клуб…" autocomplete="off" value="${escapeHTML(DIR.q)}" oninput="DIR.q=this.value;paintDir()">
-                            </label>
-                            <div class="pl-selects">
-                                <select aria-label="Филтър по клуб" onchange="DIR.club=this.value;draw()">
-                                    <option value="ALL">Всички клубове</option>
-                                    ${Object.keys(CL).map(c => `<option value="${c}"${DIR.club === c ? " selected" : ""}>${CL[c][0]}</option>`).join("")}
-                                </select>
-                                <select aria-label="Подреди по" onchange="DIR.sort=this.value;draw()">
-                                    ${sortOpt("rec", "По оценка")}${sortOpt("price", "Цена ↓")}${sortOpt("cheap", "Цена ↑")}${sortOpt("name", "По име")}
-                                </select>
-                            </div>
-                        </div>
-                        <div class="pl-chips" role="group" aria-label="Филтър по позиция">
-                            ${chip("ALL", "Всички")}${chip("GK", "Вратари")}${chip("DEF", "Защитници")}${chip("MID", "Полузащитници")}${chip("FWD", "Нападатели")}
-                        </div>
-                    </div>
-                    <div class="pl-grid" id="pl-grid">${dirGrid()}</div>
-                </section>`;
         }
 
         // --- Трансфери и Краен срок (Deadline) ---
@@ -1057,7 +956,7 @@
 
         async function hs(s) { try { const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode("ef:" + s)); return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, "0")).join("") } catch (e) { let h = 0; for (const ch of s) h = (h * 31 + ch.charCodeAt(0)) | 0; return "x" + h } }
         function shake() { const c = $(".auth-card"); if (!c) return; c.classList.remove("shake"); void c.offsetWidth; c.classList.add("shake") }
-        function burst() { for (let i = 0; i < 30; i++) { const s = document.createElement("i"); s.className = "cf"; s.style.cssText = `--x:${(Math.random() - .5) * 380}px;--y:${-100 - Math.random() * 240}px;--r:${Math.random() * 720}deg;background:${["#ffd400", "#fff", "#ffb800"][i % 3]}`; document.body.appendChild(s); setTimeout(() => s.remove(), 1500) } }
+        function burst() { for (let i = 0; i < 30; i++) { const s = document.createElement("i"); s.className = "cf"; s.style.cssText = `--x:${(Math.random() - .5) * 380}px;--y:${-100 - Math.random() * 240}px;--r:${Math.random() * 720}deg;background:${["#ffea00", "#ffd600", "#ffab00", "#ff6f00"][i % 4]}`; document.body.appendChild(s); setTimeout(() => s.remove(), 1500) } }
         let ut; const up = () => { clearTimeout(ut); ut = setTimeout(push, 700) };
         async function push() { clearTimeout(ut); if (!sb || !U) return; try { await sb.from("teams").upsert({ user_id: U.id, data: S }); await sb.from("profiles").update({ team_name: S.name || null, total_pts: S.tp || 0 }).eq("id", U.id) } catch (e) { } }
         const su = (u, nm) => ({ id: u.id, email: u.email, name: (u.user_metadata && u.user_metadata.name) || nm || u.email });
@@ -1493,7 +1392,6 @@
                             </div>
                             ${listv()}
                         </section>
-                        ${playersDirV()}
                         <section class="squad-section market-section">
                             <div class="section-heading squad-section-heading">
                                 <div><span class="page-kicker">НАМЕРИ СВОЯ ИЗБОР</span><h2>Пазар на футболисти</h2></div>
@@ -1731,6 +1629,7 @@
 
         let loaderDismissed = false;
         let loaderTimer;
+        const LOADER_FALLBACK_MS = 5600;
         let loaderAudioSynced = false;
         function syncLoaderDurationToAudio() {
             const loader = $("#loader");
@@ -1738,7 +1637,7 @@
             if (!loader || !audio || audio.paused || !Number.isFinite(audio.duration) || audio.duration <= 0) return;
 
             const remainingAudioMs = Math.max(0, (audio.duration - audio.currentTime) * 1000);
-            const durationMs = remainingAudioMs + 1200;
+            const durationMs = Math.ceil(remainingAudioMs);
             const durationSeconds = durationMs / 1000;
             if (!loaderAudioSynced) {
                 loaderAudioSynced = true;
@@ -1775,23 +1674,21 @@
 
         function playLoaderAudio() {
             const audio = $("#loader-audio");
-            const status = $("#loader-audio-status");
-            if (!audio || !status) return;
+            if (!audio) return;
 
-            status.textContent = "";
             audio.play().then(() => {
                 setLoaderAudioButton(true);
-            }).catch(error => {
+            }).catch(() => {
                 setLoaderAudioButton(false);
-                status.textContent = audio.error
-                    ? "intro.mp3 не може да се възпроизведе. Провери аудиофайла."
-                    : error.name === "NotAllowedError"
-                        ? "Браузърът блокира автоматичния звук. Натисни „Включи звук“."
-                        : `Звукът не може да се стартира (${error.name}).`;
                 const loader = $("#loader");
                 if (loader?.classList.contains("is-audio-paused")) {
                     loader.classList.remove("is-audio-paused");
-                    loaderTimer = window.setTimeout(dismissLoader, 12000);
+                    loaderAudioSynced = false;
+                    loader.style.setProperty("--loader-duration", `${LOADER_FALLBACK_MS / 1000}s`);
+                    loader.classList.remove("is-ready");
+                    void loader.offsetWidth;
+                    loader.classList.add("is-ready");
+                    loaderTimer = window.setTimeout(dismissLoader, LOADER_FALLBACK_MS);
                 }
             });
         }
@@ -1816,11 +1713,11 @@
         });
         $("#loader-audio")?.addEventListener("loadedmetadata", syncLoaderDurationToAudio);
         $("#loader-audio")?.addEventListener("durationchange", syncLoaderDurationToAudio);
-        $("#loader-audio")?.addEventListener("ended", () => setLoaderAudioButton(false));
-        $("#loader-audio")?.addEventListener("error", () => {
+        $("#loader-audio")?.addEventListener("ended", () => {
             setLoaderAudioButton(false);
-            $("#loader-audio-status").textContent = "intro.mp3 не може да се възпроизведе. Провери аудиофайла.";
+            dismissLoader();
         });
+        $("#loader-audio")?.addEventListener("error", () => setLoaderAudioButton(false));
 
         function notFoundV() {
             return `<section class="lock nf"><div class="nf-code">404</div><h2>Тази страница не е в програмата</h2><p class="mut">Страницата не съществува или е преместена.</p><div class="cta-row"><a class="btn" href="#/">Начало</a><a class="btn ghost" href="#/play">Към отбора</a></div></section>`;
@@ -1942,7 +1839,7 @@
                 loaderDismissed = true;
                 document.documentElement.classList.add("intro-active");
                 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-                const entranceDuration = reducedMotion ? 200 : 12000;
+                const entranceDuration = reducedMotion ? 200 : LOADER_FALLBACK_MS;
                 loaderAudioSynced = false;
                 loader.style.setProperty("--loader-duration", `${entranceDuration / 1000}s`);
                 loader.classList.add("is-ready");

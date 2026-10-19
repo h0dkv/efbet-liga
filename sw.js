@@ -1,4 +1,4 @@
-const CACHE = "efbet-fantasy-v6";
+const CACHE = "efbet-fantasy-v8";
 const SHELL = ["./", "index.html", "style.css", "players.js", "fixtures.js", "results.js", "stats.js",
   "manifest.webmanifest", "favicon-32.png", "favicon-192.png", "apple-touch-icon.png", "icon-512.png", "og.png"];
 
